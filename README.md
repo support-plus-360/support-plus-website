@@ -127,11 +127,3 @@ password:admin123
 [Krayin CRM VoIP](https://krayincrm.com/extensions/krayin-crm-voip/) extension allows the user to make Trunk calls over a broadband Internet connection and the user can also perform Inbound routes.
 
 ![enter image description here](https://raw.githubusercontent.com/krayin/temp-media/master/krayin-voip.png)
-
-### License
-
-Krayin CRM is a fully open-source CRM framework which will always be free under the [MIT License](https://github.com/krayin/laravel-crm/blob/2.1/LICENSE).
-
-### Security Vulnerabilities
-
-Please don't disclose security vulnerabilities publicly. If you find any security vulnerability in Krayin CRM then please email us: sales@krayincrm.com.
