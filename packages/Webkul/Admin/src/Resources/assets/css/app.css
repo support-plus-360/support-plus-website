@@ -28,6 +28,10 @@
   }
 
 @layer components {
+    .icon-cms:before {
+        content: "\e957";
+    }
+
     .icon-image:before {
         content: "\e956";
     }

@@ -28,5 +28,11 @@ return [
             'build_directory'          => 'webform/build',
             'package_assets_directory' => 'src/Resources/assets',
         ],
+
+        'cms' => [
+            'hot_file'                 => 'cms-vite.hot',
+            'build_directory'          => 'cms/build',
+            'package_assets_directory' => 'src/Resources/assets',
+        ],
     ],
 ];

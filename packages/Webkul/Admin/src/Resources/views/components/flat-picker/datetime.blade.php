@@ -59,6 +59,7 @@
                         altFormat: "Y-m-d H:i:S",
                         dateFormat: "Y-m-d H:i:S",
                         enableTime: true,
+                        enableSeconds: true,
                         time_24hr: true,
                         weekNumbers: true,
 
