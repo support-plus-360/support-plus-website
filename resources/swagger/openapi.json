@@ -1,0 +1,236 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Laravel CRM API",
+    "version": "1.0.0",
+    "description": "OpenAPI document for documented HTTP APIs. Admin session cookies apply to routes under the admin path unless otherwise noted."
+  },
+  "paths": {
+    "/cms/api/pages": {
+      "get": {
+        "tags": ["CMS — Pages"],
+        "summary": "List CMS pages",
+        "description": "Paginated list. Requires an authenticated admin user with the `cms.pages` permission.",
+        "parameters": [
+          {
+            "name": "per_page",
+            "in": "query",
+            "schema": { "type": "integer", "minimum": 1, "maximum": 100, "default": 15 }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Paginated page collection with translations",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/LaravelLengthAwarePaginator" }
+              }
+            }
+          },
+          "403": { "$ref": "#/components/responses/Forbidden" }
+        }
+      },
+      "post": {
+        "tags": ["CMS — Pages"],
+        "summary": "Create CMS page",
+        "description": "Requires `cms.pages.create`.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CmsPageWrite" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/CmsPage" }
+              }
+            }
+          },
+          "403": { "$ref": "#/components/responses/Forbidden" },
+          "422": { "$ref": "#/components/responses/ValidationError" }
+        }
+      }
+    },
+    "/cms/api/pages/{id}": {
+      "get": {
+        "tags": ["CMS — Pages"],
+        "summary": "Get CMS page",
+        "parameters": [{ "$ref": "#/components/parameters/CmsPageId" }],
+        "responses": {
+          "200": {
+            "description": "Page with translations",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/CmsPage" }
+              }
+            }
+          },
+          "403": { "$ref": "#/components/responses/Forbidden" },
+          "404": { "$ref": "#/components/responses/NotFound" }
+        }
+      },
+      "put": {
+        "tags": ["CMS — Pages"],
+        "summary": "Update CMS page",
+        "description": "Requires `cms.pages.edit`.",
+        "parameters": [{ "$ref": "#/components/parameters/CmsPageId" }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CmsPageWrite" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated page",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/CmsPage" }
+              }
+            }
+          },
+          "403": { "$ref": "#/components/responses/Forbidden" },
+          "404": { "$ref": "#/components/responses/NotFound" },
+          "422": { "$ref": "#/components/responses/ValidationError" }
+        }
+      },
+      "delete": {
+        "tags": ["CMS — Pages"],
+        "summary": "Delete CMS page",
+        "description": "Requires `cms.pages.delete`.",
+        "parameters": [{ "$ref": "#/components/parameters/CmsPageId" }],
+        "responses": {
+          "200": {
+            "description": "Deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": { "type": "string" }
+                  }
+                }
+              }
+            }
+          },
+          "403": { "$ref": "#/components/responses/Forbidden" },
+          "404": { "$ref": "#/components/responses/NotFound" }
+        }
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "CmsPageId": {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "schema": { "type": "integer" }
+      }
+    },
+    "schemas": {
+      "CmsPageTranslation": {
+        "type": "object",
+        "properties": {
+          "locale": { "type": "string", "example": "en" },
+          "title": { "type": "string" },
+          "meta_description": { "type": "string", "nullable": true },
+          "meta_keywords": { "type": "string", "nullable": true }
+        }
+      },
+      "CmsPage": {
+        "type": "object",
+        "description": "CMS page model (fields vary with app version).",
+        "additionalProperties": true,
+        "properties": {
+          "id": { "type": "integer" },
+          "slug": { "type": "string" },
+          "name": { "type": "string" },
+          "is_active": { "type": "boolean" },
+          "order": { "type": "integer" },
+          "type": { "type": "string", "enum": ["page", "service", "case_study", "industry"] },
+          "status": { "type": "string", "enum": ["draft", "published", "archived"] },
+          "published_at": { "type": "string", "format": "date-time", "nullable": true },
+          "author_id": { "type": "integer", "nullable": true },
+          "translations": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/CmsPageTranslation" }
+          }
+        }
+      },
+      "CmsPageWrite": {
+        "type": "object",
+        "required": ["slug", "name", "type", "status", "translations"],
+        "properties": {
+          "slug": { "type": "string", "maxLength": 255 },
+          "name": { "type": "string", "maxLength": 255 },
+          "is_active": { "type": "boolean" },
+          "order": { "type": "integer", "minimum": 0 },
+          "type": { "type": "string", "enum": ["page", "service", "case_study", "industry"] },
+          "status": { "type": "string", "enum": ["draft", "published", "archived"] },
+          "published_at": { "type": "string", "format": "date-time", "nullable": true },
+          "author_id": { "type": "integer", "nullable": true },
+          "translations": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "required": ["title"],
+              "properties": {
+                "title": { "type": "string", "maxLength": 255 },
+                "meta_description": { "type": "string" },
+                "meta_keywords": { "type": "string", "maxLength": 255 }
+              }
+            },
+            "example": {
+              "en": {
+                "title": "About us",
+                "meta_description": "Company overview",
+                "meta_keywords": "about,company"
+              }
+            }
+          }
+        }
+      },
+      "LaravelLengthAwarePaginator": {
+        "type": "object",
+        "description": "Standard Laravel paginator JSON shape.",
+        "properties": {
+          "current_page": { "type": "integer" },
+          "data": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/CmsPage" }
+          },
+          "first_page_url": { "type": "string" },
+          "from": { "type": "integer", "nullable": true },
+          "last_page": { "type": "integer" },
+          "last_page_url": { "type": "string" },
+          "links": { "type": "array", "items": { "type": "object" } },
+          "next_page_url": { "type": "string", "nullable": true },
+          "path": { "type": "string" },
+          "per_page": { "type": "integer" },
+          "prev_page_url": { "type": "string", "nullable": true },
+          "to": { "type": "integer", "nullable": true },
+          "total": { "type": "integer" }
+        }
+      }
+    },
+    "responses": {
+      "Forbidden": {
+        "description": "Forbidden (missing permission or not logged in)"
+      },
+      "NotFound": {
+        "description": "Resource not found"
+      },
+      "ValidationError": {
+        "description": "Validation failed (Laravel 422 JSON)"
+      }
+    }
+  }
+}
