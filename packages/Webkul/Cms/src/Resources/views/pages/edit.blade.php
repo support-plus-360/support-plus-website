@@ -24,7 +24,7 @@
                 </div>
             </div>
 
-            @include('cms::pages._form')
+            @include('cms::pages._form', ['page' => $page, 'companies' => $companies])
         </div>
     </x-admin::form>
 </x-admin::layouts>

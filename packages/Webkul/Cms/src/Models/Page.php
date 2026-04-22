@@ -35,6 +35,7 @@ class Page extends TranslatableModel implements PageContract
         'status',
         'published_at',
         'author_id',
+        'company_id',
     ];
 
     protected $casts = [
@@ -46,6 +47,11 @@ class Page extends TranslatableModel implements PageContract
     public function author(): BelongsTo
     {
         return $this->belongsTo(\App\Models\User::class, 'author_id');
+    }
+
+    public function company(): BelongsTo
+    {
+        return $this->belongsTo(Company::class, 'company_id');
     }
 }
 

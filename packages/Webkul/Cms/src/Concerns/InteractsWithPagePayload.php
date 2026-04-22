@@ -9,12 +9,13 @@ trait InteractsWithPagePayload
      *
      * @return array<string, string>
      */
-    protected function supportedLocales(): array
+    private function supportedLocales(): array
     {
-        return config('app.available_locales', [
-            'en' => 'English',
-            'ar' => 'Arabic',
-        ]);
+        /**
+         * Note: sections table currently stores locale as 2 chars.
+         * Keeping it limited to 'en' and 'ar' to match migration.
+         */
+        return ['en' => 'English', 'ar' => 'Arabic'];
     }
 
     /**

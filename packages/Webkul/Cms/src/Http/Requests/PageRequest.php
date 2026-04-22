@@ -30,7 +30,7 @@ class PageRequest extends FormRequest
             'status'       => ['required', 'string', Rule::in(['draft', 'published', 'archived'])],
             'published_at' => ['nullable', 'date'],
             'author_id'    => ['nullable', 'integer', 'exists:users,id'],
-
+			'company_id'   => ['nullable', 'integer', 'exists:companies,id'],
             'translations'                       => ['required', 'array'],
             'translations.*.title'               => ['required', 'string', 'max:255'],
             'translations.*.meta_description'    => ['nullable', 'string'],

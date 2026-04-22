@@ -23,6 +23,8 @@ package-lock.json
 /public/vendor
 /public/build
 /public/cms/build
+/public/company/build
+/public/organization/build
 /lang/vendor
 /storage/*.key
 /storage/dcc-data/

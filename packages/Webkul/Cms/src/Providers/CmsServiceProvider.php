@@ -24,9 +24,9 @@ class CmsServiceProvider extends ServiceProvider
 
         $this->loadViewsFrom(__DIR__ . '/../Resources/views', 'cms');
 
-        Event::listen('admin.layout.head.after', function($viewRenderEventManager) {
-            $viewRenderEventManager->addTemplate('cms::components.layouts.style');
-        });
+//         Event::listen('admin.layout.head.after', function($viewRenderEventManager) {
+//             $viewRenderEventManager->addTemplate('cms::components.layouts.style');
+//         });
     }
 
     /**

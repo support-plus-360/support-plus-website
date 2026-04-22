@@ -11,6 +11,7 @@ use Webkul\Cms\Concerns\InteractsWithPagePayload;
 use Webkul\Cms\DataGrids\PageDataGrid;
 use Webkul\Cms\Http\Requests\PageRequest;
 use Webkul\Cms\Repositories\PageRepository;
+use Webkul\Company\Models\Company;
 
 class PageController extends Controller
 {
@@ -31,7 +32,8 @@ class PageController extends Controller
     {
         $locales = $this->supportedLocales();
 
-        return view('cms::pages.create', compact('locales'));
+        $companies = Company::select('id', 'name')->get();
+        return view('cms::pages.create', compact('locales', 'companies'));
     }
 
     public function store(PageRequest $request): RedirectResponse
@@ -57,7 +59,8 @@ class PageController extends Controller
 
         $locales = $this->supportedLocales();
 
-        return view('cms::pages.edit', compact('page', 'locales'));
+        $companies = Company::select('id', 'name')->get();
+        return view('cms::pages.edit', compact('page', 'locales', 'companies'));
     }
 
     public function update(PageRequest $request, int $id): RedirectResponse

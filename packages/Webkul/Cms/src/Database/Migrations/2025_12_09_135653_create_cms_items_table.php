@@ -20,6 +20,8 @@ return new class extends Migration
             $table->json('settings')->nullable(); // Item-specific settings
             $table->integer('order')->default(0);
             $table->boolean('is_active')->default(true);
+	$table->unsignedBigInteger('company_id')->nullable();
+            $table->foreign('company_id')->references('id')->on('companies')->nullOnDelete();
             $table->timestamps();
             $table->softDeletes();
             
@@ -28,6 +30,7 @@ return new class extends Migration
             $table->index('order');
             $table->index('is_active');
             $table->index('type');
+	$table->index('company_id');
         });
     }
 

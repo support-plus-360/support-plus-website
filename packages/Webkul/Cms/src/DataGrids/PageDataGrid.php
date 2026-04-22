@@ -26,8 +26,13 @@ class PageDataGrid extends DataGrid
                 'cms_pages.is_active',
                 'cms_pages.order',
                 'cms_pages.published_at',
-                DB::raw('COALESCE(cpt.title, "") as title')
-            );
+		'cms_pages.company_id',
+                DB::raw('COALESCE(cpt.title, "") as title'),
+		DB::raw('COALESCE(c.name, "") as company_name')
+            )
+            ->leftJoin('companies as c', function ($join) {
+                $join->on('cms_pages.company_id', '=', 'c.id');
+            });
 
         $this->addFilter('id', 'cms_pages.id');
         $this->addFilter('slug', 'cms_pages.slug');
@@ -59,6 +64,14 @@ class PageDataGrid extends DataGrid
         $this->addColumn([
             'index'      => 'slug',
             'label'      => trans('cms::app.pages.datagrid.slug'),
+            'type'       => 'string',
+            'filterable' => true,
+            'sortable'   => true,
+        ]);
+
+        $this->addColumn([
+            'index'      => 'company_name',
+            'label'      => trans('cms::app.pages.datagrid.company'),
             'type'       => 'string',
             'filterable' => true,
             'sortable'   => true,

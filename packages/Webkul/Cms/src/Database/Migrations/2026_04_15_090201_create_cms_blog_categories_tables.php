@@ -21,10 +21,13 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->boolean('is_active')->default(true);
             $table->unsignedInteger('order')->default(0);
+	$table->unsignedBigInteger('company_id')->nullable();
+            $table->foreign('company_id')->references('id')->on('companies')->nullOnDelete();
             $table->timestamps();
             $table->softDeletes();
 
             $table->index(['is_active', 'order']);
+			$table->index('company_id');
         });
 
         Schema::create('cms_blog_category_translations', function (Blueprint $table) {

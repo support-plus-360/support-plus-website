@@ -1,7 +1,7 @@
 @php($types = ['page' => 'Page', 'service' => 'Service', 'case_study' => 'Case Study', 'industry' => 'Industry'])
 @php($statuses = ['draft' => 'Draft', 'published' => 'Published', 'archived' => 'Archived'])
 
-<div class="flex gap-2.5 max-xl:flex-wrap">
+<div class="flex flex-col gap-2.5 max-xl:flex-wrap">
     <div class="flex flex-1 flex-col gap-2 max-xl:flex-auto">
         <div class="box-shadow rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-900">
             <div class="mb-4 flex items-center justify-between gap-4">
@@ -13,6 +13,25 @@
             </div>
 
             <div class="flex flex-col gap-4">
+
+     <x-admin::form.control-group>
+                    <x-admin::form.control-group.label class="required">
+                        @lang('cms::app.pages.form.name')
+                    </x-admin::form.control-group.label>
+
+                    <x-admin::form.control-group.control
+                        type="text"
+                        id="name"
+                        name="name"
+                        rules="required"
+                        :value="old('name') ?? ($page?->name ?? '')"
+                        :label="trans('cms::app.pages.form.name')"
+                    />
+
+                    <x-admin::form.control-group.error control-name="name" />
+                </x-admin::form.control-group>
+
+
                 <x-admin::form.control-group>
                     <x-admin::form.control-group.label class="required">
                         @lang('cms::app.pages.form.slug')
@@ -30,22 +49,30 @@
                     <x-admin::form.control-group.error control-name="slug" />
                 </x-admin::form.control-group>
 
-                <x-admin::form.control-group>
-                    <x-admin::form.control-group.label class="required">
-                        @lang('cms::app.pages.form.name')
-                    </x-admin::form.control-group.label>
+		<!-- company -->
+		<x-admin::form.control-group>
+		<x-admin::form.control-group.label class="required">
+		@lang('cms::app.pages.form.company')
+		</x-admin::form.control-group.label>
+		
+		<x-admin::form.control-group.control
+		type="select"
+		id="company_id"
+		name="company_id"
+		rules="required"
+		:value="old('company_id') ?? ($page?->company_id ?? '')"
+		:label="trans('cms::app.pages.form.company')"
+		>
+		@foreach($companies as $company)
+		<option value="{{ $company->id }}">
+			{{ $company->name }}
+		</option>
+		@endforeach
+		</x-admin::form.control-group.control>
 
-                    <x-admin::form.control-group.control
-                        type="text"
-                        id="name"
-                        name="name"
-                        rules="required"
-                        :value="old('name') ?? ($page?->name ?? '')"
-                        :label="trans('cms::app.pages.form.name')"
-                    />
+		<x-admin::form.control-group.error control-name="company_id" />
+		</x-admin::form.control-group>
 
-                    <x-admin::form.control-group.error control-name="name" />
-                </x-admin::form.control-group>
 
                 <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
                     <x-admin::form.control-group>
@@ -151,7 +178,7 @@
         </div>
     </div>
 
-    <div class="flex w-[360px] max-w-full flex-col gap-2 max-sm:w-full">
+    <div class="flex w-full flex-col gap-2">
         <x-admin::accordion>
             <x-slot:header>
                 <div class="flex items-center justify-between">
@@ -162,12 +189,29 @@
             </x-slot>
 
             <x-slot:content>
+                @php($tabId = 'cms-page-translations')
+                @php($firstLocale = array_key_first($locales))
+
+                <div class="mb-4 flex flex-wrap gap-2">
+                    @foreach($locales as $locale => $localeLabel)
+                        <button
+                            type="button"
+                            class="cms-locale-tab rounded-md border border-gray-200 px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-800 dark:text-gray-200 dark:hover:bg-gray-950 {{ $locale === $firstLocale ? 'bg-gray-100 dark:bg-gray-950 text-gray-900 dark:text-white' : '' }}"
+                            data-tab-group="{{ $tabId }}"
+                            data-tab="{{ $locale }}"
+                        >
+                            {{ $localeLabel }} ({{ $locale }})
+                        </button>
+                    @endforeach
+                </div>
+
                 @foreach($locales as $locale => $localeLabel)
                     @php($row = $page?->translations?->firstWhere('locale', $locale))
-                    <div class="mb-4 border-b border-gray-200 pb-4 last:mb-0 last:border-0 last:pb-0 dark:border-gray-800">
-                        <p class="mb-3 text-sm font-semibold text-gray-800 dark:text-white">
-                            {{ $localeLabel }} ({{ $locale }})
-                        </p>
+                    <div
+                        class="cms-locale-panel {{ $locale === $firstLocale ? '' : 'hidden' }}"
+                        data-tab-group="{{ $tabId }}"
+                        data-tab-panel="{{ $locale }}"
+                    >
 
                         <x-admin::form.control-group>
                             <x-admin::form.control-group.label class="required">
@@ -223,4 +267,47 @@
         </x-admin::accordion>
     </div>
 </div>
+
+@pushOnce('scripts')
+    <script type="module">
+        (() => {
+            const setActive = (group, tab) => {
+                document.querySelectorAll(`.cms-locale-tab[data-tab-group="${group}"]`).forEach((btn) => {
+                    const isActive = btn.getAttribute('data-tab') === tab;
+
+                    btn.classList.toggle('bg-gray-100', isActive);
+                    btn.classList.toggle('dark:bg-gray-950', isActive);
+                    btn.classList.toggle('text-gray-900', isActive);
+                    btn.classList.toggle('dark:text-white', isActive);
+                });
+
+                document.querySelectorAll(`.cms-locale-panel[data-tab-group="${group}"]`).forEach((panel) => {
+                    panel.classList.toggle('hidden', panel.getAttribute('data-tab-panel') !== tab);
+                });
+            };
+
+            const initGroup = (group) => {
+                const first = document.querySelector(`.cms-locale-tab[data-tab-group="${group}"]`);
+
+                if (! first) {
+                    return;
+                }
+
+                setActive(group, first.getAttribute('data-tab'));
+            };
+
+            document.addEventListener('click', (e) => {
+                const btn = e.target.closest('.cms-locale-tab');
+
+                if (! btn) {
+                    return;
+                }
+
+                setActive(btn.getAttribute('data-tab-group'), btn.getAttribute('data-tab'));
+            });
+
+            initGroup(@json($tabId));
+        })();
+    </script>
+@endPushOnce
 

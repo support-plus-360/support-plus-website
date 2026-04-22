@@ -41,12 +41,17 @@ return new class extends Migration
             $table->string('canonical_url')->nullable();
             $table->boolean('is_indexable')->default(true);
 
+            // company id
+            $table->unsignedBigInteger('company_id')->nullable();
+            $table->foreign('company_id')->references('id')->on('companies')->nullOnDelete();
+
             $table->timestamps();
             $table->softDeletes();
 
             $table->index(['status', 'published_at']);
             $table->index(['is_featured', 'published_at']);
             $table->index('author_id');
+			$table->index('company_id');
         });
 
         Schema::create('cms_blog_post_translations', function (Blueprint $table) {

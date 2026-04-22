@@ -43,6 +43,7 @@ return [
             'order'            => 'Order',
             'published_at'     => 'Published At',
             'author_id'        => 'Author',
+            'company'          => 'Company',
             'title'            => 'Title',
             'meta_description' => 'Meta Description',
             'meta_keywords'    => 'Meta Keywords',
@@ -57,6 +58,7 @@ return [
             'active' => 'Active',
             'edit'   => 'Edit',
             'delete' => 'Delete',
+            'company' => 'Company',
         ],
 
         'messages' => [
@@ -91,6 +93,7 @@ return [
             'settings'         => 'Settings',
             'active'           => 'Active',
             'order'            => 'Order',
+	'company'          => 'Company',
 	'page'             => 'Page',
 	'title_en'         => 'Title (English)',
 	'subtitle_en'      => 'Subtitle (English)',
@@ -114,6 +117,7 @@ return [
 	'order' => 'Order',
 	'edit' => 'Edit',
 	'delete' => 'Delete',
+	'company' => 'Company',
         ],
 
         'messages' => [
