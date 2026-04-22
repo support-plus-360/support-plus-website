@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Webkul\Cms\Http\Controllers\Api\PageApiController;
+use Webkul\Cms\Http\Controllers\Api\SectionApiController;
 
 Route::prefix('cms/api/pages')->controller(PageApiController::class)->group(function () {
             Route::get('', 'index')->name('admin.cms.api.pages.index');
@@ -9,6 +10,14 @@ Route::prefix('cms/api/pages')->controller(PageApiController::class)->group(func
             Route::get('{id}', 'show')->whereNumber('id')->name('admin.cms.api.pages.show');
             Route::put('{id}', 'update')->whereNumber('id')->name('admin.cms.api.pages.update');
             Route::delete('{id}', 'destroy')->whereNumber('id')->name('admin.cms.api.pages.destroy');
+        });
+
+Route::prefix('cms/api/sections')->controller(SectionApiController::class)->group(function () {
+            Route::get('', 'index')->name('admin.cms.api.sections.index');
+            Route::post('', 'store')->name('admin.cms.api.sections.store');
+            Route::get('{id}', 'show')->whereNumber('id')->name('admin.cms.api.sections.show');
+            Route::put('{id}', 'update')->whereNumber('id')->name('admin.cms.api.sections.update');
+            Route::delete('{id}', 'destroy')->whereNumber('id')->name('admin.cms.api.sections.destroy');
         });
 
 // Route::middleware(['web', 'admin_locale', 'user'])

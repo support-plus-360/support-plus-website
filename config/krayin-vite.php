@@ -34,5 +34,11 @@ return [
             'build_directory'          => 'cms/build',
             'package_assets_directory' => 'src/Resources/assets',
         ],
+
+        'company' => [
+            'hot_file'                 => 'company-vite.hot',
+            'build_directory'          => 'company/build',
+            'package_assets_directory' => 'src/Resources/assets',
+        ],
     ],
 ];

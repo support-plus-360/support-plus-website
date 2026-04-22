@@ -209,14 +209,44 @@
                                     class="flex h-full items-center place-self-end"
                                     v-if="available.actions.length"
                                 >
-                                    <span
-                                        class="cursor-pointer rounded-md p-1.5 text-2xl transition-all hover:bg-gray-200 dark:hover:bg-gray-800 max-sm:place-self-center"
-                                        :class="action.icon"
-                                        v-text="! action.icon ? action.title : ''"
-                                        v-for="action in record.actions"
-                                        @click="performAction(action)"
-                                    >
-                                    </span>
+                                    <template v-for="action in record.actions">
+                                        <span
+                                            v-if="action.icon !== 'icon-restore' && action.icon !== 'icon-forceDelete'"
+                                            class="cursor-pointer rounded-md p-1.5 text-2xl transition-all hover:bg-gray-200 dark:hover:bg-gray-800 max-sm:place-self-center"
+                                            :class="action.icon"
+                                            v-text="! action.icon ? action.title : ''"
+                                            @click="performAction(action)"
+                                        ></span>
+
+                                        <span
+                                            v-else
+                                            class="cursor-pointer rounded-md p-1.5 text-2xl transition-all hover:bg-gray-200 dark:hover:bg-gray-800 max-sm:place-self-center"
+                                            @click="performAction(action)"
+                                            :title="action.title"
+                                        >
+                                            <svg
+                                                v-if="action.icon === 'icon-restore'"
+                                                viewBox="0 0 24 24"
+                                                width="1em"
+                                                height="1em"
+                                                fill="currentColor"
+                                                aria-hidden="true"
+                                            >
+                                                <path d="M12 6a6 6 0 1 1-5.65 8H4.8A7.5 7.5 0 1 0 12 4.5c-2 0-3.82.78-5.16 2.05L5.5 5.2V9h3.8L7.96 7.66A5.98 5.98 0 0 1 12 6z"/>
+                                            </svg>
+
+                                            <svg
+                                                v-else
+                                                viewBox="0 0 24 24"
+                                                width="1em"
+                                                height="1em"
+                                                fill="currentColor"
+                                                aria-hidden="true"
+                                            >
+                                                <path d="M9 3h6l1 2h4v1.5H4V5h4l1-2zm1.5 6.25 1.5 1.5 1.5-1.5 1.25 1.25-1.5 1.5 1.5 1.5-1.25 1.25-1.5-1.5-1.5 1.5-1.25-1.25 1.5-1.5-1.5-1.5 1.25-1.25zM6.5 8h11l-.9 13.1A2 2 0 0 1 14.6 23H9.4a2 2 0 0 1-2-1.9L6.5 8z"/>
+                                            </svg>
+                                        </span>
+                                    </template>
                                 </p>
                             </div>
                             

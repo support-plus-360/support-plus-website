@@ -58,7 +58,15 @@
                                     :class="{ 'bg-brandColor text-white': activeMenu === '{{ $menuKey }}' || {{ $isMenuActive ? 'true' : 'false' }}, 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-950': !(activeMenu === '{{ $menuKey }}' || {{ $isMenuActive ? 'true' : 'false' }}) }"
                                 >
                                     <div class="flex items-center gap-3">
-                                        <span class="{{ $menuItem->getIcon() }} text-2xl"></span>
+                                        @if ($menuItem->getIcon() === 'icon-cms')
+                                            <span class="text-2xl">
+                                                <svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true">
+                                                    <path d="M7 3h9l3 3v15a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm8 1.5V7h2.5L15 4.5zM8 10h8v1.5H8V10zm0 4h8v1.5H8V14zm0 4h5v1.5H8V18z"/>
+                                                </svg>
+                                            </span>
+                                        @else
+                                            <span class="{{ $menuItem->getIcon() }} text-2xl"></span>
+                                        @endif
 
                                         <p class="whitespace-nowrap font-semibold">{{ $menuItem->getName() }}</p>
                                     </div>

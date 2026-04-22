@@ -456,3 +456,70 @@ Breadcrumbs::for('dashboard.account.edit', function (BreadcrumbTrail $trail, $us
     $trail->parent('dashboard');
     $trail->push(trans('admin::app.account.edit.title'), route('admin.user.account.edit', $user->id));
 });
+
+// Dashboard > CMS
+Breadcrumbs::for('cms', function (BreadcrumbTrail $trail) {
+    $trail->parent('dashboard');
+    $trail->push(trans('cms::app.menu.cms'), route('admin.cms.pages.index'));
+});
+
+// Dashboard > CMS > Pages
+Breadcrumbs::for('cms.pages', function (BreadcrumbTrail $trail) {
+    $trail->parent('cms');
+    $trail->push(trans('cms::app.menu.pages'), route('admin.cms.pages.index'));
+});
+
+// Dashboard > CMS > Pages > Create
+Breadcrumbs::for('cms.pages.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('cms.pages');
+    $trail->push(trans('cms::app.pages.create.title'), route('admin.cms.pages.create'));
+});
+
+// Dashboard > CMS > Pages > Edit
+Breadcrumbs::for('cms.pages.edit', function (BreadcrumbTrail $trail, $page) {
+    $trail->parent('cms.pages');
+    $trail->push(trans('cms::app.pages.edit.title'), route('admin.cms.pages.edit', $page->id));
+});
+
+
+// Dashboard > CMS > Sections
+Breadcrumbs::for('cms.sections', function (BreadcrumbTrail $trail) {
+    $trail->parent('cms');
+    $trail->push(trans('cms::app.menu.sections'), route('admin.cms.sections.index'));
+});
+
+// Dashboard > CMS > Sections > Create
+Breadcrumbs::for('cms.sections.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('cms.sections');
+    $trail->push(trans('cms::app.sections.create.title'), route('admin.cms.sections.create'));
+});
+
+// Dashboard > CMS > Sections > Edit
+Breadcrumbs::for('cms.sections.edit', function (BreadcrumbTrail $trail, $section) {
+    $trail->parent('cms.sections');
+    $trail->push(trans('cms::app.sections.edit.title'), route('admin.cms.sections.edit', $section->id));
+});
+
+// Dashboard > Company
+Breadcrumbs::for('company', function (BreadcrumbTrail $trail) {
+    $trail->parent('dashboard');
+    $trail->push(trans('company::app.companies.index.title'), route('admin.company.index'));
+});
+
+// Dashboard > Company > Create
+Breadcrumbs::for('company.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('company');
+    $trail->push(trans('company::app.companies.create.title'), route('admin.company.create'));
+});
+
+// Dashboard > Company > Edit
+Breadcrumbs::for('company.edit', function (BreadcrumbTrail $trail, $company) {
+    $trail->parent('company');
+    $trail->push(trans('company::app.companies.edit.title'), route('admin.company.edit', $company->id));
+});
+
+// Dashboard > Company > View
+Breadcrumbs::for('company.view', function (BreadcrumbTrail $trail, $company) {
+    $trail->parent('company');
+    $trail->push('#'.$company->id, route('admin.company.index', $company->id));
+});

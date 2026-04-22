@@ -252,6 +252,14 @@
         content: "\e903";
     }
 
+    .icon-restore:before {
+        content: "\e92e";
+    }
+
+    .icon-forceDelete:before {
+        content: "\e92f";
+    }
+
     .icon-menu:before {
         content: "\e955";
     }

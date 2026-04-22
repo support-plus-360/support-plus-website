@@ -1,0 +1,21 @@
+{
+  "src/Resources/assets/css/app.css": {
+    "file": "assets/app-tn0RQdqM.css",
+    "src": "src/Resources/assets/css/app.css",
+    "isEntry": true
+  },
+  "src/Resources/assets/images/Icon-Temp-Active.svg": {
+    "file": "assets/Icon-Temp-Active-3jOJo91L.svg",
+    "src": "src/Resources/assets/images/Icon-Temp-Active.svg"
+  },
+  "src/Resources/assets/images/Icon-Temp.svg": {
+    "file": "assets/Icon-Temp-CaxNxvNj.svg",
+    "src": "src/Resources/assets/images/Icon-Temp.svg"
+  },
+  "src/Resources/assets/js/app.js": {
+    "file": "assets/app-l0sNRNKZ.js",
+    "name": "app",
+    "src": "src/Resources/assets/js/app.js",
+    "isEntry": true
+  }
+}
