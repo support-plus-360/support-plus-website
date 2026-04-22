@@ -15,6 +15,8 @@ return new class extends Migration
     {
         Schema::create('cms_sections', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('company_id')->nullable();
+            $table->foreign('company_id')->references('id')->on('companies')->nullOnDelete();
             $table->foreignId('page_id')->constrained('cms_pages')->onDelete('cascade');
             $table->string('name'); // Internal name for admin
             $table->string('type')->default('default'); // 'default', 'hero', 'gallery', 'testimonial', etc.
@@ -24,6 +26,7 @@ return new class extends Migration
             $table->boolean('is_active')->default(true);
             $table->timestamps();
             $table->softDeletes();
+	$table->index('company_id');
         });
     }
 
