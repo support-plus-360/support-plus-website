@@ -92,5 +92,39 @@ class PageController extends Controller
             'message' => trans('cms::app.pages.messages.delete-success'),
         ]);
     }
+
+public function restore(int $id): JsonResponse
+{
+    $page = $this->pageRepository->getModel()->withTrashed()->findOrFail($id);
+
+    Event::dispatch('cms.pages.restore.before', $id);
+
+    $page?->restore();
+
+    Event::dispatch('cms.pages.restore.after', $id);
+
+    return response()->json([
+        'message' => trans('cms::app.pages.messages.restore-success'),
+    ]);
+}
+
+// force delete company
+public function forceDelete(int $id): JsonResponse
+{
+    $page = $this->pageRepository->getModel()->withTrashed()->findOrFail($id);
+
+    Event::dispatch('cms.pages.forceDelete.before', $id);
+
+    $page?->forceDelete();
+
+
+    Event::dispatch('cms.pages.forceDelete.after', $id);
+
+    return response()->json([
+        'message' => trans('cms::app.pages.messages.forceDelete-success'),
+    ]);
+
+
+}  
 }
 

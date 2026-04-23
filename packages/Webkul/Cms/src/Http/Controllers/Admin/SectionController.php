@@ -96,6 +96,42 @@ class SectionController extends Controller
         ]);
     }
 
+
+public function restore(int $id): JsonResponse
+{
+    $section = $this->sectionRepository->getModel()->withTrashed()->findOrFail($id);
+
+    Event::dispatch('cms.sections.restore.before', $id);
+
+    $section?->restore();
+
+    Event::dispatch('cms.sections.restore.after', $id);
+
+    return response()->json([
+        'message' => trans('cms::app.sections.messages.restore-success'),
+    ]);
+}
+
+// force delete company
+public function forceDelete(int $id): JsonResponse
+{
+    $section = $this->sectionRepository->getModel()->withTrashed()->findOrFail($id);
+
+    Event::dispatch('cms.sections.forceDelete.before', $id);
+
+    $section?->forceDelete();
+
+
+    Event::dispatch('cms.sections.forceDelete.after', $id);
+
+    return response()->json([
+        'message' => trans('cms::app.sections.messages.forceDelete-success'),
+    ]);
+
+
+}  
+
+
     private function supportedLocales(): array
     {
         /**

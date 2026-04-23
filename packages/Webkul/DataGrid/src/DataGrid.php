@@ -159,6 +159,8 @@ abstract class DataGrid
             title: $action['title'],
             method: $action['method'],
             url: $action['url'],
+            disabled: (bool) ($action['disabled'] ?? false),
+            disabled_title: $action['disabled_title'] ?? null,
         );
 
         $this->dispatchEvent('actions.add.after', [$this, $this->actions[count($this->actions) - 1]]);
@@ -503,7 +505,7 @@ abstract class DataGrid
 
                 $url = $getUrl($record);
 
-                if (empty($url)) {
+                if (empty($url) && ! $action->disabled) {
                     continue;
                 }
 
@@ -513,6 +515,8 @@ abstract class DataGrid
                     'title'  => $action->title,
                     'method' => $action->method,
                     'url'    => $url,
+                    'disabled' => $action->disabled,
+                    'disabled_title' => $action->disabled_title,
                 ];
             }
         }

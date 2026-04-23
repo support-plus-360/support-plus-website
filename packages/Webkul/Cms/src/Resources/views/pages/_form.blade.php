@@ -14,7 +14,34 @@
 
             <div class="flex flex-col gap-4">
 
-     <x-admin::form.control-group>
+
+		<!-- company -->
+		<x-admin::form.control-group>
+		<x-admin::form.control-group.label class="required">
+		@lang('cms::app.pages.form.company')
+		</x-admin::form.control-group.label>
+		
+		<x-admin::form.control-group.control
+		type="select"
+		id="company_id"
+		name="company_id"
+		rules="required"
+		:value="old('company_id') ?? ($page?->company_id ?? '')"
+		:label="trans('cms::app.pages.form.company')"
+		>
+		@foreach($companies as $company)
+		<option value="{{ $company->id }}">
+			{{ $company->name }}
+		</option>
+		@endforeach
+		</x-admin::form.control-group.control>
+
+		<x-admin::form.control-group.error control-name="company_id" />
+		</x-admin::form.control-group>
+
+
+            <div class="grid grid-cols-2 gap-4">
+              <x-admin::form.control-group>
                     <x-admin::form.control-group.label class="required">
                         @lang('cms::app.pages.form.name')
                     </x-admin::form.control-group.label>
@@ -48,33 +75,11 @@
 
                     <x-admin::form.control-group.error control-name="slug" />
                 </x-admin::form.control-group>
-
-		<!-- company -->
-		<x-admin::form.control-group>
-		<x-admin::form.control-group.label class="required">
-		@lang('cms::app.pages.form.company')
-		</x-admin::form.control-group.label>
-		
-		<x-admin::form.control-group.control
-		type="select"
-		id="company_id"
-		name="company_id"
-		rules="required"
-		:value="old('company_id') ?? ($page?->company_id ?? '')"
-		:label="trans('cms::app.pages.form.company')"
-		>
-		@foreach($companies as $company)
-		<option value="{{ $company->id }}">
-			{{ $company->name }}
-		</option>
-		@endforeach
-		</x-admin::form.control-group.control>
-
-		<x-admin::form.control-group.error control-name="company_id" />
-		</x-admin::form.control-group>
+	</div>
 
 
-                <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+
+                <div class="grid grid-cols-2 gap-4">
                     <x-admin::form.control-group>
                         <x-admin::form.control-group.label class="required">
                             @lang('cms::app.pages.form.type')
@@ -122,7 +127,7 @@
                     </x-admin::form.control-group>
                 </div>
 
-                <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+                <div class="grid grid-cols-3 gap-4">
                     <x-admin::form.control-group>
                         <x-admin::form.control-group.label>
                             @lang('cms::app.pages.form.order')
@@ -310,4 +315,3 @@
         })();
     </script>
 @endPushOnce
-

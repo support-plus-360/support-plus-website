@@ -17,6 +17,10 @@ class PageDataGrid extends DataGrid
                 $join->on('cms_pages.id', '=', 'cpt.cms_page_id')
                     ->where('cpt.locale', '=', $locale);
             })
+            ->leftJoin('cms_sections as cs', function ($join) {
+                $join->on('cms_pages.id', '=', 'cs.page_id')
+                    ->whereNull('cs.deleted_at');
+            })
             ->addSelect(
                 'cms_pages.id',
                 'cms_pages.slug',
@@ -27,12 +31,28 @@ class PageDataGrid extends DataGrid
                 'cms_pages.order',
                 'cms_pages.published_at',
 		'cms_pages.company_id',
+		'cms_pages.deleted_at',
                 DB::raw('COALESCE(cpt.title, "") as title'),
-		DB::raw('COALESCE(c.name, "") as company_name')
+		DB::raw('COALESCE(c.name, "") as company_name'),
+                DB::raw('COUNT(cs.id) as sections_count')
             )
             ->leftJoin('companies as c', function ($join) {
                 $join->on('cms_pages.company_id', '=', 'c.id');
-            });
+            })
+            ->groupBy(
+                'cms_pages.id',
+                'cms_pages.slug',
+                'cms_pages.name',
+                'cms_pages.type',
+                'cms_pages.status',
+                'cms_pages.is_active',
+                'cms_pages.order',
+                'cms_pages.published_at',
+                'cms_pages.company_id',
+                'cms_pages.deleted_at',
+                'cpt.title',
+                'c.name'
+            );
 
         $this->addFilter('id', 'cms_pages.id');
         $this->addFilter('slug', 'cms_pages.slug');
@@ -110,7 +130,7 @@ class PageDataGrid extends DataGrid
                 'icon'   => 'icon-edit',
                 'title'  => trans('cms::app.pages.datagrid.edit'),
                 'method' => 'GET',
-                'url'    => fn ($row) => route('admin.cms.pages.edit', $row->id),
+                'url'    => fn ($row) => $row->deleted_at ? null : route('admin.cms.pages.edit', $row->id),
             ]);
         }
 
@@ -120,9 +140,32 @@ class PageDataGrid extends DataGrid
                 'icon'   => 'icon-delete',
                 'title'  => trans('cms::app.pages.datagrid.delete'),
                 'method' => 'DELETE',
-                'url'    => fn ($row) => route('admin.cms.pages.delete', $row->id),
+                'disabled' => true,
+                'disabled_title' => trans('cms::app.pages.messages.cannot-delete-has-sections'),
+                'url'    => fn ($row) => $row->deleted_at || ((int) ($row->sections_count ?? 0) > 0) ? null : route('admin.cms.pages.delete', $row->id),
             ]);
         }
+
+
+//         if (bouncer()->hasPermission('cms.pages.restore')) {
+            $this->addAction([
+                'index'  => 'restore',
+                'icon'   => 'icon-restore',
+                'title'  => trans('cms::app.pages.datagrid.restore'),
+                'method' => 'POST',
+                'url'    => fn ($row) => $row->deleted_at ? route('admin.cms.pages.restore', $row->id) : null,
+            ]);
+//         }
+
+//         if (bouncer()->hasPermission('cms.pages.forceDelete')) {
+            $this->addAction([
+                'index'  => 'forceDelete',
+                'icon'   => 'icon-forceDelete',
+                'title'  => trans('cms::app.pages.datagrid.forceDelete'),
+                'method' => 'DELETE',
+                'url'    => fn ($row) => $row->deleted_at ? route('admin.cms.pages.forceDelete', $row->id) : null,
+            ]);
+//         }
     }
 }
 

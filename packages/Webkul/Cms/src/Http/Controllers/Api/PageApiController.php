@@ -21,10 +21,16 @@ class PageApiController extends Controller
 
         $perPage = min(max((int) $request->input('per_page', 15), 1), 100);
 
+        $companyId = $request->input('company_id');
+
         $query = $this->pageRepository->getModel()
             ->newQuery()
             ->with('translations')
             ->orderByDesc('id');
+
+        if ($companyId !== null && $companyId !== '') {
+            $query->where('company_id', (int) $companyId);
+        }
 
         return response()->json($query->paginate($perPage));
     }

@@ -16,6 +16,8 @@ class Action
         public string $title,
         public string $method,
         public mixed $url,
+        public bool $disabled = false,
+        public ?string $disabled_title = null,
     ) {}
 
     /**
@@ -29,6 +31,8 @@ class Action
             'title'  => $this->title,
             'method' => $this->method,
             'url'    => $this->url,
+            'disabled' => $this->disabled,
+            'disabled_title' => $this->disabled_title,
         ];
     }
 }

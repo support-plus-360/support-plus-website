@@ -10,51 +10,34 @@
             </div>
 
             <div class="flex flex-col gap-4">
-             <!-- name -->
-                <x-admin::form.control-group>
-                    <x-admin::form.control-group.label class="required">
-                        @lang('cms::app.sections.form.name')
-                    </x-admin::form.control-group.label>
 
-                    <x-admin::form.control-group.control
-                        type="text"
-                        id="name"
-                        name="name"
-                        rules="required"
-                        :value="old('name') ?? ($section?->name ?? '')"
-                        :label="trans('cms::app.sections.form.name')"
-                    />
+                <div class="grid grid-cols-2 gap-4">
 
-                    <x-admin::form.control-group.error control-name="name" />
-                </x-admin::form.control-group>
-
-             <!-- company -->
+             	<!-- company -->
 		<x-admin::form.control-group>
-		<x-admin::form.control-group.label class="required">
-		@lang('cms::app.sections.form.company')
-		</x-admin::form.control-group.label>
-		
-		<x-admin::form.control-group.control
-		type="select"
-		id="company_id"
-		name="company_id"
-		rules="required"
-		:value="old('company_id') ?? ($section?->company_id ?? '')"
-		:label="trans('cms::app.sections.form.company')"
-		>
-		@foreach($companies as $company)
-		<option value="{{ $company->id }}">
-			{{ $company->name }}
-		</option>
-		@endforeach
-		</x-admin::form.control-group.control>
+			<x-admin::form.control-group.label class="required">
+			@lang('cms::app.sections.form.company')
+			</x-admin::form.control-group.label>
+			
+			<x-admin::form.control-group.control
+			type="select"
+			id="company_id"
+			name="company_id"
+			rules="required"
+			:value="old('company_id') ?? ($section?->company_id ?? '')"
+			:label="trans('cms::app.sections.form.company')"
+			>
+			@foreach($companies as $company)
+			<option value="{{ $company->id }}">
+				{{ $company->name }}
+			</option>
+			@endforeach
+			</x-admin::form.control-group.control>
 
-		<x-admin::form.control-group.error control-name="company_id" />
+			<x-admin::form.control-group.error control-name="company_id" />
 		</x-admin::form.control-group>
 
-
-                <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-                    <x-admin::form.control-group>
+ 		<x-admin::form.control-group>
                         <x-admin::form.control-group.label class="required">
                             @lang('cms::app.sections.form.page')
                         </x-admin::form.control-group.label>
@@ -68,6 +51,7 @@
                                 :value="old('page_id') ?? ($section?->page_id ?? '')"
                                 :label="trans('cms::app.sections.form.page')"
                             >
+                               
                                 @foreach($pages as $page)
                                     <option value="{{ $page->id }}">
                                         {{ $page->name }} ({{ $page->slug }})
@@ -87,12 +71,38 @@
 
                         <x-admin::form.control-group.error control-name="page_id" />
                     </x-admin::form.control-group>
+                </div>
 
+
+
+           
+
+                <div class="grid grid-cols-2 gap-4">
+                   
+                <!-- name -->
+                <x-admin::form.control-group>
+                    <x-admin::form.control-group.label class="required">
+                        @lang('cms::app.sections.form.name')
+                    </x-admin::form.control-group.label>
+
+                    <x-admin::form.control-group.control
+                        type="text"
+                        id="name"
+                        name="name"
+                        rules="required"
+                        :value="old('name') ?? ($section?->name ?? '')"
+                        :label="trans('cms::app.sections.form.name')"
+                    />
+
+                    <x-admin::form.control-group.error control-name="name" />
+                </x-admin::form.control-group>
+
+	<!-- type select with options : default, hero, gallery, testimonial, industry -->
                     <x-admin::form.control-group>
                         <x-admin::form.control-group.label class="required">
                             @lang('cms::app.sections.form.type')
                         </x-admin::form.control-group.label>
-<!-- type select with options : default, hero, gallery, testimonial, industry -->
+                      <!-- type select with options : default, hero, gallery, testimonial, industry -->
                         <x-admin::form.control-group.control
                             type="select"
                             id="type"
@@ -112,7 +122,7 @@
                     </x-admin::form.control-group>
                 </div>
 
-                <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+                <div class="grid grid-cols-3 gap-4">
                     <x-admin::form.control-group>
                         <x-admin::form.control-group.label>
                             @lang('cms::app.sections.form.template')
@@ -144,6 +154,25 @@
 
                         <x-admin::form.control-group.error control-name="order" />
                     </x-admin::form.control-group>
+		<!-- active -->
+   		<x-admin::form.control-group class="!mb-0">
+                        <x-admin::form.control-group.label>
+                            @lang('cms::app.sections.form.active')
+                        </x-admin::form.control-group.label>
+
+                        <label class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
+                            <input
+                                type="checkbox"
+                                name="is_active"
+                                value="1"
+                                class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700"
+                                @checked(old('is_active', $section?->is_active ?? true))
+                            />
+                            <span>@lang('cms::app.sections.form.active')</span>
+                        </label>
+
+                        <x-admin::form.control-group.error control-name="is_active" />
+                    </x-admin::form.control-group>
                 </div>
 
                 <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
@@ -163,24 +192,7 @@
                         <x-admin::form.control-group.error control-name="settings" />
                     </x-admin::form.control-group>
 
-                    <x-admin::form.control-group class="!mb-0">
-                        <x-admin::form.control-group.label>
-                            @lang('cms::app.sections.form.active')
-                        </x-admin::form.control-group.label>
-
-                        <label class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
-                            <input
-                                type="checkbox"
-                                name="is_active"
-                                value="1"
-                                class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700"
-                                @checked(old('is_active', $section?->is_active ?? true))
-                            />
-                            <span>@lang('cms::app.sections.form.active')</span>
-                        </label>
-
-                        <x-admin::form.control-group.error control-name="is_active" />
-                    </x-admin::form.control-group>
+                 
                 </div>
             </div>
         </div>
@@ -274,6 +286,8 @@
         </x-admin::accordion>
     </div>
 </div>
+
+
 
 @pushOnce('scripts')
     <script type="module">
