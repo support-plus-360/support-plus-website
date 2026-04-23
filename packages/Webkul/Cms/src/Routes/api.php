@@ -20,6 +20,14 @@ Route::prefix('cms/api/sections')->controller(SectionApiController::class)->grou
             Route::delete('{id}', 'destroy')->whereNumber('id')->name('admin.cms.api.sections.destroy');
         });
 
+
+Route::prefix('cms/api/items')->controller(ItemApiController::class)->group(function () {
+            Route::get('', 'index')->name('admin.cms.api.items.index');
+            Route::post('', 'store')->name('admin.cms.api.items.store');
+            Route::get('{id}', 'show')->whereNumber('id')->name('admin.cms.api.items.show');
+            Route::put('{id}', 'update')->whereNumber('id')->name('admin.cms.api.items.update');
+            Route::delete('{id}', 'destroy')->whereNumber('id')->name('admin.cms.api.items.destroy');
+        });
 // Route::middleware(['web', 'admin_locale', 'user'])
 //     ->prefix(config('app.admin_path'))
 //     ->group(function () {

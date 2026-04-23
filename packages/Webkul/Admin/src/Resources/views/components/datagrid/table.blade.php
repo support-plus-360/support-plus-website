@@ -212,17 +212,24 @@
                                     <template v-for="action in record.actions">
                                         <span
                                             v-if="action.icon !== 'icon-restore' && action.icon !== 'icon-forceDelete'"
-                                            class="cursor-pointer rounded-md p-1.5 text-2xl transition-all hover:bg-gray-200 dark:hover:bg-gray-800 max-sm:place-self-center"
-                                            :class="action.icon"
+                                            class="rounded-md p-1.5 text-2xl transition-all max-sm:place-self-center"
+                                            :class="[
+                                                action.icon,
+                                                action.disabled
+                                                    ? 'opacity-50 cursor-not-allowed'
+                                                    : 'cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-800'
+                                            ]"
                                             v-text="! action.icon ? action.title : ''"
-                                            @click="performAction(action)"
+                                            @click="action.disabled ? null : performAction(action)"
+                                            :title="action.disabled ? (action.disabled_title || action.title) : action.title"
                                         ></span>
 
                                         <span
                                             v-else
-                                            class="cursor-pointer rounded-md p-1.5 text-2xl transition-all hover:bg-gray-200 dark:hover:bg-gray-800 max-sm:place-self-center"
-                                            @click="performAction(action)"
-                                            :title="action.title"
+                                            class="rounded-md p-1.5 text-2xl transition-all max-sm:place-self-center"
+                                            :class="action.disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-800'"
+                                            @click="action.disabled ? null : performAction(action)"
+                                            :title="action.disabled ? (action.disabled_title || action.title) : action.title"
                                         >
                                             <svg
                                                 v-if="action.icon === 'icon-restore'"

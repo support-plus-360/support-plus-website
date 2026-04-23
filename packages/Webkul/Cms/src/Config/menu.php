@@ -21,4 +21,11 @@ return [
         'sort'       => 2,
         'icon-class' => 'icon-file',
     ],
+	[
+		'key'        => 'cms.items',
+		'name'       => 'cms::app.menu.items',
+		'route'      => 'admin.cms.items.index',
+		'sort'       => 3,
+		'icon-class' => 'icon-file',
+	],
 ];

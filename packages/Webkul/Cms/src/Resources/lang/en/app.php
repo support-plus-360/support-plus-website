@@ -5,15 +5,19 @@ return [
         'cms'   => 'CMS',
         'pages' => 'Pages',
         'sections' => 'Sections',
+	'items' => 'Items',
     ],
 
     'acl' => [
         'cms'    => 'CMS',
         'pages'  => 'Pages',
         'sections' => 'Sections',
+	'items' => 'Items',
         'create' => 'Create',
         'edit'   => 'Edit',
         'delete' => 'Delete',
+	'restore' => 'Restore',
+	'forceDelete' => 'Force Delete',
     ],
 
     'pages' => [
@@ -65,6 +69,7 @@ return [
             'create-success' => 'Page created successfully.',
             'update-success' => 'Page updated successfully.',
             'delete-success' => 'Page deleted successfully.',
+            'cannot-delete-has-sections' => 'This page has sections. Delete sections first.',
         ],
     ],
 
@@ -124,7 +129,52 @@ return [
             'create-success' => 'Section created successfully.',
             'update-success' => 'Section updated successfully.',
             'delete-success' => 'Section deleted successfully.',
+            'cannot-delete-has-items' => 'This section has items. Delete items first.',
         ],
-    ]
+    ],
+
+	'items' => [
+		'index' => [
+			'title' => 'Items',
+			'create-btn' => 'Create Item',
+		],
+		'create' => [
+			'title' => 'Create Item',
+			'save-btn' => 'Save Item',
+		],
+		'edit' => [
+			'title' => 'Edit Item',
+			'save-btn' => 'Save Item',
+		],
+		'form' => [
+			'general' => 'General',
+			'translations' => 'Translations',
+			'section' => 'Section',
+			'type' => 'Type',
+			'active' => 'Active',
+			'order' => 'Order',
+			'company' => 'Company',
+			'title' => 'Title',
+			'sub_title' => 'Sub Title',
+			'content' => 'Content',
+			'icon' => 'Icon',
+		],
+		'datagrid' => [
+			'id' => 'ID',
+			'title' => 'Title',
+			'slug' => 'Slug',
+			'type' => 'Type',
+			'active' => 'Active',
+			'edit' => 'Edit',
+			'delete' => 'Delete',
+			'company' => 'Company',
+			'section' => 'Section',
+		],
+		'messages' => [
+			'create-success' => 'Item created successfully.',
+			'update-success' => 'Item updated successfully.',
+			'delete-success' => 'Item deleted successfully.',
+		],
+	],
 ];
 

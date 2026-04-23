@@ -500,6 +500,27 @@ Breadcrumbs::for('cms.sections.edit', function (BreadcrumbTrail $trail, $section
     $trail->push(trans('cms::app.sections.edit.title'), route('admin.cms.sections.edit', $section->id));
 });
 
+
+// Dashboard > CMS > Items
+Breadcrumbs::for('cms.items', function (BreadcrumbTrail $trail) {
+    $trail->parent('cms');
+    $trail->push(trans('cms::app.items.index.title'), route('admin.cms.items.index'));
+});
+
+// Dashboard > CMS > Items > Create
+Breadcrumbs::for('cms.items.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('cms.items');
+    $trail->push(trans('cms::app.items.create.title'), route('admin.cms.items.create'));
+});
+
+// Dashboard > CMS > Items > Edit
+Breadcrumbs::for('cms.items.edit', function (BreadcrumbTrail $trail, $item) {
+    $trail->parent('cms.items');
+    $trail->push(trans('cms::app.items.edit.title'), route('admin.cms.items.edit', $item->id));
+});
+
+
+
 // Dashboard > Company
 Breadcrumbs::for('company', function (BreadcrumbTrail $trail) {
     $trail->parent('dashboard');
@@ -523,3 +544,5 @@ Breadcrumbs::for('company.view', function (BreadcrumbTrail $trail, $company) {
     $trail->parent('company');
     $trail->push('#'.$company->id, route('admin.company.index', $company->id));
 });
+
+

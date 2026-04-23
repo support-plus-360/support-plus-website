@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Webkul\Cms\Http\Controllers\CmsController;
 use Webkul\Cms\Http\Controllers\Admin\PageController;
 use Webkul\Cms\Http\Controllers\Admin\SectionController;
+use Webkul\Cms\Http\Controllers\Admin\ItemController;
 
 Route::middleware(['web', 'admin_locale', 'user'])
     ->prefix(config('app.admin_path'))
@@ -18,6 +19,8 @@ Route::middleware(['web', 'admin_locale', 'user'])
                 Route::get('{id}/edit', 'edit')->name('admin.cms.pages.edit');
                 Route::put('{id}', 'update')->name('admin.cms.pages.update');
                 Route::delete('{id}', 'destroy')->name('admin.cms.pages.delete');
+		Route::post('{id}/restore', 'restore')->name('admin.cms.pages.restore');
+		Route::delete('{id}/forceDelete', 'forceDelete')->name('admin.cms.pages.forceDelete');
             });
 
             Route::controller(SectionController::class)->prefix('sections')->group(function () {
@@ -27,6 +30,19 @@ Route::middleware(['web', 'admin_locale', 'user'])
                 Route::get('{id}/edit', 'edit')->name('admin.cms.sections.edit');
                 Route::put('{id}', 'update')->name('admin.cms.sections.update');
                 Route::delete('{id}', 'destroy')->name('admin.cms.sections.delete');
+                Route::post('{id}/restore', 'restore')->name('admin.cms.sections.restore');
+                Route::delete('{id}/forceDelete', 'forceDelete')->name('admin.cms.sections.forceDelete');
             });
+        });
+
+        Route::controller(ItemController::class)->prefix('items')->group(function () {
+            Route::get('', 'index')->name('admin.cms.items.index');
+            Route::get('create', 'create')->name('admin.cms.items.create');
+            Route::post('', 'store')->name('admin.cms.items.store');
+            Route::get('{id}/edit', 'edit')->name('admin.cms.items.edit');
+            Route::put('{id}', 'update')->name('admin.cms.items.update');
+            Route::delete('{id}', 'destroy')->name('admin.cms.items.delete');
+            Route::post('{id}/restore', 'restore')->name('admin.cms.items.restore');
+            Route::delete('{id}/forceDelete', 'forceDelete')->name('admin.cms.items.forceDelete');
         });
     });
