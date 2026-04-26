@@ -28,4 +28,18 @@ return [
 		'sort'       => 3,
 		'icon-class' => 'icon-file',
 	],
+	[
+		'key'        => 'cms.links',
+		'name'       => 'cms::app.menu.links',
+		'route'      => 'admin.cms.links.index',
+		'sort'       => 4,
+		'icon-class' => 'icon-file',
+	],
+	[
+		'key'        => 'cms.blog-categories',
+		'name'       => 'cms::app.menu.blog-categories',
+		'route'      => 'admin.cms.blog-categories.index',
+		'sort'       => 5,
+		'icon-class' => 'icon-file',
+	],
 ];

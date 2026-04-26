@@ -32,10 +32,15 @@
         content: "\e957";
     }
 
+    /* Person glyph; same as .icon-user — \e923 is already .icon-add-2 in this font */
+    .icon-profile:before {
+        content: "\e94c";
+    }
+
     .icon-image:before {
         content: "\e956";
     }
-      
+
     .icon-bookmark:before {
         content: "\e92c";
     }

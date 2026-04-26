@@ -9,7 +9,7 @@ use Webkul\Installer\Database\Seeders\EmailTemplate\DatabaseSeeder as EmailTempl
 use Webkul\Installer\Database\Seeders\Lead\DatabaseSeeder as LeadSeeder;
 use Webkul\Installer\Database\Seeders\User\DatabaseSeeder as UserSeeder;
 use Webkul\Installer\Database\Seeders\Workflow\DatabaseSeeder as WorkflowSeeder;
-
+use Webkul\Company\Database\Seeders\CompanySeeder as CompanySeeder;
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -26,5 +26,6 @@ class DatabaseSeeder extends Seeder
         $this->call(LeadSeeder::class, false, ['parameters' => $parameters]);
         $this->call(UserSeeder::class, false, ['parameters' => $parameters]);
         $this->call(WorkflowSeeder::class, false, ['parameters' => $parameters]);
+        $this->call(CompanySeeder::class, false, ['parameters' => $parameters]);
     }
 }

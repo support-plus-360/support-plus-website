@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Webkul\Cms\Contracts\Item as ItemContract;
 use Webkul\Core\Eloquent\TranslatableModel;
+use Webkul\Company\Models\Company;
 
 class Item extends TranslatableModel implements ItemContract
 {
@@ -50,4 +51,3 @@ class Item extends TranslatableModel implements ItemContract
         return $this->belongsTo(Company::class, 'company_id');
     }
 }
-

@@ -18,5 +18,9 @@ class ModuleServiceProvider extends BaseModuleServiceProvider
 		\Webkul\Cms\Models\SectionTranslation::class,
         \Webkul\Cms\Models\Item::class,
         \Webkul\Cms\Models\ItemTranslation::class,
+        \Webkul\Cms\Models\Link::class,
+        \Webkul\Cms\Models\LinkTranslation::class,
+        \Webkul\Cms\Models\BlogCategory::class,
+        \Webkul\Cms\Models\BlogCategoryTranslation::class,
     ];
 }

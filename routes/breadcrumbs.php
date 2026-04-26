@@ -519,7 +519,47 @@ Breadcrumbs::for('cms.items.edit', function (BreadcrumbTrail $trail, $item) {
     $trail->push(trans('cms::app.items.edit.title'), route('admin.cms.items.edit', $item->id));
 });
 
+// Dashboard > CMS > Links
+Breadcrumbs::for('cms.links', function (BreadcrumbTrail $trail) {
+    $trail->parent('cms');
+    $trail->push(trans('cms::app.links.index.title'), route('admin.cms.links.index'));
+});
 
+// Dashboard > CMS > Links > Create
+Breadcrumbs::for('cms.links.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('cms.links');
+    $trail->push(trans('cms::app.links.create.title'), route('admin.cms.links.create'));
+});
+
+// Dashboard > CMS > Links > Edit
+Breadcrumbs::for('cms.links.edit', function (BreadcrumbTrail $trail, $link) {
+    $trail->parent('cms.links');
+    $trail->push(trans('cms::app.links.edit.title'), route('admin.cms.links.edit', $link->id));
+});
+
+// Dashboard > CMS > Blog Categories
+Breadcrumbs::for('cms.blog-categories', function (BreadcrumbTrail $trail) {
+    $trail->parent('cms');
+    $trail->push(trans('cms::app.blog-categories.index.title'), route('admin.cms.blog-categories.index'));
+});
+
+// Dashboard > CMS > Blog Categories > Create
+Breadcrumbs::for('cms.blog-categories.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('cms.blog-categories');
+    $trail->push(trans('cms::app.blog-categories.create.title'), route('admin.cms.blog-categories.create'));
+});
+
+// Dashboard > CMS > Blog Categories > Edit
+Breadcrumbs::for('cms.blog-categories.edit', function (BreadcrumbTrail $trail, $blogCategory) {
+    $trail->parent('cms.blog-categories');
+    $trail->push(trans('cms::app.blog-categories.edit.title'), route('admin.cms.blog-categories.edit', $blogCategory->id));
+});
+
+// Dashboard > CMS > Blog Categories > View
+Breadcrumbs::for('cms.blog-categories.view', function (BreadcrumbTrail $trail, $blogCategory) {
+    $trail->parent('cms.blog-categories');
+    $trail->push('#'.$blogCategory->id, route('admin.cms.blog-categories.index', $blogCategory->id));
+});
 
 // Dashboard > Company
 Breadcrumbs::for('company', function (BreadcrumbTrail $trail) {
@@ -544,5 +584,3 @@ Breadcrumbs::for('company.view', function (BreadcrumbTrail $trail, $company) {
     $trail->parent('company');
     $trail->push('#'.$company->id, route('admin.company.index', $company->id));
 });
-
-
