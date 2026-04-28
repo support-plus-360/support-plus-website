@@ -42,4 +42,11 @@ return [
 		'sort'       => 5,
 		'icon-class' => 'icon-file',
 	],
+	[
+		'key'        => 'cms.blog-posts',
+		'name'       => 'cms::app.menu.blog-posts',
+		'route'      => 'admin.cms.blog-posts.index',
+		'sort'       => 6,
+		'icon-class' => 'icon-file',
+	],
 ];

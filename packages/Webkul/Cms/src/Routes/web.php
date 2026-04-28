@@ -8,6 +8,7 @@ use Webkul\Cms\Http\Controllers\Admin\ItemController;
 use Webkul\Cms\Http\Controllers\Admin\LinkController;
 use Webkul\Cms\Http\Controllers\Admin\LinkableOptionsController;
 use Webkul\Cms\Http\Controllers\Admin\BlogCategoryController;
+use Webkul\Cms\Http\Controllers\Admin\BlogPostController;
 
 Route::middleware(['web', 'admin_locale', 'user'])
     ->prefix(config('app.admin_path'))
@@ -73,4 +74,15 @@ Route::middleware(['web', 'admin_locale', 'user'])
                 Route::post('{id}/restore', 'restore')->name('admin.cms.blog-categories.restore');
                 Route::delete('{id}/forceDelete', 'forceDelete')->name('admin.cms.blog-categories.forceDelete');
             });
+
+	Route::controller(BlogPostController::class)->prefix('blog-posts')->group(function () {
+		Route::get('', 'index')->name('admin.cms.blog-posts.index');
+		Route::get('create', 'create')->name('admin.cms.blog-posts.create');
+		Route::post('', 'store')->name('admin.cms.blog-posts.store');
+		Route::get('{id}/edit', 'edit')->name('admin.cms.blog-posts.edit');
+		Route::put('{id}', 'update')->name('admin.cms.blog-posts.update');
+		Route::delete('{id}', 'destroy')->name('admin.cms.blog-posts.delete');
+		Route::post('{id}/restore', 'restore')->name('admin.cms.blog-posts.restore');
+		Route::delete('{id}/forceDelete', 'forceDelete')->name('admin.cms.blog-posts.forceDelete');
+	});
     });

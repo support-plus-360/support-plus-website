@@ -33,13 +33,18 @@ return new class extends Migration
             $table->boolean('is_featured')->default(false);
             $table->unsignedSmallInteger('reading_time_minutes')->nullable();
 
-            // Optional engagement/analytics
+            // Optional engagement / analytics (increment on public “read”)
             $table->boolean('allow_comments')->default(false);
             $table->unsignedBigInteger('views_count')->default(0);
+            $table->index('views_count');
 
             // SEO helpers (non-localized)
             $table->string('canonical_url')->nullable();
             $table->boolean('is_indexable')->default(true);
+
+// is active
+$table->boolean('is_active')->default(true);
+$table->unsignedInteger('order')->default(0);
 
             // company id
             $table->unsignedBigInteger('company_id')->nullable();
