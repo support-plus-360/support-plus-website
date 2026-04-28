@@ -18,10 +18,11 @@ return new class extends Migration
     {
         Schema::create('cms_blog_categories', function (Blueprint $table) {
             $table->id();
+$table->string('name');
             $table->string('slug')->unique();
             $table->boolean('is_active')->default(true);
             $table->unsignedInteger('order')->default(0);
-	$table->unsignedBigInteger('company_id')->nullable();
+	        $table->unsignedBigInteger('company_id')->nullable();
             $table->foreign('company_id')->references('id')->on('companies')->nullOnDelete();
             $table->timestamps();
             $table->softDeletes();
@@ -36,14 +37,14 @@ return new class extends Migration
                 ->constrained('cms_blog_categories')
                 ->cascadeOnDelete();
             $table->string('locale', 2); // en|ar
-            $table->string('name');
+            $table->string('title');
             $table->text('description')->nullable();
             $table->timestamps();
 
             // Default name exceeds MySQL 64-char limit; keep explicit short name.
             $table->unique(['cms_blog_category_id', 'locale'], 'cms_blog_cat_trans_locale_uniq');
             $table->index('locale');
-            $table->index('name');
+            $table->index('title');
         });
 
         Schema::create('cms_blog_category_post', function (Blueprint $table) {
@@ -71,4 +72,3 @@ return new class extends Migration
         Schema::dropIfExists('cms_blog_categories');
     }
 };
-

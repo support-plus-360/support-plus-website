@@ -10,6 +10,13 @@ use Webkul\Installer\Database\Seeders\Lead\DatabaseSeeder as LeadSeeder;
 use Webkul\Installer\Database\Seeders\User\DatabaseSeeder as UserSeeder;
 use Webkul\Installer\Database\Seeders\Workflow\DatabaseSeeder as WorkflowSeeder;
 use Webkul\Company\Database\Seeders\CompanySeeder as CompanySeeder;
+use Webkul\Cms\Database\Seeders\CmsBlogCategorySeeder;
+use Webkul\Cms\Database\Seeders\CmsBlogPostSeeder;
+use Webkul\Cms\Database\Seeders\CmsPageSeeder;
+use Webkul\Cms\Database\Seeders\CmsSectionSeeder;
+use Webkul\Cms\Database\Seeders\CmsItemSeeder;
+use Webkul\Cms\Database\Seeders\CmsLinkSeeder;
+
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -27,5 +34,11 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeeder::class, false, ['parameters' => $parameters]);
         $this->call(WorkflowSeeder::class, false, ['parameters' => $parameters]);
         $this->call(CompanySeeder::class, false, ['parameters' => $parameters]);
+        $this->call(CmsBlogCategorySeeder::class, false, ['parameters' => $parameters]);
+        $this->call(CmsBlogPostSeeder::class, false, ['parameters' => $parameters]);
+        $this->call(CmsPageSeeder::class, false, ['parameters' => $parameters]);
+        $this->call(CmsSectionSeeder::class, false, ['parameters' => $parameters]);
+        $this->call(CmsItemSeeder::class, false, ['parameters' => $parameters]);
+        $this->call(CmsLinkSeeder::class, false, ['parameters' => $parameters]);
     }
 }

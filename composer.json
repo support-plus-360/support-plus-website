@@ -108,6 +108,9 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
+        ],
+        "swagger:sync-cms": [
+            "@php scripts/sync_cms_openapi.py"
         ]
     }
 }
