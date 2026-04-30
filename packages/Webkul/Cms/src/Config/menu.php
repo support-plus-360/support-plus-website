@@ -6,7 +6,7 @@ return [
         'name'       => 'cms::app.menu.cms',
         'route'      => 'admin.cms.pages.index',
         'sort'       => 2,
-        'icon-class' => 'icon-cms',
+        'icon-class' => 'icon-activity',
     ], [
         'key'        => 'cms.pages',
         'name'       => 'cms::app.menu.pages',

@@ -6,19 +6,17 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
 use Webkul\Admin\Http\Controllers\Controller;
-use Webkul\Cms\Concerns\InteractsWithCmsMedia;
 use Webkul\Cms\Concerns\InteractsWithCompanyDomain;
-use Webkul\Cms\Concerns\InteractsWithItemPayload;
-use Webkul\Cms\Http\Requests\ItemRequest;
-use Webkul\Cms\Repositories\ItemRepository;
+use Webkul\Cms\Concerns\InteractsWithBlogPostPayload;
+use Webkul\Cms\Http\Requests\BlogPostRequest;
+use Webkul\Cms\Repositories\BlogPostRepository;
 
-class ItemApiController extends Controller
+class BlogPostApiController extends Controller
 {
-    use InteractsWithCmsMedia;
     use InteractsWithCompanyDomain;
-    use InteractsWithItemPayload;
+    use InteractsWithBlogPostPayload;
 
-    public function __construct(protected ItemRepository $itemRepository) {}
+    public function __construct(protected BlogPostRepository $blogPostRepository) {}
 
     public function index(Request $request): JsonResponse
     {
@@ -30,13 +28,21 @@ class ItemApiController extends Controller
 
         $perPage = min(max((int) $request->input('per_page', 15), 1), 100);
 
-        $query = $this->itemRepository->getModel()
+        $companyId = $request->input('company_id');
+
+        $query = $this->blogPostRepository->getModel()
             ->newQuery()
-            ->with(['translations', 'media'])
+            ->with('translations')
             ->orderByDesc('id');
+
+        if ($this->isCompanyMismatch($resolvedCompanyId, $companyId)) {
+            return $this->companyMismatchResponse();
+        }
 
         if ($resolvedCompanyId) {
             $query->where('company_id', $resolvedCompanyId);
+        } elseif ($companyId !== null && $companyId !== '') {
+            $query->where('company_id', (int) $companyId);
         }
 
         return response()->json($query->paginate($perPage));
@@ -50,19 +56,19 @@ class ItemApiController extends Controller
             return $this->invalidDomainResponse();
         }
 
-        $item = $this->itemRepository->findOrFail($id);
+        $blogPost = $this->blogPostRepository->findOrFail($id);
 
-        if ($this->isCompanyMismatch($resolvedCompanyId, $item->company_id)) {
+        if ($this->isCompanyMismatch($resolvedCompanyId, $blogPost->company_id)) {
             return $this->companyMismatchResponse();
         }
 
-        $item->loadMissing(['translations', 'media']);
+        $blogPost->loadMissing('translations');
 
-        return response()->json($item);
+        return response()->json($blogPost);
     }
 
-    // get items by section id
-    public function getItemsBySectionId(Request $request, int $sectionId): JsonResponse
+    // get blog posts by category id
+    public function getBlogPostsByCategoryId(Request $request, int $categoryId): JsonResponse
     {
         $resolvedCompanyId = $this->resolvedCompanyId($request);
 
@@ -72,19 +78,21 @@ class ItemApiController extends Controller
 
         $perPage = min(max((int) $request->input('per_page', 15), 1), 100);
 
-        $items = $this->itemRepository->getModel()
+        $blogPosts = $this->blogPostRepository->getModel()
             ->newQuery()
-            ->where('section_id', $sectionId)
+            ->whereHas('blogCategories', function ($query) use ($categoryId) {
+                $query->where('cms_blog_categories.id', $categoryId);
+            })
             ->orderByDesc('id');
 
         if ($resolvedCompanyId) {
-            $items->where('company_id', $resolvedCompanyId);
+            $blogPosts->where('company_id', $resolvedCompanyId);
         }
 
-        return response()->json($items->paginate($perPage));
+        return response()->json($blogPosts->paginate($perPage));
     }
 
-    public function store(ItemRequest $request): JsonResponse
+    public function store(BlogPostRequest $request): JsonResponse
     {
         $resolvedCompanyId = $this->resolvedCompanyId($request);
 
@@ -92,7 +100,7 @@ class ItemApiController extends Controller
             return $this->invalidDomainResponse();
         }
 
-        Event::dispatch('cms.items.create.before');
+        Event::dispatch('cms.blog-posts.create.before');
 
         $data = $this->sanitizePayload($request->validated(), true);
 
@@ -104,17 +112,16 @@ class ItemApiController extends Controller
             $data['company_id'] = $resolvedCompanyId;
         }
 
-        $item = $this->itemRepository->create($data);
-        $this->syncMediaFromRequest($request, $item);
+        $blogPost = $this->blogPostRepository->create($data);
 
-        Event::dispatch('cms.items.create.after', $item);
+        Event::dispatch('cms.blog-posts.create.after', $blogPost);
 
-        $item->loadMissing(['translations', 'media']);
+        $blogPost->loadMissing('translations');
 
-        return response()->json($item, 201);
+        return response()->json($blogPost, 201);
     }
 
-    public function update(ItemRequest $request, int $id): JsonResponse
+    public function update(BlogPostRequest $request, int $id): JsonResponse
     {
         $resolvedCompanyId = $this->resolvedCompanyId($request);
 
@@ -122,17 +129,17 @@ class ItemApiController extends Controller
             return $this->invalidDomainResponse();
         }
 
-        Event::dispatch('cms.items.update.before', $id);
+        Event::dispatch('cms.blog-posts.update.before', $id);
 
-        $item = $this->itemRepository->findOrFail($id);
+        $blogPost = $this->blogPostRepository->findOrFail($id);
 
-        if ($this->isCompanyMismatch($resolvedCompanyId, $item->company_id)) {
+        if ($this->isCompanyMismatch($resolvedCompanyId, $blogPost->company_id)) {
             return $this->companyMismatchResponse();
         }
 
         $data = $this->sanitizePayload($request->validated());
 
-        if ($this->isCompanyMismatch($resolvedCompanyId, $data['company_id'] ?? $item->company_id)) {
+        if ($this->isCompanyMismatch($resolvedCompanyId, $data['company_id'] ?? $blogPost->company_id)) {
             return $this->companyMismatchResponse();
         }
 
@@ -140,14 +147,13 @@ class ItemApiController extends Controller
             $data['company_id'] = $resolvedCompanyId;
         }
 
-        $item = $this->itemRepository->update($data, $id);
-        $this->syncMediaFromRequest($request, $item);
+        $blogPost = $this->blogPostRepository->update($data, $id);
 
-        Event::dispatch('cms.items.update.after', $item);
+        Event::dispatch('cms.blog-posts.update.after', $blogPost);
 
-        $item->loadMissing(['translations', 'media']);
+        $blogPost->loadMissing('translations');
 
-        return response()->json($item);
+        return response()->json($blogPost);
     }
 
     public function destroy(Request $request, int $id): JsonResponse
@@ -158,20 +164,20 @@ class ItemApiController extends Controller
             return $this->invalidDomainResponse();
         }
 
-        $item = $this->itemRepository->findOrFail($id);
+        $blogPost = $this->blogPostRepository->findOrFail($id);
 
-        if ($this->isCompanyMismatch($resolvedCompanyId, $item->company_id)) {
+        if ($this->isCompanyMismatch($resolvedCompanyId, $blogPost->company_id)) {
             return $this->companyMismatchResponse();
         }
 
-        Event::dispatch('cms.items.delete.before', $id);
+        Event::dispatch('cms.blog-posts.delete.before', $id);
 
-        $item?->delete();
+        $blogPost?->delete();
 
-        Event::dispatch('cms.items.delete.after', $id);
+        Event::dispatch('cms.blog-posts.delete.after', $id);
 
         return response()->json([
-            'message' => trans('cms::app.items.messages.delete-success'),
+            'message' => trans('cms::app.blog-posts.messages.delete-success'),
         ]);
     }
 }

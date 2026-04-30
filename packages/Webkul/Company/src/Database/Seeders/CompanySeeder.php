@@ -20,5 +20,14 @@ class CompanySeeder extends Seeder
             'is_active' => true,
             'configs' => json_encode([]),
         ]);
+
+		Company::create([
+            'name' => 'Mena Support Plus',
+            'short_name' => 'MSP',
+            'website' => 'https://menasupportplus.com',
+            'address' => json_encode([]),
+            'is_active' => true,
+            'configs' => json_encode([]),
+        ]);
     }
 }

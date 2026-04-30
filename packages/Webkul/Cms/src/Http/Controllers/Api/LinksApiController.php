@@ -7,16 +7,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
 use Webkul\Admin\Http\Controllers\Controller;
 use Webkul\Cms\Concerns\InteractsWithCompanyDomain;
-use Webkul\Cms\Concerns\InteractsWithPagePayload;
-use Webkul\Cms\Http\Requests\PageRequest;
-use Webkul\Cms\Repositories\PageRepository;
+use Webkul\Cms\Concerns\InteractsWithLinkPayload;
+use Webkul\Cms\Http\Requests\LinkRequest;
+use Webkul\Cms\Repositories\LinkRepository;
 
-class PageApiController extends Controller
+class LinksApiController extends Controller
 {
     use InteractsWithCompanyDomain;
-    use InteractsWithPagePayload;
+    use InteractsWithLinkPayload;
 
-    public function __construct(protected PageRepository $pageRepository) {}
+    public function __construct(protected LinkRepository $linkRepository) {}
 
     public function index(Request $request): JsonResponse
     {
@@ -28,21 +28,13 @@ class PageApiController extends Controller
 
         $perPage = min(max((int) $request->input('per_page', 15), 1), 100);
 
-        $companyId = $request->input('company_id');
-
-        if ($this->isCompanyMismatch($resolvedCompanyId, $companyId)) {
-            return $this->companyMismatchResponse();
-        }
-
-        $query = $this->pageRepository->getModel()
+        $query = $this->linkRepository->getModel()
             ->newQuery()
             ->with('translations')
             ->orderByDesc('id');
 
         if ($resolvedCompanyId) {
             $query->where('company_id', $resolvedCompanyId);
-        } elseif ($companyId !== null && $companyId !== '') {
-            $query->where('company_id', (int) $companyId);
         }
 
         return response()->json($query->paginate($perPage));
@@ -56,18 +48,19 @@ class PageApiController extends Controller
             return $this->invalidDomainResponse();
         }
 
-        $page = $this->pageRepository->findOrFail($id);
+        $link = $this->linkRepository->findOrFail($id);
 
-        if ($this->isCompanyMismatch($resolvedCompanyId, $page->company_id)) {
+        if ($this->isCompanyMismatch($resolvedCompanyId, $link->company_id)) {
             return $this->companyMismatchResponse();
         }
 
-        $page->loadMissing('translations');
+        $link->loadMissing('translations');
 
-        return response()->json($page);
+        return response()->json($link);
     }
 
-    public function store(PageRequest $request): JsonResponse
+    // get links by linkable type and linkable id
+    public function getLinksByLinkableTypeAndLinkableId(Request $request, string $linkableType, int $linkableId): JsonResponse
     {
         $resolvedCompanyId = $this->resolvedCompanyId($request);
 
@@ -75,7 +68,30 @@ class PageApiController extends Controller
             return $this->invalidDomainResponse();
         }
 
-        Event::dispatch('cms.pages.create.before');
+        $perPage = min(max((int) $request->input('per_page', 15), 1), 100);
+
+        $links = $this->linkRepository->getModel()
+            ->newQuery()
+            ->where('linkable_type', $linkableType)
+            ->where('linkable_id', $linkableId)
+            ->orderByDesc('id');
+
+        if ($resolvedCompanyId) {
+            $links->where('company_id', $resolvedCompanyId);
+        }
+
+        return response()->json($links->paginate($perPage));
+    }
+
+    public function store(LinkRequest $request): JsonResponse
+    {
+        $resolvedCompanyId = $this->resolvedCompanyId($request);
+
+        if ($request->header('Domain') && ! $resolvedCompanyId) {
+            return $this->invalidDomainResponse();
+        }
+
+        Event::dispatch('cms.links.create.before');
 
         $data = $this->sanitizePayload($request->validated(), true);
 
@@ -87,16 +103,16 @@ class PageApiController extends Controller
             $data['company_id'] = $resolvedCompanyId;
         }
 
-        $page = $this->pageRepository->create($data);
+        $link = $this->linkRepository->create($data);
 
-        Event::dispatch('cms.pages.create.after', $page);
+        Event::dispatch('cms.links.create.after', $link);
 
-        $page->loadMissing('translations');
+        $link->loadMissing('translations');
 
-        return response()->json($page, 201);
+        return response()->json($link, 201);
     }
 
-    public function update(PageRequest $request, int $id): JsonResponse
+    public function update(LinkRequest $request, int $id): JsonResponse
     {
         $resolvedCompanyId = $this->resolvedCompanyId($request);
 
@@ -104,17 +120,17 @@ class PageApiController extends Controller
             return $this->invalidDomainResponse();
         }
 
-        Event::dispatch('cms.pages.update.before', $id);
+        Event::dispatch('cms.links.update.before', $id);
 
-        $page = $this->pageRepository->findOrFail($id);
+        $link = $this->linkRepository->findOrFail($id);
 
-        if ($this->isCompanyMismatch($resolvedCompanyId, $page->company_id)) {
+        if ($this->isCompanyMismatch($resolvedCompanyId, $link->company_id)) {
             return $this->companyMismatchResponse();
         }
 
         $data = $this->sanitizePayload($request->validated());
 
-        if ($this->isCompanyMismatch($resolvedCompanyId, $data['company_id'] ?? $page->company_id)) {
+        if ($this->isCompanyMismatch($resolvedCompanyId, $data['company_id'] ?? $link->company_id)) {
             return $this->companyMismatchResponse();
         }
 
@@ -122,13 +138,13 @@ class PageApiController extends Controller
             $data['company_id'] = $resolvedCompanyId;
         }
 
-        $page = $this->pageRepository->update($data, $id);
+        $link = $this->linkRepository->update($data, $id);
 
-        Event::dispatch('cms.pages.update.after', $page);
+        Event::dispatch('cms.links.update.after', $link);
 
-        $page->loadMissing('translations');
+        $link->loadMissing('translations');
 
-        return response()->json($page);
+        return response()->json($link);
     }
 
     public function destroy(Request $request, int $id): JsonResponse
@@ -139,20 +155,20 @@ class PageApiController extends Controller
             return $this->invalidDomainResponse();
         }
 
-        $page = $this->pageRepository->findOrFail($id);
+        $link = $this->linkRepository->findOrFail($id);
 
-        if ($this->isCompanyMismatch($resolvedCompanyId, $page->company_id)) {
+        if ($this->isCompanyMismatch($resolvedCompanyId, $link->company_id)) {
             return $this->companyMismatchResponse();
         }
 
-        Event::dispatch('cms.pages.delete.before', $id);
+        Event::dispatch('cms.links.delete.before', $id);
 
-        $page?->delete();
+        $link?->delete();
 
-        Event::dispatch('cms.pages.delete.after', $id);
+        Event::dispatch('cms.links.delete.after', $id);
 
         return response()->json([
-            'message' => trans('cms::app.pages.messages.delete-success'),
+            'message' => trans('cms::app.links.messages.delete-success'),
         ]);
     }
 }

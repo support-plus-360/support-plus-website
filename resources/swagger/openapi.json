@@ -5,17 +5,28 @@
     "version": "1.0.0",
     "description": "OpenAPI document for documented HTTP APIs. Admin session cookies apply to routes under the admin path unless otherwise noted."
   },
+  "servers": [
+    {
+      "url": "/",
+      "description": "Same-origin server"
+    }
+  ],
+  "security": [
+    {
+      "domainHeader": []
+    }
+  ],
   "paths": {
     "/cms/api/pages": {
       "get": {
-        "tags": ["CMS — Pages"],
+        "tags": [
+          "CMS — Pages"
+        ],
         "summary": "List CMS pages",
         "description": "Paginated list. Requires an authenticated admin user with the `cms.pages` permission.",
         "parameters": [
           {
-            "name": "per_page",
-            "in": "query",
-            "schema": { "type": "integer", "minimum": 1, "maximum": 100, "default": 15 }
+            "$ref": "#/components/parameters/PerPage"
           }
         ],
         "responses": {
@@ -23,22 +34,30 @@
             "description": "Paginated page collection with translations",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/LaravelLengthAwarePaginator" }
+                "schema": {
+                  "$ref": "#/components/schemas/CmsPagePaginator"
+                }
               }
             }
           },
-          "403": { "$ref": "#/components/responses/Forbidden" }
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
         }
       },
       "post": {
-        "tags": ["CMS — Pages"],
+        "tags": [
+          "CMS — Pages"
+        ],
         "summary": "Create CMS page",
         "description": "Requires `cms.pages.create`.",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/CmsPageWrite" }
+              "schema": {
+                "$ref": "#/components/schemas/CmsPageWrite"
+              }
             }
           }
         },
@@ -47,43 +66,69 @@
             "description": "Created",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/CmsPage" }
+                "schema": {
+                  "$ref": "#/components/schemas/CmsPage"
+                }
               }
             }
           },
-          "403": { "$ref": "#/components/responses/Forbidden" },
-          "422": { "$ref": "#/components/responses/ValidationError" }
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationError"
+          }
         }
       }
     },
     "/cms/api/pages/{id}": {
       "get": {
-        "tags": ["CMS — Pages"],
+        "tags": [
+          "CMS — Pages"
+        ],
         "summary": "Get CMS page",
-        "parameters": [{ "$ref": "#/components/parameters/CmsPageId" }],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/CmsPageId"
+          }
+        ],
         "responses": {
           "200": {
             "description": "Page with translations",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/CmsPage" }
+                "schema": {
+                  "$ref": "#/components/schemas/CmsPage"
+                }
               }
             }
           },
-          "403": { "$ref": "#/components/responses/Forbidden" },
-          "404": { "$ref": "#/components/responses/NotFound" }
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
         }
       },
       "put": {
-        "tags": ["CMS — Pages"],
+        "tags": [
+          "CMS — Pages"
+        ],
         "summary": "Update CMS page",
         "description": "Requires `cms.pages.edit`.",
-        "parameters": [{ "$ref": "#/components/parameters/CmsPageId" }],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/CmsPageId"
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/CmsPageWrite" }
+              "schema": {
+                "$ref": "#/components/schemas/CmsPageWrite"
+              }
             }
           }
         },
@@ -92,133 +137,2063 @@
             "description": "Updated page",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/CmsPage" }
+                "schema": {
+                  "$ref": "#/components/schemas/CmsPage"
+                }
               }
             }
           },
-          "403": { "$ref": "#/components/responses/Forbidden" },
-          "404": { "$ref": "#/components/responses/NotFound" },
-          "422": { "$ref": "#/components/responses/ValidationError" }
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationError"
+          }
         }
       },
       "delete": {
-        "tags": ["CMS — Pages"],
+        "tags": [
+          "CMS — Pages"
+        ],
         "summary": "Delete CMS page",
         "description": "Requires `cms.pages.delete`.",
-        "parameters": [{ "$ref": "#/components/parameters/CmsPageId" }],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/CmsPageId"
+          }
+        ],
         "responses": {
           "200": {
             "description": "Deleted",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": { "type": "string" }
-                  }
+                  "$ref": "#/components/schemas/DeleteMessage"
                 }
               }
             }
           },
-          "403": { "$ref": "#/components/responses/Forbidden" },
-          "404": { "$ref": "#/components/responses/NotFound" }
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
         }
+      }
+    },
+    "/cms/api/sections": {
+      "get": {
+        "tags": [
+          "CMS — Sections"
+        ],
+        "summary": "List CMS sections",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/PerPage"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Paginated sections collection",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CmsSectionPaginator"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "CMS — Sections"
+        ],
+        "summary": "Create CMS section",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CmsSectionWrite"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CmsSection"
+                }
+              }
+            }
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      }
+    },
+    "/cms/api/sections/{id}": {
+      "get": {
+        "tags": [
+          "CMS — Sections"
+        ],
+        "summary": "Get CMS section",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/CmsSectionId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Section",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CmsSection"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "CMS — Sections"
+        ],
+        "summary": "Update CMS section",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/CmsSectionId"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CmsSectionWrite"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated section",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CmsSection"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "CMS — Sections"
+        ],
+        "summary": "Delete CMS section",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/CmsSectionId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cms/api/items": {
+      "get": {
+        "tags": [
+          "CMS — Items"
+        ],
+        "summary": "List CMS items",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/PerPage"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Paginated items collection",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CmsItemPaginator"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "CMS — Items"
+        ],
+        "summary": "Create CMS item",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CmsItemWrite"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CmsItem"
+                }
+              }
+            }
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      }
+    },
+    "/cms/api/items/{id}": {
+      "get": {
+        "tags": [
+          "CMS — Items"
+        ],
+        "summary": "Get CMS item",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/CmsItemId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Item",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CmsItem"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "CMS — Items"
+        ],
+        "summary": "Update CMS item",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/CmsItemId"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CmsItemWrite"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated item",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CmsItem"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "CMS — Items"
+        ],
+        "summary": "Delete CMS item",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/CmsItemId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cms/api/links": {
+      "get": {
+        "tags": [
+          "CMS — Links"
+        ],
+        "summary": "List CMS links",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/PerPage"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Paginated links collection",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CmsLinkPaginator"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "CMS — Links"
+        ],
+        "summary": "Create CMS link",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CmsLinkWrite"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CmsLink"
+                }
+              }
+            }
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      }
+    },
+    "/cms/api/links/{id}": {
+      "get": {
+        "tags": [
+          "CMS — Links"
+        ],
+        "summary": "Get CMS link",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/CmsLinkId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Link",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CmsLink"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "CMS — Links"
+        ],
+        "summary": "Update CMS link",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/CmsLinkId"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CmsLinkWrite"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated link",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CmsLink"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "CMS — Links"
+        ],
+        "summary": "Delete CMS link",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/CmsLinkId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cms/api/blog-categories": {
+      "get": {
+        "tags": [
+          "CMS — Blog Categories"
+        ],
+        "summary": "List blog categories",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/PerPage"
+          },
+          {
+            "name": "company_id",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Paginated blog category collection",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CmsBlogCategoryPaginator"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "CMS — Blog Categories"
+        ],
+        "summary": "Create blog category",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CmsBlogCategoryWrite"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CmsBlogCategory"
+                }
+              }
+            }
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      }
+    },
+    "/cms/api/blog-categories/{id}": {
+      "get": {
+        "tags": [
+          "CMS — Blog Categories"
+        ],
+        "summary": "Get blog category",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/CmsBlogCategoryId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Blog category",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CmsBlogCategory"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "CMS — Blog Categories"
+        ],
+        "summary": "Update blog category",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/CmsBlogCategoryId"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CmsBlogCategoryWrite"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated blog category",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CmsBlogCategory"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "CMS — Blog Categories"
+        ],
+        "summary": "Delete blog category",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/CmsBlogCategoryId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cms/api/blog-posts": {
+      "get": {
+        "tags": [
+          "CMS — Blog Posts"
+        ],
+        "summary": "List blog posts",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/PerPage"
+          },
+          {
+            "name": "company_id",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Paginated blog post collection",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CmsBlogPostPaginator"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "CMS — Blog Posts"
+        ],
+        "summary": "Create blog post",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CmsBlogPostWrite"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CmsBlogPost"
+                }
+              }
+            }
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      }
+    },
+    "/cms/api/blog-posts/{id}": {
+      "get": {
+        "tags": [
+          "CMS — Blog Posts"
+        ],
+        "summary": "Get blog post",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/CmsBlogPostId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Blog post",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CmsBlogPost"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "CMS — Blog Posts"
+        ],
+        "summary": "Update blog post",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/CmsBlogPostId"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CmsBlogPostWrite"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated blog post",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CmsBlogPost"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "CMS — Blog Posts"
+        ],
+        "summary": "Delete blog post",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/CmsBlogPostId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cms/api/sections/page/{pageId}": {
+      "get": {
+        "tags": [
+          "CMS — Sections"
+        ],
+        "summary": "List sections",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "name": "pageId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 15
+            }
+          }
+        ]
+      }
+    },
+    "/cms/api/items/section/{sectionId}": {
+      "get": {
+        "tags": [
+          "CMS — Items"
+        ],
+        "summary": "List items",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "name": "sectionId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 15
+            }
+          }
+        ]
+      }
+    },
+    "/cms/api/links/linkable/{linkableType}/{linkableId}": {
+      "get": {
+        "tags": [
+          "CMS — Links"
+        ],
+        "summary": "List links",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "name": "linkableType",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "page",
+                "section",
+                "item"
+              ]
+            }
+          },
+          {
+            "name": "linkableId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 15
+            }
+          }
+        ]
+      }
+    },
+    "/cms/api/blog-posts/category/{categoryId}": {
+      "get": {
+        "tags": [
+          "CMS — Blog Posts"
+        ],
+        "summary": "List blog posts",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "name": "categoryId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 15
+            }
+          }
+        ]
       }
     }
   },
   "components": {
+    "securitySchemes": {
+      "domainHeader": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "Domain",
+        "description": "Domain header used to resolve company website host (example: company.test or https://company.test)."
+      },
+      "cookieAuth": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "laravel_session",
+        "description": "Laravel session cookie for authenticated admin APIs."
+      }
+    },
     "parameters": {
+      "PerPage": {
+        "name": "per_page",
+        "in": "query",
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100,
+          "default": 15
+        }
+      },
       "CmsPageId": {
         "name": "id",
         "in": "path",
         "required": true,
-        "schema": { "type": "integer" }
+        "schema": {
+          "type": "integer"
+        }
+      },
+      "CmsSectionId": {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      "CmsItemId": {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      "CmsLinkId": {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      "CmsBlogCategoryId": {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      "CmsBlogPostId": {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
       }
     },
     "schemas": {
-      "CmsPageTranslation": {
+      "DeleteMessage": {
         "type": "object",
         "properties": {
-          "locale": { "type": "string", "example": "en" },
-          "title": { "type": "string" },
-          "meta_description": { "type": "string", "nullable": true },
-          "meta_keywords": { "type": "string", "nullable": true }
+          "message": {
+            "type": "string"
+          }
         }
+      },
+      "CmsTranslationBase": {
+        "type": "object",
+        "properties": {
+          "locale": {
+            "type": "string",
+            "example": "en"
+          }
+        }
+      },
+      "CmsPageTranslation": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CmsTranslationBase"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "meta_description": {
+                "type": "string",
+                "nullable": true
+              },
+              "meta_keywords": {
+                "type": "string",
+                "nullable": true
+              }
+            }
+          }
+        ]
+      },
+      "CmsSectionTranslation": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CmsTranslationBase"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "subtitle": {
+                "type": "string",
+                "nullable": true
+              },
+              "description": {
+                "type": "string",
+                "nullable": true
+              }
+            }
+          }
+        ]
+      },
+      "CmsItemTranslation": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CmsTranslationBase"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "sub_title": {
+                "type": "string",
+                "nullable": true
+              },
+              "content": {
+                "type": "string",
+                "nullable": true
+              },
+              "icon": {
+                "type": "string",
+                "nullable": true
+              }
+            }
+          }
+        ]
+      },
+      "CmsLinkTranslation": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CmsTranslationBase"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
+      "CmsBlogCategoryTranslation": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CmsTranslationBase"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string",
+                "nullable": true
+              }
+            }
+          }
+        ]
+      },
+      "CmsBlogPostTranslation": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CmsTranslationBase"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "excerpt": {
+                "type": "string",
+                "nullable": true
+              },
+              "content": {
+                "type": "string",
+                "nullable": true
+              },
+              "meta_title": {
+                "type": "string",
+                "nullable": true
+              },
+              "meta_description": {
+                "type": "string",
+                "nullable": true
+              },
+              "meta_keywords": {
+                "type": "string",
+                "nullable": true
+              },
+              "og_title": {
+                "type": "string",
+                "nullable": true
+              },
+              "og_description": {
+                "type": "string",
+                "nullable": true
+              }
+            }
+          }
+        ]
       },
       "CmsPage": {
         "type": "object",
-        "description": "CMS page model (fields vary with app version).",
         "additionalProperties": true,
         "properties": {
-          "id": { "type": "integer" },
-          "slug": { "type": "string" },
-          "name": { "type": "string" },
-          "is_active": { "type": "boolean" },
-          "order": { "type": "integer" },
-          "type": { "type": "string", "enum": ["page", "service", "case_study", "industry"] },
-          "status": { "type": "string", "enum": ["draft", "published", "archived"] },
-          "published_at": { "type": "string", "format": "date-time", "nullable": true },
-          "author_id": { "type": "integer", "nullable": true },
+          "id": {
+            "type": "integer"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "is_active": {
+            "type": "boolean"
+          },
+          "order": {
+            "type": "integer"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "page",
+              "service",
+              "case_study",
+              "industry"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "draft",
+              "published",
+              "archived"
+            ]
+          },
+          "published_at": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "author_id": {
+            "type": "integer",
+            "nullable": true
+          },
           "translations": {
             "type": "array",
-            "items": { "$ref": "#/components/schemas/CmsPageTranslation" }
+            "items": {
+              "$ref": "#/components/schemas/CmsPageTranslation"
+            }
+          }
+        }
+      },
+      "CmsSection": {
+        "type": "object",
+        "additionalProperties": true,
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "page_id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "is_active": {
+            "type": "boolean"
+          },
+          "order": {
+            "type": "integer"
+          },
+          "template": {
+            "type": "string",
+            "nullable": true
+          },
+          "settings": {
+            "type": "object",
+            "nullable": true,
+            "additionalProperties": true
+          },
+          "company_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "translations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CmsSectionTranslation"
+            }
+          }
+        }
+      },
+      "CmsItem": {
+        "type": "object",
+        "additionalProperties": true,
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "section_id": {
+            "type": "integer"
+          },
+          "type": {
+            "type": "string"
+          },
+          "settings": {
+            "type": "object",
+            "nullable": true,
+            "additionalProperties": true
+          },
+          "is_active": {
+            "type": "boolean"
+          },
+          "order": {
+            "type": "integer"
+          },
+          "company_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "translations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CmsItemTranslation"
+            }
+          }
+        }
+      },
+      "CmsLink": {
+        "type": "object",
+        "additionalProperties": true,
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "linkable_type": {
+            "type": "string"
+          },
+          "linkable_id": {
+            "type": "integer"
+          },
+          "link": {
+            "type": "string"
+          },
+          "icon": {
+            "type": "string",
+            "nullable": true
+          },
+          "target": {
+            "type": "string",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "is_active": {
+            "type": "boolean"
+          },
+          "order": {
+            "type": "integer"
+          },
+          "company_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "translations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CmsLinkTranslation"
+            }
+          }
+        }
+      },
+      "CmsBlogCategory": {
+        "type": "object",
+        "additionalProperties": true,
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "is_active": {
+            "type": "boolean"
+          },
+          "order": {
+            "type": "integer"
+          },
+          "company_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "translations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CmsBlogCategoryTranslation"
+            }
+          }
+        }
+      },
+      "CmsBlogPost": {
+        "type": "object",
+        "additionalProperties": true,
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "draft",
+              "published",
+              "archived"
+            ]
+          },
+          "published_at": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "is_featured": {
+            "type": "boolean"
+          },
+          "reading_time_minutes": {
+            "type": "integer",
+            "nullable": true
+          },
+          "allow_comments": {
+            "type": "boolean"
+          },
+          "views_count": {
+            "type": "integer"
+          },
+          "canonical_url": {
+            "type": "string",
+            "nullable": true
+          },
+          "is_indexable": {
+            "type": "boolean"
+          },
+          "is_active": {
+            "type": "boolean"
+          },
+          "order": {
+            "type": "integer"
+          },
+          "author_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "company_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "translations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CmsBlogPostTranslation"
+            }
           }
         }
       },
       "CmsPageWrite": {
         "type": "object",
-        "required": ["slug", "name", "type", "status", "translations"],
+        "required": [
+          "slug",
+          "name",
+          "type",
+          "status",
+          "translations"
+        ],
         "properties": {
-          "slug": { "type": "string", "maxLength": 255 },
-          "name": { "type": "string", "maxLength": 255 },
-          "is_active": { "type": "boolean" },
-          "order": { "type": "integer", "minimum": 0 },
-          "type": { "type": "string", "enum": ["page", "service", "case_study", "industry"] },
-          "status": { "type": "string", "enum": ["draft", "published", "archived"] },
-          "published_at": { "type": "string", "format": "date-time", "nullable": true },
-          "author_id": { "type": "integer", "nullable": true },
+          "slug": {
+            "type": "string",
+            "maxLength": 255
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 255
+          },
+          "is_active": {
+            "type": "boolean"
+          },
+          "order": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "page",
+              "service",
+              "case_study",
+              "industry"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "draft",
+              "published",
+              "archived"
+            ]
+          },
+          "published_at": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "author_id": {
+            "type": "integer",
+            "nullable": true
+          },
           "translations": {
             "type": "object",
             "additionalProperties": {
               "type": "object",
-              "required": ["title"],
+              "required": [
+                "title"
+              ],
               "properties": {
-                "title": { "type": "string", "maxLength": 255 },
-                "meta_description": { "type": "string" },
-                "meta_keywords": { "type": "string", "maxLength": 255 }
-              }
-            },
-            "example": {
-              "en": {
-                "title": "About us",
-                "meta_description": "Company overview",
-                "meta_keywords": "about,company"
+                "title": {
+                  "type": "string",
+                  "maxLength": 255
+                },
+                "meta_description": {
+                  "type": "string"
+                },
+                "meta_keywords": {
+                  "type": "string",
+                  "maxLength": 255
+                }
               }
             }
           }
         }
       },
-      "LaravelLengthAwarePaginator": {
+      "CmsSectionWrite": {
+        "type": "object",
+        "required": [
+          "name",
+          "page_id",
+          "type",
+          "translations"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 255
+          },
+          "page_id": {
+            "type": "integer"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "default",
+              "hero",
+              "gallery",
+              "testimonial",
+              "industry"
+            ]
+          },
+          "is_active": {
+            "type": "boolean"
+          },
+          "order": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "template": {
+            "type": "string",
+            "maxLength": 255
+          },
+          "settings": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "company_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "translations": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "required": [
+                "title"
+              ],
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "maxLength": 255
+                },
+                "subtitle": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "CmsItemWrite": {
+        "type": "object",
+        "required": [
+          "section_id",
+          "type",
+          "translations"
+        ],
+        "properties": {
+          "section_id": {
+            "type": "integer"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "default",
+              "card",
+              "feature",
+              "testimonial",
+              "industry"
+            ]
+          },
+          "settings": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "is_active": {
+            "type": "boolean"
+          },
+          "order": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "company_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "translations": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "required": [
+                "title"
+              ],
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "maxLength": 255
+                },
+                "sub_title": {
+                  "type": "string"
+                },
+                "content": {
+                  "type": "string"
+                },
+                "icon": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "CmsLinkWrite": {
+        "type": "object",
+        "required": [
+          "linkable_type",
+          "linkable_id",
+          "link",
+          "translations"
+        ],
+        "properties": {
+          "linkable_type": {
+            "type": "string"
+          },
+          "linkable_id": {
+            "type": "integer"
+          },
+          "link": {
+            "type": "string",
+            "maxLength": 2048
+          },
+          "icon": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 255
+          },
+          "target": {
+            "type": "string",
+            "enum": [
+              "_self",
+              "_blank",
+              "_parent",
+              "_top"
+            ]
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "social",
+              "contact",
+              "quick",
+              "custom"
+            ]
+          },
+          "is_active": {
+            "type": "boolean"
+          },
+          "order": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "company_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "translations": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "required": [
+                "name",
+                "locale"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "maxLength": 255
+                },
+                "locale": {
+                  "type": "string",
+                  "enum": [
+                    "en",
+                    "ar"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "CmsBlogCategoryWrite": {
+        "type": "object",
+        "required": [
+          "slug",
+          "name",
+          "translations"
+        ],
+        "properties": {
+          "slug": {
+            "type": "string",
+            "maxLength": 255
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 255
+          },
+          "is_active": {
+            "type": "boolean"
+          },
+          "order": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "company_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "translations": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "required": [
+                "title"
+              ],
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "maxLength": 255
+                },
+                "description": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "CmsBlogPostWrite": {
+        "type": "object",
+        "required": [
+          "slug",
+          "status",
+          "cms_blog_category_ids",
+          "translations"
+        ],
+        "properties": {
+          "slug": {
+            "type": "string",
+            "maxLength": 255
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "draft",
+              "published",
+              "archived"
+            ]
+          },
+          "published_at": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "is_featured": {
+            "type": "boolean"
+          },
+          "reading_time_minutes": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 32767
+          },
+          "allow_comments": {
+            "type": "boolean"
+          },
+          "views_count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "canonical_url": {
+            "type": "string",
+            "maxLength": 2048,
+            "nullable": true
+          },
+          "is_indexable": {
+            "type": "boolean"
+          },
+          "is_active": {
+            "type": "boolean"
+          },
+          "order": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "author_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "company_id": {
+            "type": "integer",
+            "nullable": true
+          },
+          "cms_blog_category_ids": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "integer"
+            }
+          },
+          "translations": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "required": [
+                "title"
+              ],
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "maxLength": 255
+                },
+                "excerpt": {
+                  "type": "string"
+                },
+                "content": {
+                  "type": "string"
+                },
+                "meta_title": {
+                  "type": "string",
+                  "maxLength": 255
+                },
+                "meta_description": {
+                  "type": "string"
+                },
+                "meta_keywords": {
+                  "type": "string",
+                  "maxLength": 512
+                },
+                "og_title": {
+                  "type": "string",
+                  "maxLength": 255
+                },
+                "og_description": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "PaginatorBase": {
         "type": "object",
         "description": "Standard Laravel paginator JSON shape.",
         "properties": {
-          "current_page": { "type": "integer" },
+          "current_page": {
+            "type": "integer"
+          },
           "data": {
             "type": "array",
-            "items": { "$ref": "#/components/schemas/CmsPage" }
+            "items": {}
           },
-          "first_page_url": { "type": "string" },
-          "from": { "type": "integer", "nullable": true },
-          "last_page": { "type": "integer" },
-          "last_page_url": { "type": "string" },
-          "links": { "type": "array", "items": { "type": "object" } },
-          "next_page_url": { "type": "string", "nullable": true },
-          "path": { "type": "string" },
-          "per_page": { "type": "integer" },
-          "prev_page_url": { "type": "string", "nullable": true },
-          "to": { "type": "integer", "nullable": true },
-          "total": { "type": "integer" }
+          "first_page_url": {
+            "type": "string"
+          },
+          "from": {
+            "type": "integer",
+            "nullable": true
+          },
+          "last_page": {
+            "type": "integer"
+          },
+          "last_page_url": {
+            "type": "string"
+          },
+          "links": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "next_page_url": {
+            "type": "string",
+            "nullable": true
+          },
+          "path": {
+            "type": "string"
+          },
+          "per_page": {
+            "type": "integer"
+          },
+          "prev_page_url": {
+            "type": "string",
+            "nullable": true
+          },
+          "to": {
+            "type": "integer",
+            "nullable": true
+          },
+          "total": {
+            "type": "integer"
+          }
         }
+      },
+      "CmsPagePaginator": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/PaginatorBase"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "data": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/CmsPage"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "CmsSectionPaginator": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/PaginatorBase"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "data": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/CmsSection"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "CmsItemPaginator": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/PaginatorBase"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "data": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/CmsItem"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "CmsLinkPaginator": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/PaginatorBase"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "data": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/CmsLink"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "CmsBlogCategoryPaginator": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/PaginatorBase"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "data": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/CmsBlogCategory"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "CmsBlogPostPaginator": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/PaginatorBase"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "data": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/CmsBlogPost"
+                }
+              }
+            }
+          }
+        ]
       }
     },
     "responses": {
