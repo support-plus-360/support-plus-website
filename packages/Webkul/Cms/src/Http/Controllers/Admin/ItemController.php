@@ -7,6 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Event;
 use Illuminate\View\View;
 use Webkul\Admin\Http\Controllers\Controller;
+use Webkul\Cms\Concerns\InteractsWithCmsMedia;
 use Webkul\Cms\Concerns\InteractsWithItemPayload;
 use Webkul\Cms\DataGrids\ItemDataGrid;
 use Webkul\Cms\Http\Requests\ItemRequest;
@@ -16,7 +17,7 @@ use Webkul\Cms\Models\Section;
 
 class ItemController extends Controller
 {
-    use InteractsWithItemPayload;
+    use InteractsWithCmsMedia, InteractsWithItemPayload;
 
     public function __construct(protected ItemRepository $itemRepository) {}
 
@@ -45,6 +46,7 @@ class ItemController extends Controller
         $data = $this->sanitizePayload($request->validated(), true);
 
         $item = $this->itemRepository->create($data);
+        $this->syncMediaFromRequest($request, $item);
 
         Event::dispatch('cms.items.create.after', $item);
 
@@ -73,6 +75,7 @@ class ItemController extends Controller
         $data = $this->sanitizePayload($request->validated());
 
         $item = $this->itemRepository->update($data, $id);
+        $this->syncMediaFromRequest($request, $item);
 
         Event::dispatch('cms.items.update.after', $item);
 
@@ -118,6 +121,8 @@ public function forceDelete(int $id): JsonResponse
 
     Event::dispatch('cms.items.forceDelete.before', $id);
 
+    $item?->clearMediaCollection('main_media');
+    $item?->clearMediaCollection('gallery');
     $item?->forceDelete();
 
 

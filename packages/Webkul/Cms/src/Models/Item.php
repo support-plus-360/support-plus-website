@@ -4,13 +4,15 @@ namespace Webkul\Cms\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 use Webkul\Cms\Contracts\Item as ItemContract;
 use Webkul\Core\Eloquent\TranslatableModel;
 use Webkul\Company\Models\Company;
 
-class Item extends TranslatableModel implements ItemContract
+class Item extends TranslatableModel implements HasMedia, ItemContract
 {
-    use SoftDeletes;
+    use InteractsWithMedia, SoftDeletes;
 
     protected $table = 'cms_items';
 

@@ -105,6 +105,11 @@
 		</div>
 	</div>
 
+    @include('cms::components.media-manager', [
+        'entity' => $blogCategory ?? null,
+        'uid' => 'blog-category-media-manager',
+    ])
+
 	<div class="flex w-full flex-col gap-2">
 		<x-admin::accordion>
 			<x-slot:header>

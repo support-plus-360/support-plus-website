@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\View\View;
 use Webkul\Admin\Http\Controllers\Controller;
 use Webkul\Cms\Concerns\InteractsWithBlogCategoryPayload;
+use Webkul\Cms\Concerns\InteractsWithCmsMedia;
 use Webkul\Cms\DataGrids\BlogCategoryDataGrid;
 use Webkul\Cms\Http\Requests\BlogCategoryRequest;
 use Webkul\Cms\Repositories\BlogCategoryRepository;
@@ -16,7 +17,7 @@ use Webkul\Cms\Models\BlogCategory;
 
 class BlogCategoryController extends Controller
 {
-    use InteractsWithBlogCategoryPayload;
+    use InteractsWithBlogCategoryPayload, InteractsWithCmsMedia;
 
     public function __construct(protected BlogCategoryRepository $blogCategoryRepository) {}
 
@@ -44,6 +45,7 @@ class BlogCategoryController extends Controller
         $data = $this->sanitizePayload($request->validated(), true);
 
         $blogCategory = $this->blogCategoryRepository->create($data);
+        $this->syncMediaFromRequest($request, $blogCategory);
 
         Event::dispatch('cms.blog-categories.create.after', $blogCategory);
 
@@ -71,6 +73,7 @@ class BlogCategoryController extends Controller
         $data = $this->sanitizePayload($request->validated());
 
         $blogCategory = $this->blogCategoryRepository->update($data, $id);
+        $this->syncMediaFromRequest($request, $blogCategory);
 
         Event::dispatch('cms.blog-categories.update.after', $blogCategory);
 
@@ -116,6 +119,8 @@ public function forceDelete(int $id): JsonResponse
 
     Event::dispatch('cms.blog-categories.forceDelete.before', $id);
 
+    $blogCategory?->clearMediaCollection('main_media');
+    $blogCategory?->clearMediaCollection('gallery');
     $blogCategory?->forceDelete();
 
 

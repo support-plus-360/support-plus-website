@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\View\View;
 use Webkul\Admin\Http\Controllers\Controller;
 use Webkul\Cms\Concerns\InteractsWithBlogPostPayload;
+use Webkul\Cms\Concerns\InteractsWithCmsMedia;
 use Webkul\Cms\DataGrids\BlogPostDataGrid;
 use Webkul\Cms\Http\Requests\BlogPostRequest;
 use Webkul\Cms\Repositories\BlogPostRepository;
@@ -18,7 +19,7 @@ use Webkul\Cms\Models\BlogPost;
 
 class BlogPostController extends Controller
 {
-    use InteractsWithBlogPostPayload;
+    use InteractsWithBlogPostPayload, InteractsWithCmsMedia;
 
     public function __construct(protected BlogPostRepository $blogPostRepository) {}
 
@@ -48,6 +49,7 @@ class BlogPostController extends Controller
         $data = $this->sanitizePayload($request->validated(), true);
 
         $blogPost = $this->blogPostRepository->create($data);
+        $this->syncMediaFromRequest($request, $blogPost);
 
         Event::dispatch('cms.blog-posts.create.after', $blogPost);
 
@@ -79,6 +81,7 @@ class BlogPostController extends Controller
         $data = $this->sanitizePayload(Arr::except($validated, ['cms_blog_category_ids']));
 
         $blogPost = $this->blogPostRepository->update($data, $id);
+        $this->syncMediaFromRequest($request, $blogPost);
         $blogPost->blogCategories()->sync($categoryIds);
 
         Event::dispatch('cms.blog-posts.update.after', $blogPost);
@@ -125,6 +128,8 @@ public function forceDelete(int $id): JsonResponse
 
     Event::dispatch('cms.blog-posts.forceDelete.before', $id);
 
+    $blogPost?->clearMediaCollection('main_media');
+    $blogPost?->clearMediaCollection('gallery');
     $blogPost?->forceDelete();
 
 

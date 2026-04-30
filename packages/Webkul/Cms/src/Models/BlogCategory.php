@@ -5,13 +5,15 @@ namespace Webkul\Cms\Models;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 use Webkul\Cms\Contracts\BlogCategory as BlogCategoryContract;
 use Webkul\Core\Eloquent\TranslatableModel;
 use Webkul\Company\Models\Company;
 
-class BlogCategory extends TranslatableModel implements BlogCategoryContract
+class BlogCategory extends TranslatableModel implements HasMedia, BlogCategoryContract
 {
-    use SoftDeletes;
+    use InteractsWithMedia, SoftDeletes;
 
     protected $table = 'cms_blog_categories';
 

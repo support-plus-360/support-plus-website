@@ -194,6 +194,11 @@ $publishedValue = '';
 		</div>
 	</div>
 
+    @include('cms::components.media-manager', [
+        'entity' => $blogPost ?? null,
+        'uid' => 'blog-post-media-manager',
+    ])
+
 	<div class="flex w-full flex-col gap-2">
 		<x-admin::accordion>
 			<x-slot:header>

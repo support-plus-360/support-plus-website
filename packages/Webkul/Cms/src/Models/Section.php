@@ -4,12 +4,15 @@ namespace Webkul\Cms\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 use Webkul\Cms\Contracts\Section as SectionContract;
 use Webkul\Core\Eloquent\TranslatableModel;
+use Webkul\Company\Models\Company;
 
-class Section extends TranslatableModel implements SectionContract
+class Section extends TranslatableModel implements HasMedia, SectionContract
 {
-    use SoftDeletes;
+    use InteractsWithMedia, SoftDeletes;
 
     protected $table = 'cms_sections';
 

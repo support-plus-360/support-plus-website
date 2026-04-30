@@ -34,6 +34,23 @@ class SectionRequest extends FormRequest
             'translations.*.title' => ['required', 'string', 'max:255'],
             'translations.*.subtitle' => ['nullable', 'string'],
             'translations.*.description' => ['nullable', 'string'],
+            'main_media' => ['nullable', 'file', 'mimetypes:image/jpeg,image/png,image/webp,image/gif,video/mp4,video/webm,video/quicktime,video/x-msvideo'],
+            'main_media_alt' => ['nullable', 'string', 'max:255'],
+            'delete_main_media' => ['nullable', 'boolean'],
+            'gallery_existing' => ['nullable', 'array'],
+            'gallery_existing.*.id' => ['required_with:gallery_existing', 'integer', 'exists:media,id'],
+            'gallery_existing.*.media_alt' => ['nullable', 'string', 'max:255'],
+            'gallery_existing.*.order' => ['required', 'integer', 'min:1'],
+            'gallery_existing.*.delete' => ['nullable', 'boolean'],
+            'gallery_new' => ['nullable', 'array'],
+            'gallery_new.*.file' => ['nullable', 'file', 'mimetypes:image/jpeg,image/png,image/webp,image/gif,video/mp4,video/webm,video/quicktime,video/x-msvideo'],
+            'gallery_new.*.media_alt' => ['nullable', 'string', 'max:255'],
+            'gallery_new.*.order' => ['required', 'integer', 'min:1'],
+            'gallery_files' => ['nullable', 'array'],
+            'gallery_files.*' => ['nullable', 'file', 'mimetypes:image/jpeg,image/png,image/webp,image/gif,video/mp4,video/webm,video/quicktime,video/x-msvideo'],
+            'gallery_files_meta' => ['nullable', 'array'],
+            'gallery_files_meta.*.media_alt' => ['nullable', 'string', 'max:255'],
+            'gallery_files_meta.*.order' => ['required_with:gallery_files.*', 'integer', 'min:1'],
         ];
     }
 

@@ -198,6 +198,11 @@
         </div>
     </div>
 
+    @include('cms::components.media-manager', [
+        'entity' => $section ?? null,
+        'uid' => 'section-media-manager',
+    ])
+
     <div class="flex w-full flex-col gap-2">
         <x-admin::accordion>
             <x-slot:header>

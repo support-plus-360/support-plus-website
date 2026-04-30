@@ -5,13 +5,15 @@ namespace Webkul\Cms\Models;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 use Webkul\Cms\Contracts\BlogPost as BlogPostContract;
 use Webkul\Core\Eloquent\TranslatableModel;
 use Webkul\Company\Models\Company;
 
-class BlogPost extends TranslatableModel implements BlogPostContract
+class BlogPost extends TranslatableModel implements HasMedia, BlogPostContract
 {
-    use SoftDeletes;
+    use InteractsWithMedia, SoftDeletes;
 
     protected $table = 'cms_blog_posts';
 

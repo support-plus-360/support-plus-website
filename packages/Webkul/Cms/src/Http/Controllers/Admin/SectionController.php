@@ -7,6 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Event;
 use Illuminate\View\View;
 use Webkul\Admin\Http\Controllers\Controller;
+use Webkul\Cms\Concerns\InteractsWithCmsMedia;
 use Webkul\Cms\DataGrids\SectionDataGrid;
 use Webkul\Cms\Http\Requests\SectionRequest;
 use Webkul\Cms\Repositories\SectionRepository;
@@ -14,6 +15,8 @@ use Webkul\Cms\Models\Page;
 use Webkul\Company\Models\Company;
 class SectionController extends Controller
 {
+    use InteractsWithCmsMedia;
+
     public function __construct(protected SectionRepository $sectionRepository) {}
 
     public function index(): View|JsonResponse
@@ -43,6 +46,7 @@ class SectionController extends Controller
         $data = $this->sanitizePayload($request->validated(), true);
 
         $section = $this->sectionRepository->create($data);
+        $this->syncMediaFromRequest($request, $section);
 
         Event::dispatch('cms.sections.create.after', $section);
 
@@ -73,6 +77,7 @@ class SectionController extends Controller
         $data = $this->sanitizePayload($request->validated());
 
         $section = $this->sectionRepository->update($data, $id);
+        $this->syncMediaFromRequest($request, $section);
 
         Event::dispatch('cms.sections.update.after', $section);
 
@@ -119,6 +124,8 @@ public function forceDelete(int $id): JsonResponse
 
     Event::dispatch('cms.sections.forceDelete.before', $id);
 
+    $section?->clearMediaCollection('main_media');
+    $section?->clearMediaCollection('gallery');
     $section?->forceDelete();
 
 
