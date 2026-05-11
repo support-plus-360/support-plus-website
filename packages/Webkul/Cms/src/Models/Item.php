@@ -3,6 +3,7 @@
 namespace Webkul\Cms\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -33,6 +34,7 @@ class Item extends TranslatableModel implements HasMedia, ItemContract
     protected $fillable = [
         'section_id',
         'type',
+        'settings',
         'order',
         'is_active',
         'company_id',
@@ -41,6 +43,7 @@ class Item extends TranslatableModel implements HasMedia, ItemContract
     protected $casts = [
         'is_active'    => 'boolean',
         'order'        => 'integer',
+        'settings'     => 'array',
     ];
 
     public function section(): BelongsTo
@@ -51,5 +54,16 @@ class Item extends TranslatableModel implements HasMedia, ItemContract
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class, 'company_id');
+    }
+
+    public function links(): MorphMany
+    {
+        return $this->morphMany(Link::class, 'linkable')->orderBy('order');
+    }
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('main_media')->singleFile();
+        $this->addMediaCollection('gallery');
     }
 }

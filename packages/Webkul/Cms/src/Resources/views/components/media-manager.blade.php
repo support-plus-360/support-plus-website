@@ -1,26 +1,33 @@
 @php
     $entity = $entity ?? null;
     $uid = $uid ?? 'cms-media-' . uniqid();
+    $mainOnly = $mainOnly ?? false;
+    $namePrefix = $namePrefix ?? '';
+    $field = fn (string $name) => $namePrefix !== '' ? $namePrefix.'['.$name.']' : $name;
+    $dotOldPrefix = $namePrefix !== '' ? preg_replace('/\[([^\]]*)\]/', '.$1', $namePrefix) : '';
+    $oldField = fn (string $leaf) => $dotOldPrefix !== '' ? $dotOldPrefix.'.'.$leaf : $leaf;
     $mainMedia = $entity?->getFirstMedia('main_media');
-    $galleryMedia = $entity ? $entity->getMedia('gallery')->sortBy('order_column') : collect();
+    $galleryMedia = $mainOnly ? collect() : ($entity ? $entity->getMedia('gallery')->sortBy('order_column') : collect());
     $nextGalleryOrder = max(1, ((int) $galleryMedia->max('order_column')) + 1);
-    $mainMediaAlt = old('main_media_alt', $mainMedia?->getCustomProperty('media_alt'));
-    $oldDeleteMain = old('delete_main_media');
+    $mainMediaAlt = old($oldField('main_media_alt'), $mainMedia?->getCustomProperty('media_alt'));
+    $oldDeleteMain = old($oldField('delete_main_media'));
 @endphp
 
 <div class="box-shadow rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-900">
     <div class="mb-4 flex items-center justify-between gap-2">
         <div>
             <p class="text-base font-semibold text-gray-800 dark:text-white">Media</p>
-            <p class="text-xs text-gray-500 dark:text-gray-400">Manage main media and gallery assets.</p>
+            <p class="text-xs text-gray-500 dark:text-gray-400">
+                {{ $mainOnly ? 'Main image or video (optional).' : 'Manage main media and gallery assets.' }}
+            </p>
         </div>
     </div>
 
-    <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
+    <div class="{{ $mainOnly ? 'grid grid-cols-1 gap-4' : 'grid grid-cols-1 gap-4 lg:grid-cols-2' }}">
         <div class="rounded-md border border-gray-200 p-4 dark:border-gray-800">
             <p class="mb-3 text-sm font-semibold text-gray-800 dark:text-white">Main Media (optional)</p>
 
-            <input type="hidden" name="delete_main_media" value="{{ $oldDeleteMain ? 1 : 0 }}" data-main-delete-flag="{{ $uid }}">
+            <input type="hidden" name="{{ $field('delete_main_media') }}" value="{{ $oldDeleteMain ? 1 : 0 }}" data-main-delete-flag="{{ $uid }}">
             <div class="relative mb-3 overflow-hidden rounded-md border border-gray-200 dark:border-gray-700 {{ $mainMedia && ! $oldDeleteMain ? '' : 'hidden' }}" data-main-media-preview="{{ $uid }}">
                 @if($mainMedia && ! $oldDeleteMain)
                     <button
@@ -40,24 +47,25 @@
             </div>
 
             <div class="flex flex-col gap-3">
-                <input type="file" name="main_media" accept="image/*,video/*" data-main-media-input="{{ $uid }}" class="w-full rounded-md border border-gray-300 px-3 py-2 text-sm dark:border-gray-700 dark:bg-gray-950 dark:text-gray-200">
-                <x-admin::form.control-group.error control-name="main_media" />
+                <input type="file" name="{{ $field('main_media') }}" accept="image/*,video/*" data-main-media-input="{{ $uid }}" class="cms-section-preview-trigger w-full rounded-md border border-gray-300 px-3 py-2 text-sm dark:border-gray-700 dark:bg-gray-950 dark:text-gray-200">
+                <x-admin::form.control-group.error :control-name="$oldField('main_media')" />
 
                 <x-admin::form.control-group class="!mb-0">
                     <x-admin::form.control-group.label>Main Media Alt (optional)</x-admin::form.control-group.label>
                     <x-admin::form.control-group.control
                         type="text"
-                        name="main_media_alt"
+                        name="{{ $field('main_media_alt') }}"
                         id="{{ $uid }}_main_media_alt"
                         :value="$mainMediaAlt"
                         label="Main Media Alt"
                     />
-                    <x-admin::form.control-group.error control-name="main_media_alt" />
+                    <x-admin::form.control-group.error :control-name="$oldField('main_media_alt')" />
                 </x-admin::form.control-group>
 
             </div>
         </div>
 
+        @if (! $mainOnly)
         <div class="rounded-md border border-gray-200 p-4 dark:border-gray-800">
             <div class="mb-3 flex items-center justify-between">
                 <p class="text-sm font-semibold text-gray-800 dark:text-white">Gallery (optional)</p>
@@ -126,6 +134,7 @@
                 @endforeach
             </div>
         </div>
+        @endif
     </div>
 
 </div>

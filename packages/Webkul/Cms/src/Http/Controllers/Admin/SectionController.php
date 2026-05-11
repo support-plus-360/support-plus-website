@@ -36,7 +36,10 @@ class SectionController extends Controller
 
         $companies = Company::select('id', 'name')->get();
 
-        return view('cms::sections.create', compact('locales', 'pages', 'companies'));
+        $sectionLayouts = config('cms.section_layouts.layouts', []);
+        $defaultSectionLayout = config('cms.section_layouts.default', array_key_first($sectionLayouts) ?: 'home_hero');
+
+        return view('cms::sections.create', compact('locales', 'pages', 'companies', 'sectionLayouts', 'defaultSectionLayout'));
     }
 
     public function store(SectionRequest $request): RedirectResponse
@@ -67,7 +70,10 @@ class SectionController extends Controller
 
 	$companies = Company::select('id', 'name')->get();
 
-        return view('cms::sections.edit', compact('section', 'locales', 'pages', 'companies'));
+        $sectionLayouts = config('cms.section_layouts.layouts', []);
+        $defaultSectionLayout = config('cms.section_layouts.default', array_key_first($sectionLayouts) ?: 'home_hero');
+
+        return view('cms::sections.edit', compact('section', 'locales', 'pages', 'companies', 'sectionLayouts', 'defaultSectionLayout'));
     }
 
     public function update(SectionRequest $request, int $id): RedirectResponse

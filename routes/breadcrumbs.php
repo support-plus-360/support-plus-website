@@ -481,6 +481,11 @@ Breadcrumbs::for('cms.pages.edit', function (BreadcrumbTrail $trail, $page) {
     $trail->push(trans('cms::app.pages.edit.title'), route('admin.cms.pages.edit', $page->id));
 });
 
+Breadcrumbs::for('cms.pages.builder', function (BreadcrumbTrail $trail, $page) {
+    $trail->parent('cms.pages');
+    $trail->push(trans('cms::app.pages.builder.title'), route('admin.cms.pages.builder', $page->id));
+});
+
 
 // Dashboard > CMS > Sections
 Breadcrumbs::for('cms.sections', function (BreadcrumbTrail $trail) {

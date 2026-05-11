@@ -14,6 +14,10 @@ class CmsServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->publishes([
+            __DIR__.'/../Resources/assets/builder-layout-previews' => public_path('vendor/webkul/cms/builder-layout-previews'),
+        ], 'cms-builder-layout-previews');
+
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
 
         $this->loadRoutesFrom(__DIR__ . '/../Routes/web.php');
@@ -52,6 +56,14 @@ class CmsServiceProvider extends ServiceProvider
 
         $this->mergeConfigFrom(
             dirname(__DIR__) . '/Config/acl.php', 'acl'
+        );
+
+        $this->mergeConfigFrom(
+            dirname(__DIR__) . '/Config/section_layouts.php', 'cms.section_layouts'
+        );
+
+        $this->mergeConfigFrom(
+            dirname(__DIR__) . '/Config/cms_section_layout_renderers.php', 'cms.section_layout_renderers'
         );
     }
 }

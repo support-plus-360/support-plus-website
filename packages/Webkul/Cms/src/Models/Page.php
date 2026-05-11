@@ -3,9 +3,12 @@
 namespace Webkul\Cms\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Webkul\Cms\Contracts\Page as PageContract;
 use Webkul\Core\Eloquent\TranslatableModel;
+use Webkul\Company\Models\Company;
 
 class Page extends TranslatableModel implements PageContract
 {
@@ -52,6 +55,18 @@ class Page extends TranslatableModel implements PageContract
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class, 'company_id');
+    }
+
+    public function sections(): HasMany
+    {
+        return $this->hasMany(Section::class, 'page_id')
+            ->orderBy('order')
+            ->with('translations');
+    }
+
+    public function links(): MorphMany
+    {
+        return $this->morphMany(Link::class, 'linkable')->orderBy('order');
     }
 }
 

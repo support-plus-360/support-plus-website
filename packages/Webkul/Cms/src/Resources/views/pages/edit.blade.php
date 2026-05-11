@@ -18,6 +18,15 @@
                 </div>
 
                 <div class="flex items-center gap-x-2.5">
+                    @if (bouncer()->hasPermission('cms.pages.edit'))
+                        <a
+                            href="{{ route('admin.cms.pages.builder', $page->id) }}"
+                            class="secondary-button"
+                        >
+                            @lang('cms::app.pages.builder.open-btn')
+                        </a>
+                    @endif
+
                     <button type="submit" class="primary-button">
                         @lang('cms::app.pages.edit.save-btn')
                     </button>

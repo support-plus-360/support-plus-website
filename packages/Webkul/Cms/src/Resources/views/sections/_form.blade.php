@@ -97,47 +97,28 @@
                     <x-admin::form.control-group.error control-name="name" />
                 </x-admin::form.control-group>
 
-	<!-- type select with options : default, hero, gallery, testimonial, industry -->
                     <x-admin::form.control-group>
                         <x-admin::form.control-group.label class="required">
-                            @lang('cms::app.sections.form.type')
+                            @lang('cms::app.sections.form.section_layout')
                         </x-admin::form.control-group.label>
-                      <!-- type select with options : default, hero, gallery, testimonial, industry -->
                         <x-admin::form.control-group.control
                             type="select"
-                            id="type"
-                            name="type"
+                            id="section_layout"
+                            name="section_layout"
                             rules="required"
-                            :value="old('type') ?? ($section?->type ?? '')"
-                            :label="trans('cms::app.sections.form.type')"
+                            :value="old('section_layout') ?? ($section?->section_layout ?? ($defaultSectionLayout ?? ''))"
+                            :label="trans('cms::app.sections.form.section_layout')"
                         >
-                            <option value="default">Default</option>
-                            <option value="hero">Hero</option>
-                            <option value="gallery">Gallery</option>
-                            <option value="testimonial">Testimonial</option>
-                            <option value="industry">Industry</option>
+                            @foreach ($sectionLayouts ?? [] as $layoutKey => $layoutMeta)
+                                <option value="{{ $layoutKey }}">{{ $layoutMeta['label'] ?? $layoutKey }}</option>
+                            @endforeach
                         </x-admin::form.control-group.control>
 
-                        <x-admin::form.control-group.error control-name="type" />
+                        <x-admin::form.control-group.error control-name="section_layout" />
                     </x-admin::form.control-group>
                 </div>
 
                 <div class="grid grid-cols-3 gap-4">
-                    <x-admin::form.control-group>
-                        <x-admin::form.control-group.label>
-                            @lang('cms::app.sections.form.template')
-                        </x-admin::form.control-group.label>
-
-                        <x-admin::form.control-group.control
-                            type="text"
-                            id="template"
-                            name="template"
-                            :value="old('template') ?? ($section?->template ?? '')"
-                            :label="trans('cms::app.sections.form.template')"
-                        />
-
-                        <x-admin::form.control-group.error control-name="template" />
-                    </x-admin::form.control-group>
 
                     <x-admin::form.control-group>
                         <x-admin::form.control-group.label>
@@ -201,6 +182,7 @@
     @include('cms::components.media-manager', [
         'entity' => $section ?? null,
         'uid' => 'section-media-manager',
+        'mainOnly' => true,
     ])
 
     <div class="flex w-full flex-col gap-2">

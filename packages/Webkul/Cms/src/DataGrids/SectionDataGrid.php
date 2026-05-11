@@ -27,8 +27,7 @@ class SectionDataGrid extends DataGrid
             ->addSelect(
                 'cms_sections.id',
                 'cms_sections.page_id',
-                'cms_sections.type',
-                'cms_sections.template',
+                'cms_sections.section_layout',
                 'cms_sections.settings',
                 'cms_sections.order',
                 'cms_sections.is_active',
@@ -46,8 +45,7 @@ class SectionDataGrid extends DataGrid
             ->groupBy(
                 'cms_sections.id',
                 'cms_sections.page_id',
-                'cms_sections.type',
-                'cms_sections.template',
+                'cms_sections.section_layout',
                 'cms_sections.settings',
                 'cms_sections.order',
                 'cms_sections.is_active',
@@ -61,8 +59,7 @@ class SectionDataGrid extends DataGrid
 
         $this->addFilter('id', 'cms_sections.id');
         $this->addFilter('page_name', 'cms_sections.page_name');
-        $this->addFilter('type', 'cms_sections.type');
-        $this->addFilter('template', 'cms_sections.template');
+        $this->addFilter('section_layout', 'cms_sections.section_layout');
         $this->addFilter('settings', 'cms_sections.settings');
         $this->addFilter('order', 'cms_sections.order');
         $this->addFilter('is_active', 'cms_sections.is_active');
@@ -105,8 +102,8 @@ class SectionDataGrid extends DataGrid
         ]);
 
         $this->addColumn([
-            'index'      => 'type',
-            'label'      => trans('cms::app.sections.datagrid.type'),
+            'index'      => 'section_layout',
+            'label'      => trans('cms::app.sections.datagrid.section_layout'),
             'type'       => 'string',
             'filterable' => true,
             'sortable'   => true,

@@ -6,6 +6,12 @@
     dir="{{ in_array(app()->getLocale(), ['fa', 'ar']) ? 'rtl' : 'ltr' }}"
 >
 
+<!-- tailwind css -->
+<link
+    href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+    rel="stylesheet"
+>
+
 <head>
 
     {!! view_render_event('admin.layout.head.before') !!}

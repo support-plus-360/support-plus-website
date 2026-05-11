@@ -132,6 +132,14 @@ class PageDataGrid extends DataGrid
                 'method' => 'GET',
                 'url'    => fn ($row) => $row->deleted_at ? null : route('admin.cms.pages.edit', $row->id),
             ]);
+
+            $this->addAction([
+                'index'  => 'builder',
+                'icon'   => 'icon-folder',
+                'title'  => trans('cms::app.pages.builder.open-btn'),
+                'method' => 'GET',
+                'url'    => fn ($row) => $row->deleted_at ? null : route('admin.cms.pages.builder', $row->id),
+            ]);
         }
 
         if (bouncer()->hasPermission('cms.pages.delete')) {

@@ -16,6 +16,11 @@ class SectionRequest extends FormRequest
     {
         $sectionId = $this->route('id');
 
+        $layoutKeys = array_keys(config('cms.section_layouts.layouts', []));
+        if ($layoutKeys === []) {
+            $layoutKeys = ['home_hero'];
+        }
+
         return [
             'name'         => [
                 'required',
@@ -24,10 +29,9 @@ class SectionRequest extends FormRequest
                 Rule::unique('cms_sections', 'name')->ignore($sectionId),
             ],
             'page_id'      => ['required', 'exists:cms_pages,id'],
-            'type'         => ['required', 'string', Rule::in(['default', 'hero', 'gallery', 'testimonial', 'industry'])],
+            'section_layout' => ['required', 'string', Rule::in($layoutKeys)],
             'is_active'    => ['nullable', 'boolean'],
             'order'        => ['nullable', 'integer', 'min:0'],
-            'template'     => ['nullable', 'string', 'max:255'],
             'settings'     => ['nullable', 'array'],
             'company_id'   => ['nullable', 'integer', 'exists:companies,id'],
             'translations' => ['required', 'array'],
@@ -66,9 +70,16 @@ class SectionRequest extends FormRequest
             }
         }
 
+        $defaultLayout = config('cms.section_layouts.default', 'home_hero');
+        $layoutKeys = array_keys(config('cms.section_layouts.layouts', []));
+        if (! is_string($defaultLayout) || $defaultLayout === '' || ! in_array($defaultLayout, $layoutKeys, true)) {
+            $defaultLayout = $layoutKeys[0] ?? 'home_hero';
+        }
+
         $this->merge([
-            'is_active' => (bool) $this->boolean('is_active'),
-            'order'     => $this->input('order') === null ? 0 : (int) $this->input('order'),
+            'is_active'       => (bool) $this->boolean('is_active'),
+            'order'           => $this->input('order') === null ? 0 : (int) $this->input('order'),
+            'section_layout'  => $this->filled('section_layout') ? $this->input('section_layout') : $defaultLayout,
         ]);
     }
 }

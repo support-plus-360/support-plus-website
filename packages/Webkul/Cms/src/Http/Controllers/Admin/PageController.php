@@ -123,8 +123,7 @@ public function forceDelete(int $id): JsonResponse
     return response()->json([
         'message' => trans('cms::app.pages.messages.forceDelete-success'),
     ]);
+}
 
-
-}  
 }
 

@@ -19,7 +19,15 @@ return [
     ], [
         'key'   => 'cms.pages.edit',
         'name'  => 'cms::app.acl.edit',
-        'route' => ['admin.cms.pages.edit', 'admin.cms.pages.update', 'admin.cms.api.pages.update'],
+        'route' => [
+            'admin.cms.pages.edit',
+            'admin.cms.pages.update',
+            'admin.cms.pages.builder',
+            'admin.cms.pages.builder.update',
+            'admin.cms.builder.layout-preview',
+            'admin.cms.api.pages.update',
+            'admin.cms.api.pages.builder',
+        ],
         'sort'  => 3,
     ], [
         'key'   => 'cms.pages.delete',

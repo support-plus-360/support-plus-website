@@ -21,7 +21,13 @@
                 </div>
             </div>
 
-            @include('cms::sections._form', ['section' => null, 'pages' => $pages, 'companies' => $companies])
+            @include('cms::sections._form', [
+                'section' => null,
+                'pages' => $pages,
+                'companies' => $companies,
+                'sectionLayouts' => $sectionLayouts,
+                'defaultSectionLayout' => $defaultSectionLayout,
+            ])
         </div>
     </x-admin::form>
 </x-admin::layouts>

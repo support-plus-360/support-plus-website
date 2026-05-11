@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Webkul\Cms\Http\Controllers\Api\PageApiController;
 use Webkul\Cms\Http\Controllers\Api\SectionApiController;
-use Webkul\Cms\Http\Controllers\Api\LinkApiController;
+use Webkul\Cms\Http\Controllers\Api\LinksApiController;
 use Webkul\Cms\Http\Controllers\Api\BlogCategoryApiController;
 use Webkul\Cms\Http\Controllers\Api\BlogPostApiController;
 use Webkul\Cms\Http\Controllers\Api\ItemApiController;
@@ -12,6 +12,7 @@ use Webkul\Cms\Http\Controllers\Api\ItemApiController;
 Route::prefix('cms/api/pages')->controller(PageApiController::class)->group(function () {
             Route::get('', 'index')->name('admin.cms.api.pages.index');
             Route::post('', 'store')->name('admin.cms.api.pages.store');
+            Route::put('{id}/builder', 'syncBuilder')->whereNumber('id')->name('admin.cms.api.pages.builder');
             Route::get('{id}', 'show')->whereNumber('id')->name('admin.cms.api.pages.show');
             Route::put('{id}', 'update')->whereNumber('id')->name('admin.cms.api.pages.update');
             Route::delete('{id}', 'destroy')->whereNumber('id')->name('admin.cms.api.pages.destroy');
@@ -40,7 +41,7 @@ Route::prefix('cms/api/items')->controller(ItemApiController::class)->group(func
 
 
 // links
-Route::prefix('cms/api/links')->controller(LinkApiController::class)->group(function () {
+Route::prefix('cms/api/links')->controller(LinksApiController::class)->group(function () {
             Route::get('', 'index')->name('admin.cms.api.links.index');
             Route::post('', 'store')->name('admin.cms.api.links.store');
             Route::get('{id}', 'show')->whereNumber('id')->name('admin.cms.api.links.show');

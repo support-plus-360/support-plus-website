@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Webkul\Cms\Http\Controllers\CmsController;
+use Webkul\Cms\Http\Controllers\Admin\PageBuilderController;
 use Webkul\Cms\Http\Controllers\Admin\PageController;
 use Webkul\Cms\Http\Controllers\Admin\SectionController;
 use Webkul\Cms\Http\Controllers\Admin\ItemController;
@@ -18,6 +19,15 @@ Route::middleware(['web', 'admin_locale', 'user'])
                 ->name('admin.cms.api.linkable-options');
 
             Route::get('', [CmsController::class, 'index'])->name('admin.cms.index');
+
+            Route::get('builder-layout-preview/{filename}', [PageBuilderController::class, 'layoutPreviewAsset'])
+                ->where('filename', '[a-zA-Z0-9._-]+')
+                ->name('admin.cms.builder.layout-preview');
+
+            Route::controller(PageBuilderController::class)->prefix('pages')->group(function () {
+                Route::get('{id}/builder', 'edit')->whereNumber('id')->name('admin.cms.pages.builder');
+                Route::put('{id}/builder', 'update')->whereNumber('id')->name('admin.cms.pages.builder.update');
+            });
 
             Route::controller(PageController::class)->prefix('pages')->group(function () {
                 Route::get('', 'index')->name('admin.cms.pages.index');

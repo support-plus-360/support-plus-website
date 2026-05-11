@@ -19,14 +19,13 @@ return new class extends Migration
             $table->foreign('company_id')->references('id')->on('companies')->nullOnDelete();
             $table->foreignId('page_id')->constrained('cms_pages')->onDelete('cascade');
             $table->string('name'); // Internal name for admin
-            $table->string('type')->default('default'); // 'default', 'hero', 'gallery', 'testimonial', etc.
-            $table->string('template')->nullable(); // Blade template name
-            $table->json('settings')->nullable(); // Additional settings (colors, layout, etc.)
+            $table->string('section_layout')->nullable(); // Page builder layout key (see cms.section_layouts)
+            $table->json('settings')->nullable(); // Additional settings (colors, etc.)
             $table->integer('order')->default(0);
             $table->boolean('is_active')->default(true);
             $table->timestamps();
             $table->softDeletes();
-	$table->index('company_id');
+            $table->index('company_id');
         });
     }
 

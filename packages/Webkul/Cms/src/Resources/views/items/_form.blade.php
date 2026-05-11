@@ -119,6 +119,7 @@
     @include('cms::components.media-manager', [
         'entity' => $item ?? null,
         'uid' => 'item-media-manager',
+        'mainOnly' => true,
     ])
 
     <div class="flex w-full flex-col gap-2">
