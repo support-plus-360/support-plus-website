@@ -172,7 +172,7 @@
                 </div>
             </div>
 
-            <div class="box-shadow rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-900">
+            <!-- <div class="box-shadow rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-900">
                 <p class="mb-3 text-base font-semibold text-gray-800 dark:text-white">@lang('cms::app.pages.form.general') — sync options</p>
                 <div class="flex flex-col gap-3 text-sm text-gray-700 dark:text-gray-300">
                     <input type="hidden" name="sync_sections" value="0" />
@@ -197,7 +197,7 @@
                         @lang('cms::app.pages.builder.prune-page-links-label')
                     </label>
                 </div>
-            </div>
+            </div> -->
 
             <div class="box-shadow rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-900">
                 <p class="mb-3 text-base font-semibold text-gray-800 dark:text-white">
