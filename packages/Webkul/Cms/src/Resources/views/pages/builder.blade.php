@@ -4,7 +4,7 @@
     $locales = $locales ?? ['en' => 'English', 'ar' => 'Arabic'];
     $firstLocale = array_key_first($locales);
     $sectionLayouts = $sectionLayouts ?? config('cms.section_layouts.layouts', []);
-    $defaultSectionLayout = $defaultSectionLayout ?? config('cms.section_layouts.default', array_key_first($sectionLayouts) ?: 'home_hero');
+    $defaultSectionLayout = $defaultSectionLayout ?? config('cms.section_layouts.default', array_key_first($sectionLayouts) ?: 'hero_section_style_1');
     $cmsBuilderLayoutPreview = $cmsBuilderLayoutPreview ?? \Webkul\Cms\Support\SectionLayoutPreview::scriptPayload($sectionLayouts);
 @endphp
 
@@ -237,6 +237,9 @@
                             ])
                         @endforelse
                     </div>
+                    <button type="button" class="secondary-button mt-2 w-fit text-xs" data-cms-add-page-link onclick="window.cmsBuilderAddPageLink && window.cmsBuilderAddPageLink(); return false;">
+                        @lang('cms::app.pages.builder.add-link')
+                    </button>
                 </x-slot>
             </x-admin::accordion>
 
@@ -412,6 +415,9 @@
                                     ])
                                 @endforeach
                             </div>
+                            <button type="button" class="secondary-button mt-2 w-fit text-xs" data-cms-add-section-link onclick="window.cmsBuilderAddSectionLink && window.cmsBuilderAddSectionLink(this); return false;">
+                                @lang('cms::app.pages.builder.add-link')
+                            </button>
                         </div>
 
                         <div class="mt-4">
@@ -540,10 +546,16 @@
                                                 ])
                                             @endforeach
                                         </div>
+                                        <button type="button" class="secondary-button mt-2 w-fit text-xs" data-cms-add-item-link onclick="window.cmsBuilderAddItemLink && window.cmsBuilderAddItemLink(this); return false;">
+                                            @lang('cms::app.pages.builder.add-link')
+                                        </button>
                                     </div>
                                     </div>
                                 </details>
                             @endforeach
+                            <button type="button" class="secondary-button mt-2 w-fit text-xs" data-cms-add-item onclick="window.cmsBuilderAddItem && window.cmsBuilderAddItem(this); return false;">
+                                @lang('cms::app.pages.builder.add-item')
+                            </button>
                         </div>
 
                                     </div>{{-- data-cms-section-editor --}}
@@ -729,6 +741,109 @@
         </div>
     </div>
 
+    {{-- Link template (used by add-link buttons) --}}
+    <div id="cms-link-template" class="hidden" aria-hidden="true">
+        @include('cms::pages.partials.builder-link', [
+            'namePrefix' => '__LINK_PREFIX__',
+            'oldPrefix' => '__LINK_OLD_PREFIX__',
+            'link' => null,
+            'tabGroupId' => '__LINK_TAB_GROUP__',
+            'locales' => $locales,
+            'showRemove' => true,
+        ])
+    </div>
+
+    {{-- Item template (used by add-item button) --}}
+    <div id="cms-item-template" class="hidden" aria-hidden="true">
+        <details
+            class="cms-builder-details cms-builder-details--item mb-4 rounded-lg border border-dashed border-gray-300 bg-gray-50 dark:border-gray-600 dark:bg-gray-900/30"
+            data-cms-item-index="__II__"
+            data-main-media-url=""
+            open
+        >
+            <summary class="cms-builder-details__summary cursor-pointer rounded-t-md border-b border-dashed border-gray-200 bg-white px-3 py-2 dark:border-gray-600 dark:bg-gray-900">
+                <div class="min-w-0 flex-1">
+                    <p class="text-sm font-semibold text-gray-800 dark:text-white" data-cms-item-heading>
+                        @lang('cms::app.menu.items')
+                    </p>
+                    <p class="truncate text-xs text-gray-500 dark:text-gray-400">—</p>
+                </div>
+                <button type="button" class="cms-builder-remove-btn shrink-0" data-cms-remove-item aria-label="@lang('cms::app.pages.builder.remove-item')">
+                    @lang('cms::app.pages.builder.remove-item')
+                </button>
+                <span class="cms-builder-details__chev" aria-hidden="true">▼</span>
+            </summary>
+            <div class="space-y-3 border-t-0 bg-white p-3 dark:bg-gray-900">
+                <input type="hidden" name="sections[__SI__][items][__II__][id]" value="" />
+                <div class="grid gap-3 md:grid-cols-2">
+                    <div>
+                        <label class="mb-1 block text-xs font-medium text-gray-600 dark:text-gray-300">@lang('cms::app.items.form.type')</label>
+                        <select name="sections[__SI__][items][__II__][type]" class="w-full rounded border border-gray-200 px-2 py-1.5 text-sm dark:border-gray-700 dark:bg-gray-900">
+                            @foreach ($itemTypes as $val => $label)
+                                <option value="{{ $val }}">{{ $label }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="flex items-end gap-2 pb-1">
+                        <label class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
+                            <input type="checkbox" name="sections[__SI__][items][__II__][is_active]" value="1" checked class="h-4 w-4 rounded border-gray-300" />
+                            @lang('cms::app.pages.form.active')
+                        </label>
+                    </div>
+                </div>
+                <div class="mt-3" data-cms-item-main-media>
+                    @include('cms::components.media-manager', [
+                        'entity' => null,
+                        'uid' => 'cms-builder-item-__SI__-__II__-media',
+                        'mainOnly' => true,
+                        'namePrefix' => 'sections[__SI__][items][__II__]',
+                    ])
+                </div>
+                @php($tplItemTabId = 'cms-builder-item-translations-__SI__-__II__')
+                <div class="mt-3">
+                    <p class="mb-2 text-xs font-semibold text-gray-700 dark:text-gray-300">
+                        @lang('cms::app.menu.items') — @lang('cms::app.pages.form.translations')
+                    </p>
+                    <div class="mb-3 flex flex-wrap gap-2">
+                        @foreach ($locales as $locale => $localeLabel)
+                            <button
+                                type="button"
+                                class="cms-locale-tab rounded-md border border-gray-200 px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-800 dark:text-gray-200 dark:hover:bg-gray-950 {{ $locale === $firstLocale ? 'bg-gray-100 dark:bg-gray-950 text-gray-900 dark:text-white' : '' }}"
+                                data-tab-group="{{ $tplItemTabId }}"
+                                data-tab="{{ $locale }}"
+                            >
+                                {{ $localeLabel }} ({{ $locale }})
+                            </button>
+                        @endforeach
+                    </div>
+                    @foreach ($locales as $locale => $localeLabel)
+                        <div
+                            class="cms-locale-panel {{ $locale === $firstLocale ? '' : 'hidden' }}"
+                            data-tab-group="{{ $tplItemTabId }}"
+                            data-tab-panel="{{ $locale }}"
+                        >
+                            <label class="mb-1 block text-xs text-gray-600 dark:text-gray-300">@lang('cms::app.items.form.title')</label>
+                            <input type="text" name="sections[__SI__][items][__II__][translations][{{ $locale }}][title]" class="mb-2 w-full rounded border border-gray-200 px-2 py-1 text-sm dark:border-gray-700 dark:bg-gray-900" @if ($locale === 'en') required @endif />
+                            <label class="mb-1 block text-xs text-gray-600 dark:text-gray-300">@lang('cms::app.items.form.sub_title')</label>
+                            <input type="text" name="sections[__SI__][items][__II__][translations][{{ $locale }}][sub_title]" class="mb-2 w-full rounded border border-gray-200 px-2 py-1 text-sm dark:border-gray-700 dark:bg-gray-900" />
+                            <label class="mb-1 block text-xs text-gray-600 dark:text-gray-300">@lang('cms::app.items.form.content')</label>
+                            <textarea name="sections[__SI__][items][__II__][translations][{{ $locale }}][content]" rows="2" class="w-full rounded border border-gray-200 px-2 py-1 text-sm dark:border-gray-700 dark:bg-gray-900"></textarea>
+                            <label class="mb-1 mt-2 block text-xs text-gray-600 dark:text-gray-300">@lang('cms::app.items.form.icon')</label>
+                            <input type="text" name="sections[__SI__][items][__II__][translations][{{ $locale }}][icon]" class="w-full rounded border border-gray-200 px-2 py-1 text-sm dark:border-gray-700 dark:bg-gray-900" />
+                        </div>
+                    @endforeach
+                </div>
+                <div class="mt-3">
+                    <p class="mb-2 text-xs font-semibold text-gray-700 dark:text-gray-300">@lang('cms::app.pages.builder.links-heading') (@lang('cms::app.links.form.linkable_item'))</p>
+                    <div class="flex flex-col gap-3" data-cms-item-links></div>
+                    <button type="button" class="secondary-button mt-2 w-fit text-xs" data-cms-add-item-link onclick="window.cmsBuilderAddItemLink && window.cmsBuilderAddItemLink(this); return false;">
+                        @lang('cms::app.pages.builder.add-link')
+                    </button>
+                </div>
+            </div>
+        </details>
+    </div>
+
     @pushOnce('scripts', 'cms.builder.section-live-preview')
         <script>
             (() => {
@@ -820,11 +935,48 @@
                         } else if (isLikelyImgUrl && rawIcon) {
                             itemImageMarkup = `<img src="${esc(rawIcon)}" alt="${titleEsc}" class="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-125 group-hover:brightness-110" loading="lazy" decoding="async" />`;
                         }
+                        const initial = titleEsc ? titleEsc.charAt(0) : '?';
+                        let itemAvatarMarkup;
+                        if (itemMain) {
+                            itemAvatarMarkup = `<div class="relative h-12 w-12 shrink-0 overflow-hidden rounded-full border-2 border-cyan-400"><img src="${escUrl(itemMain)}" alt="${titleEsc}" class="h-full w-full object-cover" loading="lazy" decoding="async" /></div>`;
+                        } else if (isLikelyImgUrl && rawIcon) {
+                            itemAvatarMarkup = `<div class="relative h-12 w-12 shrink-0 overflow-hidden rounded-full border-2 border-cyan-400"><img src="${esc(rawIcon)}" alt="${titleEsc}" class="h-full w-full object-cover" loading="lazy" decoding="async" /></div>`;
+                        } else {
+                            itemAvatarMarkup = `<div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-blue-600 to-indigo-500"><span class="text-sm font-bold text-white">${initial}</span></div>`;
+                        }
+                        const calmBlueT2 = layoutKey === 'testimonials_section_style_2';
+                        const caseStudyS1 = layoutKey === 'case_study_section_style_1';
+                        const testimonialItemCount = data.items?.length ?? 0;
+                        let itemAvatarForTpl = itemAvatarMarkup;
+                        let itemCardSkin = '';
+                        if (caseStudyS1 && itemIndex % 2 === 1) {
+                            itemCardSkin = 'md:[&>.case-study-image]:order-2 md:[&>.case-study-content]:order-1';
+                        }
+                        if (calmBlueT2) {
+                            if (testimonialItemCount === 3) {
+                                if (itemIndex === 1) {
+                                    itemCardSkin = 'border-blue-500/30 bg-gradient-to-br from-[#04140e] to-[#000501] opacity-70 transition duration-300 hover:opacity-100 rounded-[30px]';
+                                    const twoInitials = titleEsc.length >= 2 ? titleEsc.slice(0, 2) : initial;
+                                    if (itemMain) {
+                                        itemAvatarForTpl = `<div class="relative h-10 w-10 shrink-0 overflow-hidden rounded-full border border-cyan-400/50 bg-cyan-400/20"><img src="${escUrl(itemMain)}" alt="${titleEsc}" class="h-full w-full object-cover" loading="lazy" decoding="async" /></div>`;
+                                    } else if (isLikelyImgUrl && rawIcon) {
+                                        itemAvatarForTpl = `<div class="relative h-10 w-10 shrink-0 overflow-hidden rounded-full border border-cyan-400/50 bg-cyan-400/20"><img src="${esc(rawIcon)}" alt="${titleEsc}" class="h-full w-full object-cover" loading="lazy" decoding="async" /></div>`;
+                                    } else {
+                                        itemAvatarForTpl = `<div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-cyan-400/50 bg-cyan-400/20"><span class="text-xs font-bold text-cyan-400">${twoInitials}</span></div>`;
+                                    }
+                                } else {
+                                    itemCardSkin = 'border-blue-500/30 bg-gradient-to-br from-[#1A1D4D] to-[#16172d] rounded-lg';
+                                    itemAvatarForTpl = '';
+                                }
+                            } else {
+                                itemCardSkin = 'border-blue-500/30 bg-gradient-to-br from-[#1A1D4D] to-[#16172d] rounded-lg';
+                            }
+                        }
                         const isub = it.sub_title && t.item_subtitle_section_when
                             ? applyTpl(t.item_subtitle_section_when, { ITEM_SUBTITLE: esc(it.sub_title) })
                             : '';
                         const icont = it.content && t.item_content_section_when
-                            ? applyTpl(t.item_content_section_when, { ITEM_CONTENT: esc(it.content) })
+                            ? applyTpl(t.item_content_section_when, { ITEM_CONTENT: t.item_content_raw ? it.content : esc(it.content) })
                             : '';
                         let itemLinksSection = '';
                         const itemLinks = it.links || [];
@@ -852,7 +1004,9 @@
                             ITEM_LINKS_SECTION: itemLinksSection,
                             ITEM_CARD_HREF: itemCardHref,
                             ITEM_IMAGE_MARKUP: itemImageMarkup,
-		         ITEM_COUNT: itemIndex + 1,
+                            ITEM_AVATAR_MARKUP: itemAvatarForTpl,
+                            ITEM_COUNT: itemIndex + 1,
+                            ITEM_CARD_SKIN: itemCardSkin,
                         });
                     }).join('');
 
@@ -868,7 +1022,7 @@
 
                 const syncLayoutPreviewThumb = (sectionRoot) => {
                     const sel = sectionRoot.querySelector('[data-cms-section-layout]');
-                    const layout = sel?.value || LAYOUT_FALLBACK || 'home_hero';
+                    const layout = sel?.value || LAYOUT_FALLBACK || 'hero_section_style_1';
                     const meta = layoutDefinition(layout) || {};
                     const fig = sectionRoot.querySelector('[data-cms-layout-preview-figure]');
                     const img = sectionRoot.querySelector('[data-cms-layout-preview-image]');
@@ -1105,7 +1259,7 @@
                     }
                     const locale = resolvePreviewLocale(sectionRoot);
                     const sel = sectionRoot.querySelector('[data-cms-section-layout]');
-                    const layout = sel?.value || LAYOUT_FALLBACK || 'home_hero';
+                    const layout = sel?.value || LAYOUT_FALLBACK || 'hero_section_style_1';
                     const payload = {
                         title: readField(sectionRoot, si, ['translations', locale, 'title']),
                         subtitle: readField(sectionRoot, si, ['translations', locale, 'subtitle']),
@@ -1497,6 +1651,138 @@
                 };
 
                 wireAddSectionDelegation();
+
+                /**
+                 * Shared helper: clone link template, replace placeholders, append to container, init tabs.
+                 */
+                const cloneLinkBlock = (container, namePrefix, oldPrefix, tabGroupId) => {
+                    const tpl = document.getElementById('cms-link-template');
+                    if (! tpl || ! container) {
+                        return;
+                    }
+                    let html = tpl.innerHTML
+                        .replaceAll('__LINK_PREFIX__', namePrefix)
+                        .replaceAll('__LINK_OLD_PREFIX__', oldPrefix)
+                        .replaceAll('__LINK_TAB_GROUP__', tabGroupId);
+                    const wrap = document.createElement('div');
+                    wrap.innerHTML = html.trim();
+                    const node = wrap.firstElementChild;
+                    if (node) {
+                        container.appendChild(node);
+                        const firstTab = node.querySelector('.cms-locale-tab[data-tab-group]');
+                        if (firstTab) {
+                            initGroup(firstTab.getAttribute('data-tab-group'));
+                        }
+                    }
+                };
+
+                /**
+                 * Add link to page-level links.
+                 */
+                window.cmsBuilderAddPageLink = () => {
+                    const container = document.querySelector('[data-cms-page-links]');
+                    if (! container) {
+                        return;
+                    }
+                    const idx = container.querySelectorAll('[data-cms-builder-link]').length;
+                    cloneLinkBlock(
+                        container,
+                        `page_links[${idx}]`,
+                        `page_links.${idx}`,
+                        `cms-builder-page-link-${idx}`
+                    );
+                };
+
+                /**
+                 * Add link to a section.
+                 */
+                window.cmsBuilderAddSectionLink = (btn) => {
+                    const sectionRoot = btn?.closest('[data-cms-section]');
+                    if (! sectionRoot) {
+                        return;
+                    }
+                    const si = sectionRoot.getAttribute('data-section-index');
+                    const container = btn.closest('[data-cms-section-editor]')
+                        ?.querySelector('[data-cms-section-links]')
+                        || sectionRoot.querySelector('[data-cms-section-links]');
+                    if (! container) {
+                        return;
+                    }
+                    const idx = container.querySelectorAll('[data-cms-builder-link]').length;
+                    cloneLinkBlock(
+                        container,
+                        `sections[${si}][links][${idx}]`,
+                        `sections.${si}.links.${idx}`,
+                        `cms-builder-section-${si}-link-${idx}`
+                    );
+                    debouncePreview(sectionRoot);
+                };
+
+                /**
+                 * Add link to an item.
+                 */
+                window.cmsBuilderAddItemLink = (btn) => {
+                    const sectionRoot = btn?.closest('[data-cms-section]');
+                    const itemEl = btn?.closest('[data-cms-item-index]');
+                    if (! sectionRoot || ! itemEl) {
+                        return;
+                    }
+                    const si = sectionRoot.getAttribute('data-section-index');
+                    const ii = itemEl.getAttribute('data-cms-item-index');
+                    const container = itemEl.querySelector('[data-cms-item-links]');
+                    if (! container) {
+                        return;
+                    }
+                    const idx = container.querySelectorAll('[data-cms-builder-link]').length;
+                    cloneLinkBlock(
+                        container,
+                        `sections[${si}][items][${ii}][links][${idx}]`,
+                        `sections.${si}.items.${ii}.links.${idx}`,
+                        `cms-builder-item-${si}-${ii}-link-${idx}`
+                    );
+                    debouncePreview(sectionRoot);
+                };
+
+                /**
+                 * Add item to a section.
+                 */
+                window.cmsBuilderAddItem = (btn) => {
+                    const sectionRoot = btn?.closest('[data-cms-section]');
+                    if (! sectionRoot) {
+                        return;
+                    }
+                    const si = sectionRoot.getAttribute('data-section-index');
+                    const itemsContainer = btn.parentElement;
+                    if (! itemsContainer) {
+                        return;
+                    }
+                    const existingItems = itemsContainer.querySelectorAll('details.cms-builder-details--item');
+                    const ii = existingItems.length;
+                    const tpl = document.getElementById('cms-item-template');
+                    if (! tpl) {
+                        return;
+                    }
+                    let html = tpl.innerHTML
+                        .replaceAll('__SI__', String(si))
+                        .replaceAll('__II__', String(ii));
+                    const wrap = document.createElement('div');
+                    wrap.innerHTML = html.trim();
+                    const node = wrap.firstElementChild;
+                    if (node) {
+                        btn.before(node);
+                        const h = node.querySelector('[data-cms-item-heading]');
+                        if (h) {
+                            h.textContent = `${CMS_BUILDER_LABELS.items} #${ii + 1}`;
+                        }
+                        node.querySelectorAll('.cms-locale-tab[data-tab-group]').forEach((tabBtn) => {
+                            const g = tabBtn.getAttribute('data-tab-group');
+                            if (g) {
+                                initGroup(g);
+                            }
+                        });
+                        debouncePreview(sectionRoot);
+                    }
+                };
             })();
         </script>
     @endPushOnce

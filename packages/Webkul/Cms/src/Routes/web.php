@@ -10,6 +10,8 @@ use Webkul\Cms\Http\Controllers\Admin\LinkController;
 use Webkul\Cms\Http\Controllers\Admin\LinkableOptionsController;
 use Webkul\Cms\Http\Controllers\Admin\BlogCategoryController;
 use Webkul\Cms\Http\Controllers\Admin\BlogPostController;
+use Webkul\Cms\Http\Controllers\Admin\NavMenuController;
+use Webkul\Cms\Http\Controllers\Admin\NavItemController;
 
 Route::middleware(['web', 'admin_locale', 'user'])
     ->prefix(config('app.admin_path'))
@@ -72,6 +74,28 @@ Route::middleware(['web', 'admin_locale', 'user'])
                 Route::delete('{id}', 'destroy')->name('admin.cms.links.delete');
                 Route::post('{id}/restore', 'restore')->name('admin.cms.links.restore');
                 Route::delete('{id}/forceDelete', 'forceDelete')->name('admin.cms.links.forceDelete');
+            });
+
+            Route::controller(NavMenuController::class)->prefix('nav-menus')->group(function () {
+                Route::get('', 'index')->name('admin.cms.nav-menus.index');
+                Route::get('create', 'create')->name('admin.cms.nav-menus.create');
+                Route::post('', 'store')->name('admin.cms.nav-menus.store');
+                Route::get('{id}/edit', 'edit')->whereNumber('id')->name('admin.cms.nav-menus.edit');
+                Route::put('{id}', 'update')->whereNumber('id')->name('admin.cms.nav-menus.update');
+                Route::delete('{id}', 'destroy')->whereNumber('id')->name('admin.cms.nav-menus.delete');
+                Route::post('{id}/restore', 'restore')->whereNumber('id')->name('admin.cms.nav-menus.restore');
+                Route::delete('{id}/forceDelete', 'forceDelete')->whereNumber('id')->name('admin.cms.nav-menus.forceDelete');
+            });
+
+            Route::controller(NavItemController::class)->prefix('nav-menus/{menuId}/items')->group(function () {
+                Route::get('', 'index')->whereNumber('menuId')->name('admin.cms.nav-menus.items.index');
+                Route::get('create', 'create')->whereNumber('menuId')->name('admin.cms.nav-menus.items.create');
+                Route::post('', 'store')->whereNumber('menuId')->name('admin.cms.nav-menus.items.store');
+                Route::get('{id}/edit', 'edit')->whereNumber(['menuId', 'id'])->name('admin.cms.nav-menus.items.edit');
+                Route::put('{id}', 'update')->whereNumber(['menuId', 'id'])->name('admin.cms.nav-menus.items.update');
+                Route::delete('{id}', 'destroy')->whereNumber(['menuId', 'id'])->name('admin.cms.nav-menus.items.delete');
+                Route::post('{id}/restore', 'restore')->whereNumber(['menuId', 'id'])->name('admin.cms.nav-menus.items.restore');
+                Route::delete('{id}/forceDelete', 'forceDelete')->whereNumber(['menuId', 'id'])->name('admin.cms.nav-menus.items.forceDelete');
             });
 
             Route::controller(BlogCategoryController::class)->prefix('blog-categories')->group(function () {

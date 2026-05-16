@@ -7,6 +7,7 @@ use Webkul\Cms\Http\Controllers\Api\LinksApiController;
 use Webkul\Cms\Http\Controllers\Api\BlogCategoryApiController;
 use Webkul\Cms\Http\Controllers\Api\BlogPostApiController;
 use Webkul\Cms\Http\Controllers\Api\ItemApiController;
+use Webkul\Cms\Http\Controllers\Api\NavMenuApiController;
 
 // pages
 Route::prefix('cms/api/pages')->controller(PageApiController::class)->group(function () {
@@ -49,6 +50,12 @@ Route::prefix('cms/api/links')->controller(LinksApiController::class)->group(fun
             Route::put('{id}', 'update')->whereNumber('id')->name('admin.cms.api.links.update');
             Route::delete('{id}', 'destroy')->whereNumber('id')->name('admin.cms.api.links.destroy');
         });
+
+// navigation menus
+Route::prefix('cms/api/nav-menus')->controller(NavMenuApiController::class)->group(function () {
+    Route::get('', 'index')->name('admin.cms.api.nav-menus.index');
+    Route::get('{key}', 'showByKey')->where('key', 'header|footer')->name('admin.cms.api.nav-menus.show');
+});
 
 // blog categories
 Route::prefix('cms/api/blog-categories')->controller(BlogCategoryApiController::class)->group(function () {

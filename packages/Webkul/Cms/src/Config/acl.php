@@ -34,6 +34,53 @@ return [
         'name'  => 'cms::app.acl.delete',
         'route' => ['admin.cms.pages.delete', 'admin.cms.api.pages.destroy'],
         'sort'  => 4,
+    ], [
+        'key'   => 'cms.nav-menus',
+        'name'  => 'cms::app.menu.nav-menus',
+        'route' => ['admin.cms.nav-menus.index', 'admin.cms.api.nav-menus.index', 'admin.cms.api.nav-menus.show'],
+        'sort'  => 5,
+    ], [
+        'key'   => 'cms.nav-menus.create',
+        'name'  => 'cms::app.acl.create',
+        'route' => ['admin.cms.nav-menus.create', 'admin.cms.nav-menus.store'],
+        'sort'  => 1,
+    ], [
+        'key'   => 'cms.nav-menus.edit',
+        'name'  => 'cms::app.acl.edit',
+        'route' => [
+            'admin.cms.nav-menus.edit',
+            'admin.cms.nav-menus.update',
+            'admin.cms.nav-menus.items.index',
+            'admin.cms.nav-menus.items.create',
+            'admin.cms.nav-menus.items.store',
+            'admin.cms.nav-menus.items.edit',
+            'admin.cms.nav-menus.items.update',
+        ],
+        'sort'  => 2,
+    ], [
+        'key'   => 'cms.nav-menus.delete',
+        'name'  => 'cms::app.acl.delete',
+        'route' => [
+            'admin.cms.nav-menus.delete',
+            'admin.cms.nav-menus.items.delete',
+        ],
+        'sort'  => 3,
+    ], [
+        'key'   => 'cms.nav-menus.restore',
+        'name'  => 'cms::app.acl.restore',
+        'route' => [
+            'admin.cms.nav-menus.restore',
+            'admin.cms.nav-menus.items.restore',
+        ],
+        'sort'  => 4,
+    ], [
+        'key'   => 'cms.nav-menus.forceDelete',
+        'name'  => 'cms::app.acl.forceDelete',
+        'route' => [
+            'admin.cms.nav-menus.forceDelete',
+            'admin.cms.nav-menus.items.forceDelete',
+        ],
+        'sort'  => 5,
     ],
     [
         'key'   => 'cms.blog-posts',

@@ -590,6 +590,37 @@ Breadcrumbs::for('cms.blog-posts.view', function (BreadcrumbTrail $trail, $blogP
     $trail->push('#'.$blogPost->id, route('admin.cms.blog-posts.index', $blogPost->id));
 });
 
+// Dashboard > CMS > Navigation Menus
+Breadcrumbs::for('cms.nav-menus', function (BreadcrumbTrail $trail) {
+    $trail->parent('cms');
+    $trail->push(trans('cms::app.nav-menus.index.title'), route('admin.cms.nav-menus.index'));
+});
+
+Breadcrumbs::for('cms.nav-menus.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('cms.nav-menus');
+    $trail->push(trans('cms::app.nav-menus.create.title'), route('admin.cms.nav-menus.create'));
+});
+
+Breadcrumbs::for('cms.nav-menus.edit', function (BreadcrumbTrail $trail, $navMenu) {
+    $trail->parent('cms.nav-menus');
+    $trail->push(trans('cms::app.nav-menus.edit.title'), route('admin.cms.nav-menus.edit', $navMenu->id));
+});
+
+Breadcrumbs::for('cms.nav-menus.items', function (BreadcrumbTrail $trail, $navMenu) {
+    $trail->parent('cms.nav-menus');
+    $trail->push($navMenu->name, route('admin.cms.nav-menus.items.index', $navMenu->id));
+});
+
+Breadcrumbs::for('cms.nav-menus.items.create', function (BreadcrumbTrail $trail, $navMenu) {
+    $trail->parent('cms.nav-menus.items', $navMenu);
+    $trail->push(trans('cms::app.nav-items.create.title'), route('admin.cms.nav-menus.items.create', $navMenu->id));
+});
+
+Breadcrumbs::for('cms.nav-menus.items.edit', function (BreadcrumbTrail $trail, $navMenu) {
+    $trail->parent('cms.nav-menus.items', $navMenu);
+    $trail->push(trans('cms::app.nav-items.edit.title'), route('admin.cms.nav-menus.items.index', $navMenu->id));
+});
+
 // Dashboard > Company
 Breadcrumbs::for('company', function (BreadcrumbTrail $trail) {
     $trail->parent('dashboard');

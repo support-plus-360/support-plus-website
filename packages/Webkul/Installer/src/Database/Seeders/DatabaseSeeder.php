@@ -16,6 +16,7 @@ use Webkul\Cms\Database\Seeders\CmsPageSeeder;
 use Webkul\Cms\Database\Seeders\CmsSectionSeeder;
 use Webkul\Cms\Database\Seeders\CmsItemSeeder;
 use Webkul\Cms\Database\Seeders\CmsLinkSeeder;
+use Webkul\Cms\Database\Seeders\CmsNavMenuSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -40,5 +41,6 @@ class DatabaseSeeder extends Seeder
         $this->call(CmsSectionSeeder::class, false, ['parameters' => $parameters]);
         $this->call(CmsItemSeeder::class, false, ['parameters' => $parameters]);
         $this->call(CmsLinkSeeder::class, false, ['parameters' => $parameters]);
+        $this->call(CmsNavMenuSeeder::class, false, ['parameters' => $parameters]);
     }
 }

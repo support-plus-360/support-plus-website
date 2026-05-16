@@ -49,4 +49,11 @@ return [
 		'sort'       => 6,
 		'icon-class' => 'icon-file',
 	],
+	[
+		'key'        => 'cms.nav-menus',
+		'name'       => 'cms::app.menu.nav-menus',
+		'route'      => 'admin.cms.nav-menus.index',
+		'sort'       => 7,
+		'icon-class' => 'icon-menu',
+	],
 ];

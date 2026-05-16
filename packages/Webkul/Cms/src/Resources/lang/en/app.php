@@ -9,6 +9,7 @@ return [
         'links' => 'Links',
         'blog-categories' => 'Blog Categories',
         'blog-posts'      => 'Blog Posts',
+        'nav-menus'       => 'Navigation',
         ],
 
     'acl' => [
@@ -315,6 +316,104 @@ return [
             'delete-success' => 'Blog Category deleted successfully.',
             'restore-success' => 'Blog Category restored successfully.',
             'forceDelete-success' => 'Blog Category permanently deleted.',
+        ],
+    ],
+
+    'nav-menus' => [
+        'index' => [
+            'title'      => 'Navigation Menus',
+            'create-btn' => 'Create Menu',
+        ],
+        'create' => [
+            'title'    => 'Create Navigation Menu',
+            'save-btn' => 'Save Menu',
+        ],
+        'edit' => [
+            'title'            => 'Edit Navigation Menu',
+            'save-btn'         => 'Save Menu',
+            'manage-items-btn' => 'Manage items',
+        ],
+        'form' => [
+            'general'      => 'General',
+            'company'      => 'Company',
+            'company_none' => 'No company (global)',
+            'name'         => 'Internal name',
+            'key'          => 'Placement',
+            'key_header'   => 'Header',
+            'key_footer'   => 'Footer',
+        ],
+        'datagrid' => [
+            'id'          => 'ID',
+            'name'        => 'Name',
+            'key'         => 'Placement',
+            'company'     => 'Company',
+            'items'       => 'Items',
+            'edit'        => 'Edit',
+            'delete'      => 'Delete',
+            'restore'     => 'Restore',
+            'forceDelete' => 'Delete permanently',
+        ],
+        'messages' => [
+            'create-success'    => 'Navigation menu created successfully.',
+            'update-success'    => 'Navigation menu updated successfully.',
+            'delete-success'    => 'Navigation menu deleted successfully.',
+            'restore-success'   => 'Navigation menu restored successfully.',
+            'forceDelete-success' => 'Navigation menu permanently deleted.',
+        ],
+    ],
+
+    'nav-items' => [
+        'index' => [
+            'title'         => 'Menu items: :menu',
+            'create-btn'    => 'Add item',
+            'back-to-menu'  => 'Back to menu',
+        ],
+        'create' => [
+            'title'    => 'Add navigation item',
+            'save-btn' => 'Save item',
+        ],
+        'edit' => [
+            'title'    => 'Edit navigation item',
+            'save-btn' => 'Save item',
+        ],
+        'form' => [
+            'general'           => 'Link target',
+            'general-hint'      => 'Link to a CMS page, an external URL, or leave both empty for a dropdown parent label only.',
+            'parent'            => 'Dropdown parent',
+            'parent_none'       => 'Top level (no parent)',
+            'page'              => 'CMS page',
+            'page_none'         => 'No page',
+            'url'               => 'External URL',
+            'url_placeholder'   => 'https://example.com or /custom-path',
+            'order'             => 'Order',
+            'active'            => 'Active',
+            'open_in_new_tab'   => 'Open in new tab',
+            'translations'      => 'Label override',
+            'translations-hint' => 'Optional. When empty, the page title is used for each locale.',
+            'label'             => 'Nav label',
+        ],
+        'datagrid' => [
+            'id'          => 'ID',
+            'label'       => 'Label',
+            'page'        => 'Page slug',
+            'url'         => 'URL',
+            'parent'      => 'Parent',
+            'order'       => 'Order',
+            'active'      => 'Active',
+            'edit'        => 'Edit',
+            'delete'      => 'Delete',
+            'restore'     => 'Restore',
+            'forceDelete' => 'Delete permanently',
+        ],
+        'validation' => [
+            'parent-cycle' => 'Cannot set parent: would create a circular reference.',
+        ],
+        'messages' => [
+            'create-success'      => 'Navigation item created successfully.',
+            'update-success'      => 'Navigation item updated successfully.',
+            'delete-success'      => 'Navigation item deleted successfully.',
+            'restore-success'     => 'Navigation item restored successfully.',
+            'forceDelete-success' => 'Navigation item permanently deleted.',
         ],
     ],
 

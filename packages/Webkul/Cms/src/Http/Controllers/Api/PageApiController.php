@@ -11,6 +11,7 @@ use Webkul\Cms\Concerns\InteractsWithCompanyDomain;
 use Webkul\Cms\Concerns\InteractsWithPagePayload;
 use Webkul\Cms\Http\Requests\PageBuilderRequest;
 use Webkul\Cms\Http\Requests\PageRequest;
+use Webkul\Cms\Http\Resources\PageResource;
 use Webkul\Cms\Repositories\PageRepository;
 use Webkul\Cms\Services\PageBuilderService;
 
@@ -45,7 +46,7 @@ class PageApiController extends Controller
         ];
     }
 
-    public function index(Request $request): JsonResponse
+    public function index(Request $request)
     {
         $resolvedCompanyId = $this->resolvedCompanyId($request);
 
@@ -63,10 +64,8 @@ class PageApiController extends Controller
 
         $query = $this->pageRepository->getModel()
             ->newQuery()
-            ->with(['translations', 'sections' => function ($query) {
-                $query->with('translations');
-            }])
-            ->orderByDesc('id');
+            ->with($this->pageNestedRelations())
+            ->orderBy('order', 'asc');
 
         if ($resolvedCompanyId) {
             $query->where('company_id', $resolvedCompanyId);
@@ -74,10 +73,10 @@ class PageApiController extends Controller
             $query->where('company_id', (int) $companyId);
         }
 
-        return response()->json($query->paginate($perPage));
+        return PageResource::collection($query->paginate($perPage));
     }
 
-    public function show(Request $request, int $id): JsonResponse
+    public function show(Request $request, int $id): PageResource|JsonResponse
     {
         $resolvedCompanyId = $this->resolvedCompanyId($request);
 
@@ -93,7 +92,7 @@ class PageApiController extends Controller
 
         $page->loadMissing($this->pageNestedRelations());
 
-        return response()->json($page);
+        return new PageResource($page);
     }
 
     public function syncBuilder(PageBuilderRequest $request, int $id): JsonResponse
@@ -154,10 +153,10 @@ class PageApiController extends Controller
         $page = $page->fresh();
         $page?->load($this->pageNestedRelations());
 
-        return response()->json($page);
+        return new PageResource($page);
     }
 
-    public function store(PageRequest $request): JsonResponse
+    public function store(PageRequest $request): PageResource|JsonResponse
     {
         $resolvedCompanyId = $this->resolvedCompanyId($request);
 
@@ -183,10 +182,10 @@ class PageApiController extends Controller
 
         $page->loadMissing('translations');
 
-        return response()->json($page, 201);
+        return (new PageResource($page))->response()->setStatusCode(201);
     }
 
-    public function update(PageRequest $request, int $id): JsonResponse
+    public function update(PageRequest $request, int $id): PageResource|JsonResponse
     {
         $resolvedCompanyId = $this->resolvedCompanyId($request);
 
@@ -218,7 +217,7 @@ class PageApiController extends Controller
 
         $page->loadMissing('translations');
 
-        return response()->json($page);
+        return new PageResource($page);
     }
 
     public function destroy(Request $request, int $id): JsonResponse

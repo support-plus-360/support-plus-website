@@ -14,9 +14,11 @@ class CmsSectionSeeder extends Seeder
      */
     public function run(): void
     {
+
+// home page sections
         $homeSection1 = Section::create([
             'name' => 'Home Page Section 1',
-            'section_layout' => 'home_hero',
+            'section_layout' => 'hero_section_style_1',
             'settings' => [],
             'is_active' => true,
             'order' => 1,
@@ -25,24 +27,23 @@ class CmsSectionSeeder extends Seeder
         ]);
 
 	SectionTranslation::create([
-	'cms_section_id'=>$homeSection1->id,
-	'locale'=>'en',
-	'title'=>'Scale Your Medical Practice With Precision',
-	'subtitle'=>'Strategic Healthcare Growth Partner',
-	'description'=>'Support Plus 360 provides specialized **Marketing**, **Software**, and **Call Center** solutions designed exclusively for healthcare providers to maximize revenue and patient trust.',
+		'cms_section_id'=>$homeSection1->id,
+		'locale'=>'en',
+		'title'=>'Scale Your Medical Practice With Precision',
+		'subtitle'=>'Strategic Healthcare Growth Partner',
+		'description'=>'Support Plus 360 provides specialized **Marketing**, **Software**, and **Call Center** solutions designed exclusively for healthcare providers to maximize revenue and patient trust.',
 	]);
-	
+
 
 	SectionTranslation::create([
-	'cms_section_id'=>$homeSection1->id,
-	'locale'=>'ar',
-	'title'=>'قم بتحقيق نمو طبي عالي بدقة',
-	'subtitle'=>'شريك نمو طبي مهمل',
-	'description'=>'Support Plus 360 يقدم حلول **التسويق**، **البرمجيات**، و **مركز الاتصال** المخصص لممارسات الطب المحددة بشكل خاص لزيادة الإيرادات والثقة المرضية.',
+		'cms_section_id'=>$homeSection1->id,
+		'locale'=>'ar',
+		'title'=>'قم بتحقيق نمو طبي عالي بدقة',
+		'subtitle'=>'شريك نمو طبي مهمل',
+		'description'=>'Support Plus 360 يقدم حلول **التسويق**، **البرمجيات**، و **مركز الاتصال** المخصص لممارسات الطب المحددة بشكل خاص لزيادة الإيرادات والثقة المرضية.',
 	]);
 
 
-// --------------------------
 
         $homeSection2 = Section::create([
             'name' => 'Home Page Section 2',
@@ -59,7 +60,7 @@ class CmsSectionSeeder extends Seeder
 	'subtitle'=> '',
 	'description'=>"Three critical gaps limiting your facility's growth and operational excellence.",
 	]);
-	
+
 	SectionTranslation::create([
 	'cms_section_id'=>$homeSection2->id,
 	'locale'=>'ar',
@@ -69,7 +70,7 @@ class CmsSectionSeeder extends Seeder
 	]);
 
 // --------------------------
-	
+
 	$homeSection3 = Section::create([
             'name' => 'Home Page Section 3',
             'section_layout' => '3_items_in_row_section_style_2',
@@ -85,7 +86,7 @@ class CmsSectionSeeder extends Seeder
 	'subtitle'=>'',
 	'description'=>'Integrated solutions designed for exponential healthcare growth.',
 	]);
-	
+
 	SectionTranslation::create([
 	'cms_section_id'=>$homeSection3->id,
 	'locale'=>'ar',
@@ -93,7 +94,7 @@ class CmsSectionSeeder extends Seeder
 	'subtitle'=> '',
 	'description'=>'الحلول المدمجة المصممة للنمو الطبي الأسي.',
 	]);
-	
+
 
 // --------------------------
 
@@ -113,7 +114,7 @@ class CmsSectionSeeder extends Seeder
 	'subtitle'=>"",
 	'description'=>"We don't just consult—we partner. Our integrated ecosystem covers every aspect of healthcare business growth.",
 	]);
-	
+
 	SectionTranslation::create([
 	'cms_section_id'=>$homeSection4->id,
 	'locale'=>'ar',
@@ -121,7 +122,7 @@ class CmsSectionSeeder extends Seeder
 	'subtitle'=>'',
 	'description'=>"نحن لا نقدم فقط الاستشارات - بل نعمل كشركاء. مجموعتنا المدمجة يغطي كل جانب من جوانب نمو مركز الطب المهني.",
 	]);
-	
+
 // --------------------------
 
 	$homeSection5 = Section::create([
@@ -140,7 +141,7 @@ class CmsSectionSeeder extends Seeder
 	'subtitle'=>'',
 	'description'=>'Real results from healthcare facilities transformed by our strategies.',
 	]);
-	
+
 	SectionTranslation::create([
 	'cms_section_id'=>$homeSection5->id,
 	'locale'=>'ar',
@@ -148,12 +149,12 @@ class CmsSectionSeeder extends Seeder
 	'subtitle'=> '',
 	'description'=>'نتائج حقيقية من مراكز الطب المحولة باستراتيجياتنا.',
 	]);
-	
+
 // --------------------------
 
 	$homeSection6 = Section::create([
             'name' => 'Home Page Section 6',
-            'section_layout' => 'home_hero',
+            'section_layout' => 'hero_section_style_1',
             'settings' => [],
             'order' => 6,
             'company_id' => 1,
@@ -167,7 +168,7 @@ class CmsSectionSeeder extends Seeder
 	'subtitle'=>'Choose Support Plus',
 	'description'=>'',
 	]);
-	
+
 	SectionTranslation::create([
 	'cms_section_id'=>$homeSection6->id,
 	'locale'=>'ar',
@@ -180,7 +181,7 @@ class CmsSectionSeeder extends Seeder
 
 	$homeSection7 = Section::create([
             'name' => 'Home Page Section 7',
-            'section_layout' => 'home_hero',
+            'section_layout' => 'info_section',
             'settings' => [],
             'order' => 7,
             'company_id' => 1,
@@ -194,7 +195,7 @@ class CmsSectionSeeder extends Seeder
 	'subtitle'=>'',
 	'description'=>'Elite healthcare facilities are architecturing their strategies for sustained growth. Let\'s architect yours too.',
 	]);
-	
+
 	SectionTranslation::create([
 	'cms_section_id'=>$homeSection7->id,
 	'locale'=>'ar',
@@ -209,7 +210,7 @@ class CmsSectionSeeder extends Seeder
 
 	$healthcareSection1 = Section::create([
 		'name' => 'Healthcare Page Section 1',
-		'section_layout' => 'home_hero',
+		'section_layout' => 'hero_section_style_1',
 		'settings' => [],
 		'order' => 1,
 		'company_id' => 1,
@@ -236,13 +237,13 @@ class CmsSectionSeeder extends Seeder
 
 	$healthcareSection2 = Section::create([
 		'name' => 'Healthcare Page Section 2',
-		'section_layout' => 'home_hero',
+		'section_layout' => 'right_image_section_style_1',
 		'settings' => [],
 		'order' => 2,
 		'company_id' => 1,
 		'page_id' => 2,
 	]);
-	
+
 	SectionTranslation::create([
 		'cms_section_id' => $healthcareSection2->id,
 		'locale' => 'en',
@@ -250,7 +251,7 @@ class CmsSectionSeeder extends Seeder
 		'subtitle' => '',
 		'description' => 'Small clinics need agile strategies',
 	]);
-	
+
 	SectionTranslation::create([
 		'cms_section_id' => $healthcareSection2->id,
 		'locale' => 'ar',
@@ -263,13 +264,13 @@ class CmsSectionSeeder extends Seeder
 
 	$healthcareSection3 = Section::create([
 		'name' => 'Healthcare Page Section 3',
-		'section_layout' => 'home_hero',
+		'section_layout' => 'left_image_section_style_2',
 		'settings' => [],
 		'order' => 3,
 		'company_id' => 1,
 		'page_id' => 2,
 	]);
-	
+
 	SectionTranslation::create([
 		'cms_section_id' => $healthcareSection3->id,
 		'locale' => 'en',
@@ -277,7 +278,7 @@ class CmsSectionSeeder extends Seeder
 		'subtitle' => '',
 		'description' => 'Multi-specialty coordination at scale',
 	]);
-	
+
 	SectionTranslation::create([
 		'cms_section_id' => $healthcareSection3->id,
 		'locale' => 'ar',
@@ -290,7 +291,7 @@ class CmsSectionSeeder extends Seeder
 
 	$healthcareSection4 = Section::create([
 		'name' => 'Healthcare Page Section 4',
-		'section_layout' => 'home_hero',
+		'section_layout' => 'right_image_section_style_1',
 		'settings' => [],
 		'order' => 4,
 		'company_id' => 1,
@@ -304,7 +305,7 @@ class CmsSectionSeeder extends Seeder
 		'subtitle' => '',
 		'description' => 'Enterprise-scale healthcare management',
 	]);
-	
+
 	SectionTranslation::create([
 		'cms_section_id' => $healthcareSection4->id,
 		'locale' => 'ar',
@@ -318,13 +319,13 @@ class CmsSectionSeeder extends Seeder
 
 	$healthcareSection5 = Section::create([
 		'name' => 'Healthcare Page Section 5',
-		'section_layout' => 'home_hero',
+		'section_layout' => 'testimonials_section_style_1',
 		'settings' => [],
 		'order' => 5,
 		'company_id' => 1,
 		'page_id' => 2,
 	]);
-	
+
 
 	SectionTranslation::create([
 		'cms_section_id' => $healthcareSection5->id,
@@ -333,7 +334,7 @@ class CmsSectionSeeder extends Seeder
 		'subtitle' => '',
 		'description' => 'Real testimonials from healthcare facility owners and administrators.',
 	]);
-	
+
 	SectionTranslation::create([
 		'cms_section_id' => $healthcareSection5->id,
 		'locale' => 'ar',
@@ -343,11 +344,11 @@ class CmsSectionSeeder extends Seeder
 	]);
 // --------------------------
 
-          
+
 
 	$healthcareSection6 = Section::create([
 		'name' => 'Healthcare Page Section 6',
-		'section_layout' => 'home_hero',
+		'section_layout' => 'info_section',
 		'settings' => [],
 		'order' => 6,
 		'company_id' => 1,
@@ -375,7 +376,7 @@ class CmsSectionSeeder extends Seeder
 
 	$digitalMarketingSection1 = Section::create([
 		'name' => 'Digital Marketing Page Section 1',
-		'section_layout' => 'home_hero',
+		'section_layout' => 'info_section',
 		'settings' => [],
 		'order' => 1,
 		'company_id' => 1,
@@ -389,8 +390,8 @@ class CmsSectionSeeder extends Seeder
 		'subtitle' => '',
 		'description' => 'Data-driven advertising and performance marketing to acquire patients and drive measurable business growth',
 	]);
-	
-	
+
+
 	SectionTranslation::create([
 		'cms_section_id' => $digitalMarketingSection1->id,
 		'locale' => 'ar',
@@ -403,7 +404,7 @@ class CmsSectionSeeder extends Seeder
 
 	$digitalMarketingSection2 = Section::create([
 		'name' => 'Digital Marketing Page Section 2',
-		'section_layout' => 'home_hero',
+		'section_layout' => '3_items_in_row_section_style_3',
 		'settings' => [],
 		'order' => 2,
 		'company_id' => 1,
@@ -430,7 +431,7 @@ class CmsSectionSeeder extends Seeder
 
 	$digitalMarketingSection3 = Section::create([
 		'name' => 'Digital Marketing Page Section 3',
-		'section_layout' => 'home_hero',
+		'section_layout' => 'list_in_columns_section_style_1',
 		'settings' => [],
 		'order' => 3,
 		'company_id' => 1,
@@ -457,7 +458,7 @@ class CmsSectionSeeder extends Seeder
 
 	$digitalMarketingSection4 = Section::create([
 		'name' => 'Digital Marketing Page Section 4',
-		'section_layout' => 'home_hero',
+		'section_layout' => 'steps_section_style_1',
 		'settings' => [],
 		'order' => 4,
 		'company_id' => 1,
@@ -484,7 +485,7 @@ class CmsSectionSeeder extends Seeder
 
 	$digitalMarketingSection5 = Section::create([
 		'name' => 'Digital Marketing Page Section 5',
-		'section_layout' => 'home_hero',
+		'section_layout' => 'info_section',
 		'settings' => [],
 		'order' => 5,
 		'company_id' => 1,
@@ -508,12 +509,12 @@ class CmsSectionSeeder extends Seeder
 	]);
 
 // -------------------------- end of digital marketing page sections ----------------------------------
-    
-// -------------------------- start of software house page sections ----------------------------------	
+
+// -------------------------- start of software house page sections ----------------------------------
 
 	$softwareHouseSection1 = Section::create([
 		'name' => 'Software House Page Section 1',
-		'section_layout' => 'home_hero',
+		'section_layout' => 'info_section',
 		'settings' => [],
 		'order' => 1,
 		'company_id' => 1,
@@ -540,7 +541,7 @@ class CmsSectionSeeder extends Seeder
 
 	$softwareHouseSection2 = Section::create([
 		'name' => 'Software House Page Section 2',
-		'section_layout' => 'home_hero',
+		'section_layout' => '3_items_in_row_section_style_5',
 		'settings' => [],
 		'order' => 2,
 		'company_id' => 1,
@@ -567,7 +568,7 @@ class CmsSectionSeeder extends Seeder
 
 	$softwareHouseSection3 = Section::create([
 		'name' => 'Software House Page Section 3',
-		'section_layout' => 'home_hero',
+		'section_layout' => 'list_in_columns_section_style_3',
 		'settings' => [],
 		'order' => 3,
 		'company_id' => 1,
@@ -594,7 +595,7 @@ class CmsSectionSeeder extends Seeder
 
 	$softwareHouseSection4 = Section::create([
 		'name' => 'Software House Page Section 4',
-		'section_layout' => 'home_hero',
+		'section_layout' => 'info_section',
 		'settings' => [],
 		'order' => 4,
 		'company_id' => 1,
@@ -622,7 +623,7 @@ class CmsSectionSeeder extends Seeder
 
 	$callCenterSection1 = Section::create([
 		'name' => 'Call Center Page Section 1',
-		'section_layout' => 'home_hero',
+		'section_layout' => 'info_section',
 		'settings' => [],
 		'order' => 1,
 		'company_id' => 1,
@@ -649,7 +650,7 @@ class CmsSectionSeeder extends Seeder
 
 	$callCenterSection2 = Section::create([
 		'name' => 'Call Center Page Section 2',
-		'section_layout' => 'home_hero',
+		'section_layout' => 'list_in_columns_section_style_2',
 		'settings' => [],
 		'order' => 2,
 		'company_id' => 1,
@@ -676,7 +677,7 @@ class CmsSectionSeeder extends Seeder
 
 	$callCenterSection3 = Section::create([
 		'name' => 'Call Center Page Section 3',
-		'section_layout' => 'home_hero',
+		'section_layout' => '4_items_in_row_section',
 		'settings' => [],
 		'order' => 3,
 		'company_id' => 1,
@@ -703,13 +704,13 @@ class CmsSectionSeeder extends Seeder
 
 	$callCenterSection4 = Section::create([
 		'name' => 'Call Center Page Section 4',
-		'section_layout' => 'home_hero',
+		'section_layout' => 'info_section',
 		'settings' => [],
 		'order' => 4,
 		'company_id' => 1,
 		'page_id' => 5,
 	]);
-	
+
 	SectionTranslation::create([
 		'cms_section_id' => $callCenterSection4->id,
 		'locale' => 'en',
@@ -717,7 +718,7 @@ class CmsSectionSeeder extends Seeder
 		'subtitle' => '',
 		'description' => "Let's assess your current call center performance and identify improvement opportunities",
 	]);
-	
+
 	SectionTranslation::create([
 		'cms_section_id' => $callCenterSection4->id,
 		'locale' => 'ar',
@@ -731,7 +732,7 @@ class CmsSectionSeeder extends Seeder
 
 	$servicesSection1 = Section::create([
 		'name' => 'Services Page Section 1',
-		'section_layout' => 'home_hero',
+		'section_layout' => 'info_section',
 		'settings' => [],
 		'order' => 1,
 		'company_id' => 1,
@@ -745,7 +746,7 @@ class CmsSectionSeeder extends Seeder
 		'subtitle' => '',
 		'description' => 'Integrated solutions covering digital marketing, software development, patient engagement, and operational optimization.',
 	]);
-	
+
 	SectionTranslation::create([
 		'cms_section_id' => $servicesSection1->id,
 		'locale' => 'ar',
@@ -758,7 +759,7 @@ class CmsSectionSeeder extends Seeder
 
 	$servicesSection2 = Section::create([
 		'name' => 'Services Page Section 2',
-		'section_layout' => 'home_hero',
+		'section_layout' => 'bundles_section',
 		'settings' => [],
 		'order' => 2,
 		'company_id' => 1,
@@ -785,7 +786,7 @@ class CmsSectionSeeder extends Seeder
 
 	$servicesSection3 = Section::create([
 		'name' => 'Services Page Section 3',
-		'section_layout' => 'home_hero',
+		'section_layout' => 'list_in_columns_section_style_4',
 		'settings' => [],
 		'order' => 3,
 		'company_id' => 1,
@@ -812,7 +813,7 @@ class CmsSectionSeeder extends Seeder
 
 	$servicesSection4 = Section::create([
 		'name' => 'Services Page Section 4',
-		'section_layout' => 'home_hero',
+		'section_layout' => 'testimonials_section_style_2',
 		'settings' => [],
 		'order' => 4,
 		'company_id' => 1,
@@ -836,6 +837,116 @@ class CmsSectionSeeder extends Seeder
 	]);
 
 // -------------------------- end of services page sections ----------------------------------
-}
 
+
+// -------------------------- start of case studies page sections ----------------------------------
+
+	$caseStudiesSection1 = Section::create([
+		'name' => 'Case Studies Page Section 1',
+		'section_layout' => 'info_section',
+		'settings' => [],
+		'order' => 1,
+		'company_id' => 1,
+		'page_id' => 7,
+	]);
+
+	SectionTranslation::create([
+		'cms_section_id' => $caseStudiesSection1->id,
+		'locale' => 'en',
+		'title' => 'Healthcare Success Stories',
+		'subtitle' => '',
+		'description' => 'Real results from healthcare facilities transformed by our strategic approach.',
+	]);
+
+	SectionTranslation::create([
+		'cms_section_id' => $caseStudiesSection1->id,
+		'locale' => 'ar',
+		'title' => 'قصص نجاح مراكز الطب المهني',
+		'subtitle' => '',
+		'description' => 'نتائج حقيقية من مراكز الطب المحولة باستراتيجياتنا.',
+	]);
+
+// --------------------------
+
+
+	$caseStudiesSection2 = Section::create([
+		'name' => 'Case Studies Page Section 2',
+		'section_layout' => 'case_study_section_style_1',
+		'settings' => [],
+		'order' => 2,
+		'company_id' => 1,
+		'page_id' => 7,
+	]);
+
+	SectionTranslation::create([
+		'cms_section_id' => $caseStudiesSection2->id,
+		'locale' => 'en',
+		'title' => 'Case Studies',
+		'subtitle' => '',
+		'description' => '',
+	]);
+
+	SectionTranslation::create([
+		'cms_section_id' => $caseStudiesSection2->id,
+		'locale' => 'ar',
+		'title' => 'الدراسات الميدانية',
+		'subtitle' => '',
+		'description' => '',
+	]);
+
+
+	$caseStudiesSection3 = Section::create([
+		'name' => 'Case Studies Page Section 3',
+		'section_layout' => '3_items_in_row_section_style_4',
+		'settings' => [],
+		'order' => 3,
+		'company_id' => 1,
+		'page_id' => 7,
+	]);
+
+	SectionTranslation::create([
+		'cms_section_id' => $caseStudiesSection3->id,
+		'locale' => 'en',
+		'title' => 'Additional Success Stories',
+		'subtitle' => '',
+		'description' => 'Results from various healthcare facility types.',
+	]);
+
+	SectionTranslation::create([
+		'cms_section_id' => $caseStudiesSection3->id,
+		'locale' => 'ar',
+		'title' => 'قصص نجاح إضافية',
+		'subtitle' => '',
+		'description' => 'نتائج من أنواع مختلفة من مراكز الطب.',
+	]);
+
+
+	$caseStudiesSection4 = Section::create([
+		'name' => 'Case Studies Page Section 4',
+		'section_layout' => 'info_section',
+		'settings' => [],
+		'order' => 4,
+		'company_id' => 1,
+		'page_id' => 7,
+	]);
+
+	SectionTranslation::create([
+		'cms_section_id' => $caseStudiesSection4->id,
+		'locale' => 'en',
+		'title' => 'Ready to Write Your Success Story?',
+		'subtitle' => '',
+		'description' => 'Schedule a free growth assessment and discover the strategies that transformed these healthcare facilities.
+',
+	]);
+
+	SectionTranslation::create([
+		'cms_section_id' => $caseStudiesSection4->id,
+		'locale' => 'ar',
+		'title' => 'هل أنت مستعد لكتابة قصتك النجاح؟',
+		'subtitle' => '',
+		'description' => 'احجز استشارة مجانية للنمو لاكتشاف استراتيجيات التحول التي حولت هذه مراكز الطب.',
+	]);
+
+// -------------------------- end of case studies page sections ----------------------------------
+}
 }
