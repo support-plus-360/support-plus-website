@@ -352,9 +352,13 @@
     "file": "assets/favicon-BtbgZBji.ico",
     "src": "src/Resources/assets/images/favicon.ico"
   },
-  "src/Resources/assets/images/logo.svg": {
-    "file": "assets/logo-Bjh7YAuF.svg",
-    "src": "src/Resources/assets/images/logo.svg"
+  "src/Resources/assets/images/logo-old.svg": {
+    "file": "assets/logo-old-Bjh7YAuF.svg",
+    "src": "src/Resources/assets/images/logo-old.svg"
+  },
+  "src/Resources/assets/images/logo.webp": {
+    "file": "assets/logo-D6QOX7rh.webp",
+    "src": "src/Resources/assets/images/logo.webp"
   },
   "src/Resources/assets/images/mobile-dark-logo.svg": {
     "file": "assets/mobile-dark-logo-COPgCide.svg",

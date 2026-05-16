@@ -16,7 +16,7 @@
             @else
                 <img
                     class="w-max"
-                    src="{{ vite()->asset('images/logo.svg') }}"
+                    src="{{ vite()->asset('images/logo.webp') }}"
                     alt="{{ config('app.name') }}"
                 />
             @endif
@@ -105,7 +105,7 @@
         <!-- Powered By -->
         <div class="text-sm font-normal">
             @lang('admin::app.components.layouts.powered-by.description', [
-                'krayin' => '<a class="text-brandColor hover:underline " href="https://krayincrm.com/">Krayin</a>',
+                'SupportPlus' => '<a class="text-brandColor hover:underline " href="https://supportplus.com/">Support Plus</a>',
                 'webkul' => '<a class="text-brandColor hover:underline " href="https://webkul.com/">Webkul</a>',
             ]) 
         </div>
