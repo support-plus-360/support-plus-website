@@ -438,6 +438,66 @@ return [
 		],
 	],
 
+	'right_testimonial_section' => [
+		'preview_caption' => 'Right Testimonial Section — elite checklist left, testimonial card right',
+		'preview_image'   => 'right_testimonial_section.png',
+		'templates'     => [
+			'body' => <<<'HTML'
+			<section class="section-fade section-depth relative overflow-hidden py-16 sm:py-20">
+			<div class="section-soft-glow absolute inset-0" aria-hidden="true"></div>
+			<div class="animated-grid section-grid-soft" aria-hidden="true"></div>
+			<div class="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+			<div class="grid items-center gap-12 md:grid-cols-2">
+			<div class="animate-slide-in-left">
+			<h2 class="mb-8 text-lg font-bold">
+			<span class="text-black">{{TITLE}}</span><br>
+			{{SUBTITLE_SECTION}}
+			</h2>
+			<div class="space-y-6">{{ITEMS}}</div>
+			</div>
+			<div class="animated-border-card paper-card pro-card animate-fade-in-up rounded-3xl border border-gray-200 bg-white p-6 shadow-sm sm:p-8 dark:border-gray-700 dark:bg-gray-900">
+			<div class="flex items-start gap-4">
+				<div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-cyan-400/20 bg-gradient-to-br from-blue-600/20 to-cyan-500/20 text-cyan-400">
+				<svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+				</div>
+				<div class="min-w-0 flex-1">
+				{{TESTIMONIAL_ITEM_SECTION}}
+				</div>
+			</div>
+			</div>
+			</div>
+			</div>
+			</section>
+			HTML,
+			'subtitle_section_when' => '<span class="bg-gradient-to-r from-blue-600 via-cyan-400 to-blue-400 bg-clip-text text-transparent">{{SUBTITLE}}</span>',
+			'description_section_when' => '',
+			'links_wrapper_when' => '',
+			'link_row' => '',
+			'testimonial_item' => <<<'HTML'
+			{{ITEM_CONTENT_SECTION}}
+			<p class="font-bold text-cyan-400">{{ITEM_TITLE}}</p>
+			{{ITEM_SUBTITLE_SECTION}}
+			HTML,
+			'testimonial_item_subtitle_section_when' => '<p class="text-sm text-gray-400">{{ITEM_SUBTITLE}}</p>',
+			'testimonial_item_content_section_when' => '<p class="mb-4 italic text-black">{{ITEM_CONTENT}}</p>',
+			'testimonial_item_content_raw' => true,
+			'item_links_wrapper_when' => '',
+			'item_link_row' => '',
+			'item' => <<<'HTML'
+			<div class="flex animate-fade-in-up gap-4">
+			<svg class="mt-0.5 h-6 w-6 shrink-0 text-cyan-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+			<div class="min-w-0">
+			<h3 class="mb-1 font-bold text-black">{{ITEM_TITLE}}</h3>
+			{{ITEM_SUBTITLE_SECTION}}
+			{{ITEM_CONTENT_SECTION}}
+			</div>
+			</div>
+			HTML,
+			'item_subtitle_section_when' => '<p class="text-sm text-gray-400">{{ITEM_SUBTITLE}}</p>',
+			'item_content_section_when' => '<p class="text-sm text-gray-400">{{ITEM_CONTENT}}</p>',
+		],
+	],
+
 	// show image on left and numbered steps on right
 	'left_image_section_style_2' => [
 		'preview_caption' => 'Left Image Section Style 2 — numbered steps left, image right (Synergy)',

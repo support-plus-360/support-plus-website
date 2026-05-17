@@ -305,6 +305,109 @@ class CmsItemSeeder extends Seeder
 	]);
 
 
+	// section 6 items
+	$homeSection6 = Section::where('name', 'Home Page Section 6')->first();
+	$homeSection6Item1 = Item::create([
+		'section_id' => $homeSection6->id,
+		'type' => 'default',
+		'settings' => null,
+		'order' => 1,
+		'company_id' => 1,
+	]);
+
+	ItemTranslation::create([
+		'cms_item_id'=>$homeSection6Item1->id,
+		'locale'=>'en',
+		'title'=>'Regularity desk',
+		'sub_title'=>"",
+		'content'=>'Advanced stargies and proven methodologies to deliver consistent results.'
+	]);
+
+	ItemTranslation::create([
+		'cms_item_id'=>$homeSection6Item1->id,
+		'locale'=>'ar',
+		'title'=>'الجدول المنتظم',
+		'sub_title'=>"",
+		'content'=>'استراتيجيات متقدمة وطرق موثوق بها لتحقيق نتائج منتظمة.'
+	]);
+
+	$homeSection6Item2 = Item::create([
+		'section_id' => $homeSection6->id,
+		'type' => 'default',
+		'settings' => null,
+		'order' => 2,
+		'company_id' => 1,
+	]);
+	
+	ItemTranslation::create([
+		'cms_item_id'=>$homeSection6Item2->id,
+		'locale'=>'en',
+		'title'=>'Patient Psychology',
+		'sub_title'=>"",
+		'content'=>'Advanced psychological strategies to attract and retain patients.'
+	]);
+	
+	
+	ItemTranslation::create([
+		'cms_item_id'=>$homeSection6Item2->id,
+		'locale'=>'ar',
+		'title'=>'علم النفس المرضي',
+		'sub_title'=>'',
+		'content'=>'استراتيجيات علم النفس المتقدمة لجذب والاحتفاظ بالمرضى.'
+	]);
+
+
+	$homeSection6Item3 = Item::create([
+		'section_id' => $homeSection6->id,
+		'type' => 'default',
+		'settings' => null,
+		'order' => 3,
+		'company_id' => 1,
+	]);
+	
+	ItemTranslation::create([
+		'cms_item_id'=>$homeSection6Item3->id,
+		'locale'=>'en',
+		'title'=>'Growth Architecture',
+		'sub_title'=>"",
+		'content'=>'Advanced psychological strategies to attract and retain patients.'
+	]);
+	
+	ItemTranslation::create([
+		'cms_item_id'=>$homeSection6Item3->id,
+		'locale'=>'ar',
+		'title'=>'البنية التحويلية للنمو',
+		'sub_title'=>'',
+		'content'=>'استراتيجيات علم النفس المتقدمة لجذب والاحتفاظ بالمرضى.'
+	]);
+
+	// testimonial item
+	$homeSection6Item4 = Item::create([
+		'section_id' => $homeSection6->id,
+		'type' => 'testimonial',
+		'settings' => null,
+		'order' => 4,
+		'company_id' => 1,
+	]);
+	
+	ItemTranslation::create([
+		'cms_item_id'=>$homeSection6Item4->id,
+		'locale'=>'en',
+		'title'=>'Dr. Mohamed',
+		'sub_title'=>"Healthcare Administrator • Healthcare Excellence",
+		'content'=>'Support Plus transformed our clinic from struggling to thriving. Their integrated approach to marketing and operations was exactly what we needed.'
+	]);
+
+	ItemTranslation::create([
+		'cms_item_id'=>$homeSection6Item4->id,
+		'locale'=>'ar',
+		'title'=>'د. محمد',
+		'sub_title'=>"مدير الطب الصحي • الرعاية الصحية المتميزة",
+		'content'=>'Support Plus حولت مركزنا من متأرجح إلى متألق. النظام المدمج للتسويق والعمليات كان مثاليا لما كنا نحتاجه.'
+	]);
+	
+	
+	
 // -------------------------- end of home page section 5 items ----------------------------------
 // -------------------------- end of home page items ----------------------------------
 

@@ -922,13 +922,21 @@
                     if (secMain) {
                         sectionMainImageMarkup = `<img src="${escUrl(secMain)}" alt="" class="absolute inset-0 h-full w-full object-cover" loading="lazy" decoding="async" />`;
                     }
-                    const items = (data.items || []).map((it) => {
+                    const allItems = data.items || [];
+                    const isTestimonialType = (it) => String(it.type || '').toLowerCase() === 'testimonial';
+                    const listItems = t.testimonial_item
+                        ? allItems.filter((it) => ! isTestimonialType(it))
+                        : allItems;
+                    const firstTestimonialItem = t.testimonial_item
+                        ? allItems.find((it) => isTestimonialType(it))
+                        : null;
+
+                    const renderItemMarkup = (it, itemIndex, itemsSource) => {
                         const iconText = it.icon ? String(it.icon).trim().slice(0, 2) : '•';
                         const rawIcon = it.icon ? String(it.icon).trim() : '';
                         const isLikelyImgUrl = /^https?:\/\//i.test(rawIcon) || rawIcon.startsWith('/');
                         const titleEsc = esc(it.title || '');
                         const itemMain = (it.main_image_url || '').trim();
-                        const itemIndex = (data.items || []).indexOf(it);
 			let itemImageMarkup = '<div class="absolute inset-0 bg-gradient-to-br from-slate-700 via-slate-600 to-slate-800" aria-hidden="true"></div>';
                         if (itemMain) {
                             itemImageMarkup = `<img src="${escUrl(itemMain)}" alt="${titleEsc}" class="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-125 group-hover:brightness-110" loading="lazy" decoding="async" />`;
@@ -946,7 +954,7 @@
                         }
                         const calmBlueT2 = layoutKey === 'testimonials_section_style_2';
                         const caseStudyS1 = layoutKey === 'case_study_section_style_1';
-                        const testimonialItemCount = data.items?.length ?? 0;
+                        const testimonialItemCount = itemsSource.length;
                         let itemAvatarForTpl = itemAvatarMarkup;
                         let itemCardSkin = '';
                         if (caseStudyS1 && itemIndex % 2 === 1) {
@@ -1008,7 +1016,27 @@
                             ITEM_COUNT: itemIndex + 1,
                             ITEM_CARD_SKIN: itemCardSkin,
                         });
-                    }).join('');
+                    };
+
+                    const items = listItems.map((it, idx) => renderItemMarkup(it, idx, listItems)).join('');
+
+                    let testimonialItemSection = '';
+                    if (t.testimonial_item && firstTestimonialItem) {
+                        const it = firstTestimonialItem;
+                        const tSub = it.sub_title && t.testimonial_item_subtitle_section_when
+                            ? applyTpl(t.testimonial_item_subtitle_section_when, { ITEM_SUBTITLE: esc(it.sub_title) })
+                            : '';
+                        const tCont = it.content && t.testimonial_item_content_section_when
+                            ? applyTpl(t.testimonial_item_content_section_when, {
+                                ITEM_CONTENT: t.testimonial_item_content_raw ? it.content : esc(it.content),
+                            })
+                            : '';
+                        testimonialItemSection = applyTpl(t.testimonial_item, {
+                            ITEM_TITLE: esc(it.title),
+                            ITEM_SUBTITLE_SECTION: tSub,
+                            ITEM_CONTENT_SECTION: tCont,
+                        });
+                    }
 
                     return applyTpl(t.body, {
                         TITLE: esc(data.title),
@@ -1016,6 +1044,7 @@
                         DESCRIPTION_SECTION: desc,
                         LINKS_SECTION: linksSection,
                         ITEMS: items,
+                        TESTIMONIAL_ITEM_SECTION: testimonialItemSection,
                         SECTION_MAIN_IMAGE_MARKUP: sectionMainImageMarkup,
                     });
                 };
@@ -1210,6 +1239,7 @@
                             const locale = resolveItemPreviewLocale(sectionRoot, si, ii);
 
                             return {
+                                type: readField(sectionRoot, si, ['items', ii, 'type']) || 'default',
                                 title: readField(sectionRoot, si, ['items', ii, 'translations', locale, 'title']),
                                 sub_title: readField(sectionRoot, si, ['items', ii, 'translations', locale, 'sub_title']),
                                 content: readField(sectionRoot, si, ['items', ii, 'translations', locale, 'content']),

@@ -154,7 +154,7 @@ class CmsSectionSeeder extends Seeder
 
 	$homeSection6 = Section::create([
             'name' => 'Home Page Section 6',
-            'section_layout' => 'hero_section_style_1',
+            'section_layout' => 'right_testimonial_section',
             'settings' => [],
             'order' => 6,
             'company_id' => 1,

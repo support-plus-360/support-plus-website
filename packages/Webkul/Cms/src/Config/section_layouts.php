@@ -57,6 +57,10 @@ return [
             'label'       => 'Right Image Section Style 1',
             'description' => 'Right Image Section Style 1 section',
         ],
+	'right_testimonial_section' => [
+            'label'       => 'Right Testimoial Section',
+            'description' => 'Right Testimoial Section ',
+        ],
 	'left_image_section_style_2' => [
             'label'       => 'Left Image Section Style 2',
             'description' => 'Left Image Section Style 2 section',
