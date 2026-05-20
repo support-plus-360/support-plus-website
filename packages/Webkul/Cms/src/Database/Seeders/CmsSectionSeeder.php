@@ -948,5 +948,33 @@ class CmsSectionSeeder extends Seeder
 	]);
 
 // -------------------------- end of case studies page sections ----------------------------------
+
+// -------------------------- start of contact page sections ----------------------------------
+
+	$contactSection1 = Section::create([
+		'name' => 'Contact Page Section 1',
+		'section_layout' => 'info_section',
+		'settings' => [],
+		'order' => 1,
+		'company_id' => 1,
+		'page_id' => 8,
+	]);
+
+    SectionTranslation::create([
+		'cms_section_id' => $contactSection1->id,
+		'locale' => 'en',
+		'title' => 'Contact Us',
+		'subtitle' => '',
+		'description' => 'Ready to grow your healthcare business? Let’s discuss your growth strategy.',
+	]);
+
+    SectionTranslation::create([
+		'cms_section_id' => $contactSection1->id,
+		'locale' => 'ar',
+		'title' => 'تواصل معنا',
+		'subtitle' => '',
+		'description' => 'هل أنت مستعد لتنمية منشأتك الصحية؟ لنتحدث عن استراتيجية النمو.',
+	]);
+
 }
 }

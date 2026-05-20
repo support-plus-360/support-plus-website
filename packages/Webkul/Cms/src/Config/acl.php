@@ -118,4 +118,16 @@ return [
         'route' => 'admin.cms.blog-posts.forceDelete',
         'sort'  => 5,
     ],
+    [
+        'key'   => 'cms.contact-messages',
+        'name'  => 'cms::app.acl.contact-messages',
+        'route' => 'admin.cms.contact-messages.index',
+        'sort'  => 11,
+    ],
+    [
+        'key'   => 'cms.contact-messages.delete',
+        'name'  => 'cms::app.acl.delete',
+        'route' => 'admin.cms.contact-messages.delete',
+        'sort'  => 1,
+    ],
 ];

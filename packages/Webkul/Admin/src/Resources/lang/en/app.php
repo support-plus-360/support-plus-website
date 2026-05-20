@@ -2342,6 +2342,7 @@ return [
         'tags'                 => 'Tags',
         'tags-info'            => 'Add, edit or delete tags from CRM',
         'my-account'           => 'My Account',
+        'language'             => 'Language',
         'sign-out'             => 'Sign Out',
         'back'                 => 'Back',
         'name'                 => 'Name',

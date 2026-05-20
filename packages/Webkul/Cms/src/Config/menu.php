@@ -56,4 +56,11 @@ return [
 		'sort'       => 7,
 		'icon-class' => 'icon-menu',
 	],
+	[
+		'key'        => 'cms.contact-messages',
+		'name'       => 'cms::app.menu.contact-messages',
+		'route'      => 'admin.cms.contact-messages.index',
+		'sort'       => 8,
+		'icon-class' => 'icon-mail',
+	],
 ];

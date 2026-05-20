@@ -58,9 +58,9 @@ class PageApiController extends Controller
 
         $companyId = $request->input('company_id');
 
-        if ($this->isCompanyMismatch($resolvedCompanyId, $companyId)) {
-            return $this->companyMismatchResponse();
-        }
+        // if ($this->isCompanyMismatch($resolvedCompanyId, $companyId)) {
+        //     return $this->companyMismatchResponse();
+        // }
 
         $query = $this->pageRepository->getModel()
             ->newQuery()
@@ -86,9 +86,9 @@ class PageApiController extends Controller
 
         $page = $this->pageRepository->findOrFail($id);
 
-        if ($this->isCompanyMismatch($resolvedCompanyId, $page->company_id)) {
-            return $this->companyMismatchResponse();
-        }
+        // if ($this->isCompanyMismatch($resolvedCompanyId, $page->company_id)) {
+        //     return $this->companyMismatchResponse();
+        // }
 
         $page->loadMissing($this->pageNestedRelations());
 
@@ -107,9 +107,9 @@ class PageApiController extends Controller
 
         $page = $this->pageRepository->findOrFail($id);
 
-        if ($this->isCompanyMismatch($resolvedCompanyId, $page->company_id)) {
-            return $this->companyMismatchResponse();
-        }
+        // if ($this->isCompanyMismatch($resolvedCompanyId, $page->company_id)) {
+        //     return $this->companyMismatchResponse();
+        // }
 
         $validated = $request->validated();
 
@@ -124,9 +124,9 @@ class PageApiController extends Controller
 
         $data = $this->sanitizePayload($pagePayload);
 
-        if ($this->isCompanyMismatch($resolvedCompanyId, $data['company_id'] ?? $page->company_id)) {
-            return $this->companyMismatchResponse();
-        }
+        // if ($this->isCompanyMismatch($resolvedCompanyId, $data['company_id'] ?? $page->company_id)) {
+        //     return $this->companyMismatchResponse();
+        // }
 
         if ($resolvedCompanyId) {
             $data['company_id'] = $resolvedCompanyId;
@@ -168,9 +168,9 @@ class PageApiController extends Controller
 
         $data = $this->sanitizePayload($request->validated(), true);
 
-        if ($this->isCompanyMismatch($resolvedCompanyId, $data['company_id'] ?? null)) {
-            return $this->companyMismatchResponse();
-        }
+        // if ($this->isCompanyMismatch($resolvedCompanyId, $data['company_id'] ?? null)) {
+        //     return $this->companyMismatchResponse();
+        // }
 
         if ($resolvedCompanyId) {
             $data['company_id'] = $resolvedCompanyId;
@@ -197,15 +197,15 @@ class PageApiController extends Controller
 
         $page = $this->pageRepository->findOrFail($id);
 
-        if ($this->isCompanyMismatch($resolvedCompanyId, $page->company_id)) {
-            return $this->companyMismatchResponse();
-        }
+        // if ($this->isCompanyMismatch($resolvedCompanyId, $page->company_id)) {
+        //     return $this->companyMismatchResponse();
+        // }
 
         $data = $this->sanitizePayload($request->validated());
 
-        if ($this->isCompanyMismatch($resolvedCompanyId, $data['company_id'] ?? $page->company_id)) {
-            return $this->companyMismatchResponse();
-        }
+        // if ($this->isCompanyMismatch($resolvedCompanyId, $data['company_id'] ?? $page->company_id)) {
+        //     return $this->companyMismatchResponse();
+        // }
 
         if ($resolvedCompanyId) {
             $data['company_id'] = $resolvedCompanyId;
@@ -230,9 +230,9 @@ class PageApiController extends Controller
 
         $page = $this->pageRepository->findOrFail($id);
 
-        if ($this->isCompanyMismatch($resolvedCompanyId, $page->company_id)) {
-            return $this->companyMismatchResponse();
-        }
+        // if ($this->isCompanyMismatch($resolvedCompanyId, $page->company_id)) {
+        //     return $this->companyMismatchResponse();
+        // }
 
         Event::dispatch('cms.pages.delete.before', $id);
 

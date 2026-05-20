@@ -25,9 +25,10 @@ class NavMenuApiController extends Controller
 
         $companyId = $request->input('company_id');
 
-        if ($this->isCompanyMismatch($resolvedCompanyId, $companyId)) {
-            return $this->companyMismatchResponse();
-        }
+        // \Log::info('resolvedCompanyId', ['resolvedCompanyId' => $resolvedCompanyId]);
+        // if ($this->isCompanyMismatch($resolvedCompanyId, $companyId)) {
+        //     return $this->companyMismatchResponse();
+        // }
 
         $query = $this->navMenuRepository->getModel()->newQuery()->orderBy('key');
 
@@ -56,9 +57,11 @@ class NavMenuApiController extends Controller
 
         $companyId = $request->input('company_id');
 
-        if ($this->isCompanyMismatch($resolvedCompanyId, $companyId)) {
-            return $this->companyMismatchResponse();
-        }
+        // \Log::info('resolvedCompanyId', ['resolvedCompanyId' => $resolvedCompanyId]);
+
+        // if ($this->isCompanyMismatch($resolvedCompanyId, $companyId)) {
+        //     return $this->companyMismatchResponse();
+        // }
 
         $query = $this->navMenuRepository->getModel()
             ->newQuery()

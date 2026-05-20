@@ -10,6 +10,7 @@ return [
         'blog-categories' => 'Blog Categories',
         'blog-posts'      => 'Blog Posts',
         'nav-menus'       => 'Navigation',
+        'contact-messages' => 'Contact Us',
         ],
 
     'acl' => [
@@ -21,7 +22,8 @@ return [
         'edit'   => 'Edit',
         'delete' => 'Delete',
 	'restore' => 'Restore',
-	'forceDelete' => 'Force Delete',
+        'forceDelete' => 'Force Delete',
+        'contact-messages' => 'Contact messages',
     ],
 
     'pages' => [
@@ -480,6 +482,28 @@ return [
             'delete-success'   => 'Blog post deleted successfully.',
             'restore-success'  => 'Blog post restored successfully.',
             'forceDelete-success' => 'Blog post permanently deleted.',
+        ],
+    ],
+
+    'contact-messages' => [
+        'index' => [
+            'title' => 'Contact messages',
+        ],
+        'datagrid' => [
+            'id'         => 'ID',
+            'company'    => 'Company',
+            'name'       => 'Name',
+            'email'      => 'Email',
+            'phone'      => 'Phone',
+            'message'    => 'Message',
+            'created_at' => 'Received',
+            'delete'     => 'Delete',
+        ],
+        'messages' => [
+            'delete-success' => 'Contact message deleted successfully.',
+        ],
+        'api' => [
+            'created' => 'Thank you. Your message has been received.',
         ],
     ],
 ];

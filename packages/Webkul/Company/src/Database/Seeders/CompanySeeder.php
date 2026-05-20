@@ -15,7 +15,7 @@ class CompanySeeder extends Seeder
         Company::create([
             'name' => 'Support Plus 360',
             'short_name' => 'SP360',
-            'website' => 'https://supportplus360.com',
+            'website' => 'https://supportplusco.com',
             'address' => json_encode([]),
             'is_active' => true,
             'configs' => json_encode([]),

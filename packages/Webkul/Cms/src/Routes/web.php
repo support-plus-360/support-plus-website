@@ -10,6 +10,7 @@ use Webkul\Cms\Http\Controllers\Admin\LinkController;
 use Webkul\Cms\Http\Controllers\Admin\LinkableOptionsController;
 use Webkul\Cms\Http\Controllers\Admin\BlogCategoryController;
 use Webkul\Cms\Http\Controllers\Admin\BlogPostController;
+use Webkul\Cms\Http\Controllers\Admin\ContactMessageController;
 use Webkul\Cms\Http\Controllers\Admin\NavMenuController;
 use Webkul\Cms\Http\Controllers\Admin\NavItemController;
 
@@ -119,4 +120,9 @@ Route::middleware(['web', 'admin_locale', 'user'])
 		Route::post('{id}/restore', 'restore')->name('admin.cms.blog-posts.restore');
 		Route::delete('{id}/forceDelete', 'forceDelete')->name('admin.cms.blog-posts.forceDelete');
 	});
+
+            Route::controller(ContactMessageController::class)->prefix('contact-messages')->group(function () {
+                Route::get('', 'index')->name('admin.cms.contact-messages.index');
+                Route::delete('{id}', 'destroy')->whereNumber('id')->name('admin.cms.contact-messages.delete');
+            });
     });

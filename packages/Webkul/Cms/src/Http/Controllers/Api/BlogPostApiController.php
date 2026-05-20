@@ -58,9 +58,9 @@ class BlogPostApiController extends Controller
 
         $blogPost = $this->blogPostRepository->findOrFail($id);
 
-        if ($this->isCompanyMismatch($resolvedCompanyId, $blogPost->company_id)) {
-            return $this->companyMismatchResponse();
-        }
+        // if ($this->isCompanyMismatch($resolvedCompanyId, $blogPost->company_id)) {
+        //     return $this->companyMismatchResponse();
+        // }
 
         $blogPost->loadMissing('translations');
 
@@ -104,9 +104,9 @@ class BlogPostApiController extends Controller
 
         $data = $this->sanitizePayload($request->validated(), true);
 
-        if ($this->isCompanyMismatch($resolvedCompanyId, $data['company_id'] ?? null)) {
-            return $this->companyMismatchResponse();
-        }
+        // if ($this->isCompanyMismatch($resolvedCompanyId, $data['company_id'] ?? null)) {
+        //     return $this->companyMismatchResponse();
+        // }
 
         if ($resolvedCompanyId) {
             $data['company_id'] = $resolvedCompanyId;
@@ -133,15 +133,15 @@ class BlogPostApiController extends Controller
 
         $blogPost = $this->blogPostRepository->findOrFail($id);
 
-        if ($this->isCompanyMismatch($resolvedCompanyId, $blogPost->company_id)) {
-            return $this->companyMismatchResponse();
-        }
+        // if ($this->isCompanyMismatch($resolvedCompanyId, $blogPost->company_id)) {
+        //     return $this->companyMismatchResponse();
+        // }
 
         $data = $this->sanitizePayload($request->validated());
 
-        if ($this->isCompanyMismatch($resolvedCompanyId, $data['company_id'] ?? $blogPost->company_id)) {
-            return $this->companyMismatchResponse();
-        }
+        // if ($this->isCompanyMismatch($resolvedCompanyId, $data['company_id'] ?? $blogPost->company_id)) {
+        //     return $this->companyMismatchResponse();
+        // }
 
         if ($resolvedCompanyId) {
             $data['company_id'] = $resolvedCompanyId;
@@ -166,9 +166,9 @@ class BlogPostApiController extends Controller
 
         $blogPost = $this->blogPostRepository->findOrFail($id);
 
-        if ($this->isCompanyMismatch($resolvedCompanyId, $blogPost->company_id)) {
-            return $this->companyMismatchResponse();
-        }
+        // if ($this->isCompanyMismatch($resolvedCompanyId, $blogPost->company_id)) {
+        //     return $this->companyMismatchResponse();
+        // }
 
         Event::dispatch('cms.blog-posts.delete.before', $id);
 

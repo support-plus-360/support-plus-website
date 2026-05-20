@@ -7,6 +7,7 @@ use Webkul\Cms\Http\Controllers\Api\LinksApiController;
 use Webkul\Cms\Http\Controllers\Api\BlogCategoryApiController;
 use Webkul\Cms\Http\Controllers\Api\BlogPostApiController;
 use Webkul\Cms\Http\Controllers\Api\ItemApiController;
+use Webkul\Cms\Http\Controllers\Api\ContactMessageApiController;
 use Webkul\Cms\Http\Controllers\Api\NavMenuApiController;
 
 // pages
@@ -65,6 +66,14 @@ Route::prefix('cms/api/blog-categories')->controller(BlogCategoryApiController::
             Route::put('{id}', 'update')->whereNumber('id')->name('admin.cms.api.blog-categories.update');
             Route::delete('{id}', 'destroy')->whereNumber('id')->name('admin.cms.api.blog-categories.destroy');
         });
+
+// public: contact form submissions from frontend sites
+Route::middleware('api')
+    ->prefix('cms/api/contact-messages')
+    ->controller(ContactMessageApiController::class)
+    ->group(function () {
+        Route::post('', 'store')->name('cms.api.contact-messages.store');
+    });
 
 // blog posts
 Route::prefix('cms/api/blog-posts')->controller(BlogPostApiController::class)->group(function () {

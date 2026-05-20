@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Webkul\Admin\Http\Controllers\DashboardController;
 use Webkul\Admin\Http\Controllers\DataGrid\SavedFilterController;
 use Webkul\Admin\Http\Controllers\DataGridController;
+use Webkul\Admin\Http\Controllers\LocaleController;
 use Webkul\Admin\Http\Controllers\TinyMCEController;
 use Webkul\Admin\Http\Controllers\User\AccountController;
 
@@ -52,3 +53,8 @@ Route::controller(AccountController::class)->prefix('account')->group(function (
 
     Route::put('update', 'update')->name('admin.user.account.update');
 });
+
+/**
+ * Admin locale switcher.
+ */
+Route::get('locale/{locale}', [LocaleController::class, 'switch'])->name('admin.locale.switch');

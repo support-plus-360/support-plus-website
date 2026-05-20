@@ -50,9 +50,9 @@ class LinksApiController extends Controller
 
         $link = $this->linkRepository->findOrFail($id);
 
-        if ($this->isCompanyMismatch($resolvedCompanyId, $link->company_id)) {
-            return $this->companyMismatchResponse();
-        }
+        // if ($this->isCompanyMismatch($resolvedCompanyId, $link->company_id)) {
+        //     return $this->companyMismatchResponse();
+        // }
 
         $link->loadMissing('translations');
 
@@ -95,9 +95,9 @@ class LinksApiController extends Controller
 
         $data = $this->sanitizePayload($request->validated(), true);
 
-        if ($this->isCompanyMismatch($resolvedCompanyId, $data['company_id'] ?? null)) {
-            return $this->companyMismatchResponse();
-        }
+        // if ($this->isCompanyMismatch($resolvedCompanyId, $data['company_id'] ?? null)) {
+        //     return $this->companyMismatchResponse();
+        // }
 
         if ($resolvedCompanyId) {
             $data['company_id'] = $resolvedCompanyId;
@@ -124,15 +124,15 @@ class LinksApiController extends Controller
 
         $link = $this->linkRepository->findOrFail($id);
 
-        if ($this->isCompanyMismatch($resolvedCompanyId, $link->company_id)) {
-            return $this->companyMismatchResponse();
-        }
+        // if ($this->isCompanyMismatch($resolvedCompanyId, $link->company_id)) {
+        //     return $this->companyMismatchResponse();
+        // }
 
         $data = $this->sanitizePayload($request->validated());
 
-        if ($this->isCompanyMismatch($resolvedCompanyId, $data['company_id'] ?? $link->company_id)) {
-            return $this->companyMismatchResponse();
-        }
+        // if ($this->isCompanyMismatch($resolvedCompanyId, $data['company_id'] ?? $link->company_id)) {
+        //     return $this->companyMismatchResponse();
+        // }
 
         if ($resolvedCompanyId) {
             $data['company_id'] = $resolvedCompanyId;
@@ -157,9 +157,9 @@ class LinksApiController extends Controller
 
         $link = $this->linkRepository->findOrFail($id);
 
-        if ($this->isCompanyMismatch($resolvedCompanyId, $link->company_id)) {
-            return $this->companyMismatchResponse();
-        }
+        // if ($this->isCompanyMismatch($resolvedCompanyId, $link->company_id)) {
+        //     return $this->companyMismatchResponse();
+        // }
 
         Event::dispatch('cms.links.delete.before', $id);
 

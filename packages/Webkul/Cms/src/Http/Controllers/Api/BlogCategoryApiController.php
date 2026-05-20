@@ -35,9 +35,9 @@ class BlogCategoryApiController extends Controller
             ->with('translations')
             ->orderByDesc('id');
 
-        if ($this->isCompanyMismatch($resolvedCompanyId, $companyId)) {
-            return $this->companyMismatchResponse();
-        }
+        // if ($this->isCompanyMismatch($resolvedCompanyId, $companyId)) {
+        //     return $this->companyMismatchResponse();
+        // }
 
         if ($resolvedCompanyId) {
             $query->where('company_id', $resolvedCompanyId);
@@ -58,9 +58,9 @@ class BlogCategoryApiController extends Controller
 
         $blogCategory = $this->blogCategoryRepository->findOrFail($id);
 
-        if ($this->isCompanyMismatch($resolvedCompanyId, $blogCategory->company_id)) {
-            return $this->companyMismatchResponse();
-        }
+        // if ($this->isCompanyMismatch($resolvedCompanyId, $blogCategory->company_id)) {
+        //     return $this->companyMismatchResponse();
+        // }
 
         $blogCategory->loadMissing('translations');
 
@@ -79,9 +79,9 @@ class BlogCategoryApiController extends Controller
 
         $data = $this->sanitizePayload($request->validated(), true);
 
-        if ($this->isCompanyMismatch($resolvedCompanyId, $data['company_id'] ?? null)) {
-            return $this->companyMismatchResponse();
-        }
+        // if ($this->isCompanyMismatch($resolvedCompanyId, $data['company_id'] ?? null)) {
+        //     return $this->companyMismatchResponse();
+        // }
 
         if ($resolvedCompanyId) {
             $data['company_id'] = $resolvedCompanyId;
@@ -108,15 +108,15 @@ class BlogCategoryApiController extends Controller
 
         $blogCategory = $this->blogCategoryRepository->findOrFail($id);
 
-        if ($this->isCompanyMismatch($resolvedCompanyId, $blogCategory->company_id)) {
-            return $this->companyMismatchResponse();
-        }
+        // if ($this->isCompanyMismatch($resolvedCompanyId, $blogCategory->company_id)) {
+        //     return $this->companyMismatchResponse();
+        // }
 
         $data = $this->sanitizePayload($request->validated());
 
-        if ($this->isCompanyMismatch($resolvedCompanyId, $data['company_id'] ?? $blogCategory->company_id)) {
-            return $this->companyMismatchResponse();
-        }
+        // if ($this->isCompanyMismatch($resolvedCompanyId, $data['company_id'] ?? $blogCategory->company_id)) {
+        //     return $this->companyMismatchResponse();
+        // }
 
         if ($resolvedCompanyId) {
             $data['company_id'] = $resolvedCompanyId;
@@ -141,9 +141,9 @@ class BlogCategoryApiController extends Controller
 
         $blogCategory = $this->blogCategoryRepository->findOrFail($id);
 
-        if ($this->isCompanyMismatch($resolvedCompanyId, $blogCategory->company_id)) {
-            return $this->companyMismatchResponse();
-        }
+        // if ($this->isCompanyMismatch($resolvedCompanyId, $blogCategory->company_id)) {
+        //     return $this->companyMismatchResponse();
+        // }
 
         Event::dispatch('cms.blog-categories.delete.before', $id);
 

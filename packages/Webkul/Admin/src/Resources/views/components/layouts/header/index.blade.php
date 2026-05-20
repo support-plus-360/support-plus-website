@@ -42,7 +42,9 @@
             <!-- Mega Search Bar -->
             @include('admin::components.layouts.header.mobile.mega-search')
         </div>
-        
+
+        @include('admin::components.layouts.header.locale-switcher')
+
         <!-- Dark mode -->
         <v-dark>
             <div class="flex">

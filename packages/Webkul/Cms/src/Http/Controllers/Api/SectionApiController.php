@@ -52,9 +52,9 @@ class SectionApiController extends Controller
 
         $section = $this->sectionRepository->findOrFail($id);
 
-        if ($this->isCompanyMismatch($resolvedCompanyId, $section->company_id)) {
-            return $this->companyMismatchResponse();
-        }
+        // if ($this->isCompanyMismatch($resolvedCompanyId, $section->company_id)) {
+        //     return $this->companyMismatchResponse();
+        // }
 
         $section->loadMissing(['translations', 'media']);
 
@@ -96,9 +96,9 @@ class SectionApiController extends Controller
 
         $data = $this->sanitizePayload($request->validated(), true);
 
-        if ($this->isCompanyMismatch($resolvedCompanyId, $data['company_id'] ?? null)) {
-            return $this->companyMismatchResponse();
-        }
+        // if ($this->isCompanyMismatch($resolvedCompanyId, $data['company_id'] ?? null)) {
+        //     return $this->companyMismatchResponse();
+        // }
 
         if ($resolvedCompanyId) {
             $data['company_id'] = $resolvedCompanyId;
@@ -126,15 +126,15 @@ class SectionApiController extends Controller
 
         $section = $this->sectionRepository->findOrFail($id);
 
-        if ($this->isCompanyMismatch($resolvedCompanyId, $section->company_id)) {
-            return $this->companyMismatchResponse();
-        }
+        // if ($this->isCompanyMismatch($resolvedCompanyId, $section->company_id)) {
+        //     return $this->companyMismatchResponse();
+        // }
 
         $data = $this->sanitizePayload($request->validated());
 
-        if ($this->isCompanyMismatch($resolvedCompanyId, $data['company_id'] ?? $section->company_id)) {
-            return $this->companyMismatchResponse();
-        }
+        // if ($this->isCompanyMismatch($resolvedCompanyId, $data['company_id'] ?? $section->company_id)) {
+        //     return $this->companyMismatchResponse();
+        // }
 
         if ($resolvedCompanyId) {
             $data['company_id'] = $resolvedCompanyId;
@@ -160,9 +160,9 @@ class SectionApiController extends Controller
 
         $section = $this->sectionRepository->findOrFail($id);
 
-        if ($this->isCompanyMismatch($resolvedCompanyId, $section->company_id)) {
-            return $this->companyMismatchResponse();
-        }
+        // if ($this->isCompanyMismatch($resolvedCompanyId, $section->company_id)) {
+        //     return $this->companyMismatchResponse();
+        // }
 
         Event::dispatch('cms.sections.delete.before', $id);
 

@@ -590,6 +590,11 @@ Breadcrumbs::for('cms.blog-posts.view', function (BreadcrumbTrail $trail, $blogP
     $trail->push('#'.$blogPost->id, route('admin.cms.blog-posts.index', $blogPost->id));
 });
 
+Breadcrumbs::for('cms.contact-messages', function (BreadcrumbTrail $trail) {
+    $trail->parent('cms');
+    $trail->push(trans('cms::app.contact-messages.index.title'), route('admin.cms.contact-messages.index'));
+});
+
 // Dashboard > CMS > Navigation Menus
 Breadcrumbs::for('cms.nav-menus', function (BreadcrumbTrail $trail) {
     $trail->parent('cms');

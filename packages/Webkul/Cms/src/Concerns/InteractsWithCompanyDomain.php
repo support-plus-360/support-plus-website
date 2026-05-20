@@ -16,6 +16,8 @@ trait InteractsWithCompanyDomain
 
         $domainHeader = $request->header('Domain');
 
+        // \Log::info('domainHeader', ['domainHeader' => $domainHeader]);
+
         if (! $domainHeader) {
             $request->attributes->set('_resolved_company_id', null);
 
@@ -86,4 +88,3 @@ trait InteractsWithCompanyDomain
         return preg_replace('/^www\./', '', strtolower($host));
     }
 }
-
