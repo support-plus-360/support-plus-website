@@ -12,7 +12,7 @@
  * - Body: {{TITLE}}, {{SUBTITLE_SECTION}}, {{DESCRIPTION_SECTION}}, {{LINKS_SECTION}}, {{ITEMS}},
  *   {{SECTION_MAIN_IMAGE_MARKUP}} (section main image &lt;img&gt; or empty)
  * - Link row: {{LINK_URL}}, {{LINK_LABEL}}
- * - Item: {{ITEM_TITLE}}, {{ITEM_SUBTITLE_SECTION}}, {{ITEM_CONTENT_SECTION}}, {{ITEM_ICON_DISPLAY}}, {{ITEM_LINKS_SECTION}},
+ * - Item: {{ITEM_TITLE}}, {{ITEM_SUBTITLE_SECTION}}, {{ITEM_CONTENT_SECTION}}, {{ITEM_ICON_DISPLAY}}, {{ITEM_ICON_MARKUP}}, {{ITEM_LINKS_SECTION}},
  *   {{ITEM_CARD_HREF}} (first item link URL or #), {{ITEM_IMAGE_MARKUP}} (item main image, else icon URL as img, else gradient)
  * - Item link row (optional): {{LINK_URL}}, {{LINK_LABEL}} inside item_link_row; wrapper uses {{ITEM_LINK_ROWS}}
  *
@@ -922,6 +922,76 @@ return [
             'item_subtitle_section_when' => '<p class="mb-6 text-3xl font-bold text-cyan-400">{{ITEM_SUBTITLE}}</p>',
             'item_content_section_when' => '<div class="mb-8 space-y-3 text-gray-400 [&>p:first-child]:mb-6 [&>p:first-child]:text-base [&>p:first-child]:leading-relaxed [&_h4]:mb-1 [&_h4]:font-bold [&_h4]:text-white [&_p]:text-sm">{{ITEM_CONTENT}}</div>',
             'item_content_raw' => true,
+        ],
+    ],
+
+    'contact_form_section_style_1' => [
+        'preview_caption' => 'Contact Form Section Style 1 — contact details left, message form right',
+        'preview_image'   => 'contact_form_section_style_1.png',
+        'templates'     => [
+            'body' => <<<'HTML'
+            <section class="section-fade section-unified relative overflow-hidden py-20">
+            <div class="section-soft-glow absolute inset-0 opacity-60" aria-hidden="true"></div>
+            <div class="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="grid gap-12 md:grid-cols-2">
+            <div class="animate-slide-in-left">
+            <h2 class="mb-8 text-xl font-bold text-black">{{TITLE}}</h2>
+            <div class="space-y-8">{{ITEMS}}</div>
+            <div class="animated-border-card mt-12 rounded-xl border border-blue-500/20 bg-[#1a1b2e] p-6">
+            {{SUBTITLE_SECTION}}
+            {{DESCRIPTION_SECTION}}
+            </div>
+            </div>
+            <div class="animate-slide-in-right flex min-w-0 flex-col">
+            <form class="cms-contact-form flex w-full flex-col gap-6" data-cms-contact-form data-contact-api-url="/cms/api/contact-messages" method="post" novalidate>
+            <input type="hidden" name="company_id" value="" data-cms-company-id />
+            <div data-cms-contact-feedback class="hidden rounded-lg border px-4 py-3 text-sm" role="alert"></div>
+            <div class="w-full">
+            <label for="cms-contact-name" class="mb-2 block text-sm font-medium text-white">Name</label>
+            <input id="cms-contact-name" type="text" name="name" required autocomplete="name" class="w-full rounded-lg border border-blue-500/20 bg-[#1a1b2e] px-4 py-2 text-white transition focus:border-cyan-400 focus:outline-none" placeholder="Your name" />
+            </div>
+            <div class="w-full">
+            <label for="cms-contact-email" class="mb-2 block text-sm font-medium text-white">Email</label>
+            <input id="cms-contact-email" type="email" name="email" required autocomplete="email" class="w-full rounded-lg border border-blue-500/20 bg-[#1a1b2e] px-4 py-2 text-white transition focus:border-cyan-400 focus:outline-none" placeholder="you@example.com" />
+            </div>
+            <div class="w-full">
+            <label for="cms-contact-phone" class="mb-2 block text-sm font-medium text-white">Phone</label>
+            <input id="cms-contact-phone" type="tel" name="phone" required autocomplete="tel" class="w-full rounded-lg border border-blue-500/20 bg-[#1a1b2e] px-4 py-2 text-white transition focus:border-cyan-400 focus:outline-none" placeholder="+1 (555) 000-0000" />
+            </div>
+            <div class="w-full">
+            <label for="cms-contact-message" class="mb-2 block text-sm font-medium text-white">Message</label>
+            <textarea id="cms-contact-message" name="message" rows="4" required class="w-full resize-none rounded-lg border border-blue-500/20 bg-[#1a1b2e] px-4 py-2 text-white transition focus:border-cyan-400 focus:outline-none" placeholder="How can we help?"></textarea>
+            </div>
+            <button type="submit" class="flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 px-6 py-3 font-semibold text-white transition hover:shadow-lg hover:shadow-blue-600/30 disabled:pointer-events-none disabled:opacity-60">
+            Send message
+            <svg class="h-[18px] w-[18px] rtl:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+            </button>
+            </form>
+            </div>
+            </div>
+            </div>
+            </section>
+            HTML,
+            'subtitle_section_when' => '<h3 class="mb-3 font-semibold text-black">{{SUBTITLE}}</h3>',
+            'description_section_when' => '<p class="text-sm text-gray">{{DESCRIPTION}}</p>',
+            'links_wrapper_when' => '',
+            'link_row' => '',
+            'item_links_wrapper_when' => '',
+            'item_link_row' => '',
+            'item' => <<<'HTML'
+            <div class="flex gap-4">
+            <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-blue-600 to-cyan-500 text-white [&_svg]:h-5 [&_svg]:w-5">
+            {{ITEM_ICON_MARKUP}}
+            </div>
+            <div class="min-w-0">
+            <h3 class="mb-1 font-semibold text-black">{{ITEM_TITLE}}</h3>
+            {{ITEM_CONTENT_SECTION}}
+            </div>
+            </div>
+            HTML,
+          //   'item_subtitle_section_when' => '<p class="text-gray">{{ITEM_SUBTITLE}}</p>',
+            'item_content_section_when' => '<p class="text-gray">{{ITEM_CONTENT}}</p>',
+            'item_content_raw' => false,
         ],
     ],
 ];

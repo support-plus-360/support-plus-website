@@ -895,6 +895,29 @@
                     return def;
                 };
 
+                const CONTACT_FORM_ICON_MAIL = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>';
+                const CONTACT_FORM_ICON_PHONE = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>';
+                const CONTACT_FORM_ICON_MESSAGE = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>';
+                const CONTACT_FORM_ICONS_BY_INDEX = [CONTACT_FORM_ICON_MAIL, CONTACT_FORM_ICON_PHONE, CONTACT_FORM_ICON_MESSAGE];
+
+                const contactFormItemIconMarkup = (rawIcon, itemIndex) => {
+                    const key = rawIcon ? String(rawIcon).trim().toLowerCase() : '';
+                    if (/^https?:\/\//i.test(key) || key.startsWith('/')) {
+                        return `<img src="${esc(key)}" alt="" class="h-5 w-5 object-contain" loading="lazy" decoding="async" />`;
+                    }
+                    if (key.includes('phone') || key.includes('tel')) {
+                        return CONTACT_FORM_ICON_PHONE;
+                    }
+                    if (key.includes('message') || key.includes('whatsapp') || key.includes('chat')) {
+                        return CONTACT_FORM_ICON_MESSAGE;
+                    }
+                    if (key.includes('mail') || key.includes('email')) {
+                        return CONTACT_FORM_ICON_MAIL;
+                    }
+
+                    return CONTACT_FORM_ICONS_BY_INDEX[itemIndex % CONTACT_FORM_ICONS_BY_INDEX.length];
+                };
+
                 const renderFromConfig = (layoutKey, data) => {
                     const def = layoutDefinition(layoutKey);
                     if (! def?.templates?.body) {
@@ -1004,11 +1027,17 @@
                                 : rows;
                         }
 
+                        const contactFormS1 = layoutKey === 'contact_form_section_style_1';
+                        const itemIconMarkup = contactFormS1
+                            ? contactFormItemIconMarkup(rawIcon, itemIndex)
+                            : esc(iconText);
+
                         return applyTpl(t.item, {
                             ITEM_TITLE: esc(it.title),
                             ITEM_SUBTITLE_SECTION: isub,
                             ITEM_CONTENT_SECTION: icont,
                             ITEM_ICON_DISPLAY: esc(iconText),
+                            ITEM_ICON_MARKUP: itemIconMarkup,
                             ITEM_LINKS_SECTION: itemLinksSection,
                             ITEM_CARD_HREF: itemCardHref,
                             ITEM_IMAGE_MARKUP: itemImageMarkup,
@@ -1332,6 +1361,13 @@
                     bindLayoutSelect(sectionRoot);
                     refreshSectionPreview(sectionRoot);
                 };
+
+                document.addEventListener('submit', (event) => {
+                    const form = event.target?.closest?.('[data-cms-contact-form]');
+                    if (form && form.closest('[data-cms-section-preview]')) {
+                        event.preventDefault();
+                    }
+                }, true);
 
                 /**
                  * Listen on document — Vue app.mount('#app') replaces/patches DOM under #app, so listeners

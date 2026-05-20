@@ -112,5 +112,11 @@ return [
             'label'       => 'Case Study Section Style 1',
             'description' => 'Case Study Section Style 1 section',
         ],
+
+	'contact_form_section_style_1' => [
+		'label'       => 'Contact Form Section Style 1',
+		'description' => 'Contact Form Section Style 1 section',
+	],
+
     ],
 ];

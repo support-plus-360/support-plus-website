@@ -976,5 +976,33 @@ class CmsSectionSeeder extends Seeder
 		'description' => 'هل أنت مستعد لتنمية منشأتك الصحية؟ لنتحدث عن استراتيجية النمو.',
 	]);
 
+// contact_form_section_style_1
+		$contactSection2 = Section::create([
+		'name' => 'Contact Page Section 2',
+		'section_layout' => 'contact_form_section_style_1',
+		'settings' => [],
+		'order' => 1,
+		'company_id' => 1,
+		'page_id' => 8,
+	]);
+
+    SectionTranslation::create([
+		'cms_section_id' => $contactSection2->id,
+		'locale' => 'en',
+		'title' => 'Contact Details',
+		'subtitle' => '',
+		'description' => '',
+	]);
+
+    SectionTranslation::create([
+		'cms_section_id' => $contactSection2->id,
+		'locale' => 'ar',
+		'title' => ' طرق التواصل',
+		'subtitle' => '',
+		'description' => '',
+	]);
+
+
+	
 }
 }

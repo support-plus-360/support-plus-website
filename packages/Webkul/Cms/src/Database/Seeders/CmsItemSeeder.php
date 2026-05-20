@@ -1871,5 +1871,107 @@ class CmsItemSeeder extends Seeder
 	]);
 // ----------------------------------
 
-}
+	// contact form section style 1
+	$contactPageSection2 = Section::where('name', 'Contact Page Section 2')->first();
+	$contactPageSection2Item1 = Item::create([
+		'section_id' => $contactPageSection2->id,
+		'type' => 'contact',
+		'settings' => null,
+		'order' => 1,
+		'company_id' => 1,
+	]);
+
+	ItemTranslation::create([
+		'cms_item_id'=>$contactPageSection2Item1->id,
+		'locale'=>'en',
+		'title'=>'Email Address',
+		'sub_title'=>'',
+		'content'=>'support@supportplus.com',
+	]);
+
+	ItemTranslation::create([
+		'cms_item_id'=>$contactPageSection2Item1->id,
+		'locale'=>'ar',
+		'title'=>'البريد الإلكتروني',
+		'sub_title'=>'',
+		'content'=>'support@supportplus.com',
+	]);
+
+	// item 2
+	$contactPageSection2Item2 = Item::create([
+		'section_id' => $contactPageSection2->id,
+		'type' => 'contact',
+		'settings' => null,
+		'order' => 2,
+		'company_id' => 1,
+	]);
+	
+	ItemTranslation::create([
+		'cms_item_id'=>$contactPageSection2Item2->id,
+		'locale'=>'en',
+		'title'=>'Phone Number',
+		'sub_title'=>'',
+		'content'=>'+123 456 7890',
+	]);
+	
+	ItemTranslation::create([
+		'cms_item_id'=>$contactPageSection2Item2->id,
+		'locale'=>'ar',
+		'title'=>'رقم الهاتف',
+		'sub_title'=>'',
+		'content'=>'+123 456 7890',
+	]);
+
+	// item 3
+	$contactPageSection2Item3 = Item::create([
+		'section_id' => $contactPageSection2->id,
+		'type' => 'contact',
+		'settings' => null,
+		'order' => 3,
+		'company_id' => 1,
+	]);
+	
+	ItemTranslation::create([
+		'cms_item_id'=>$contactPageSection2Item3->id,
+		'locale'=>'en',
+		'title'=>'Address',
+		'sub_title'=>'',
+		'content'=>'123 Main St, Anytown, USA',
+	]);
+	
+	ItemTranslation::create([
+		'cms_item_id'=>$contactPageSection2Item3->id,
+		'locale'=>'ar',
+		'title'=>'العنوان',
+		'sub_title'=>'',
+		'content'=>'123 Main St, Anytown, USA',
+	]);
+
+	// item 4
+	$contactPageSection2Item4 = Item::create([
+		'section_id' => $contactPageSection2->id,
+		'type' => 'info',
+		'settings' => null,
+		'order' => 4,
+		'company_id' => 1,
+	]);
+
+	ItemTranslation::create([
+		'cms_item_id'=>$contactPageSection2Item4->id,
+		'locale'=>'en',
+		'title'=>'Response Time',
+		'sub_title'=>'',
+		'content'=>'We typically respond to inquiries within 24 hours during business hours.',
+	]);
+	
+	ItemTranslation::create([
+		'cms_item_id'=>$contactPageSection2Item4->id,
+		'locale'=>'ar',
+		'title'=>'زمن الأستجابة',
+		'sub_title'=>'',
+		'content'=>'نتولى عادةً الرد على الأستفسارات خلال ساعتى عمل خلال أوقات الدوام',
+	]);
+
+
+    }
 }
