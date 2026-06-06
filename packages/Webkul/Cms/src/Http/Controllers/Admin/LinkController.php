@@ -7,6 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Event;
 use Illuminate\View\View;
 use Webkul\Admin\Http\Controllers\Controller;
+use Webkul\Cms\Concerns\InteractsWithCmsCompanyTabs;
 use Webkul\Cms\Concerns\InteractsWithLinkPayload;
 use Webkul\Cms\DataGrids\LinkDataGrid;
 use Webkul\Cms\Http\Requests\LinkRequest;
@@ -19,7 +20,7 @@ use Webkul\Company\Models\Company;
 
 class LinkController extends Controller
 {
-    use InteractsWithLinkPayload;
+    use InteractsWithCmsCompanyTabs, InteractsWithLinkPayload;
 
     public function __construct(protected LinkRepository $linkRepository) {}
 
@@ -29,7 +30,7 @@ class LinkController extends Controller
             return datagrid(LinkDataGrid::class)->process();
         }
 
-        return view('cms::links.index');
+        return view('cms::links.index', $this->cmsCompanyTabs());
     }
 
     public function create(): View

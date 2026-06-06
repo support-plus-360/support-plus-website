@@ -7,6 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Event;
 use Illuminate\View\View;
 use Webkul\Admin\Http\Controllers\Controller;
+use Webkul\Cms\Concerns\InteractsWithCmsCompanyTabs;
 use Webkul\Cms\Concerns\InteractsWithBlogCategoryPayload;
 use Webkul\Cms\Concerns\InteractsWithCmsMedia;
 use Webkul\Cms\DataGrids\BlogCategoryDataGrid;
@@ -17,7 +18,7 @@ use Webkul\Cms\Models\BlogCategory;
 
 class BlogCategoryController extends Controller
 {
-    use InteractsWithBlogCategoryPayload, InteractsWithCmsMedia;
+    use InteractsWithBlogCategoryPayload, InteractsWithCmsCompanyTabs, InteractsWithCmsMedia;
 
     public function __construct(protected BlogCategoryRepository $blogCategoryRepository) {}
 
@@ -27,7 +28,7 @@ class BlogCategoryController extends Controller
             return datagrid(BlogCategoryDataGrid::class)->process();
         }
 
-        return view('cms::blog-categories.index');
+        return view('cms::blog-categories.index', $this->cmsCompanyTabs());
     }
 
     public function create(): View

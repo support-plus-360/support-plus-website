@@ -70,7 +70,7 @@ return [
             'description' => 'Testimonials Section Style 1 section',
         ],
 
-    'testimonials_section_style_2' => [
+    	'testimonials_section_style_2' => [
             'label'       => 'Testimonials Section Style 2',
             'description' => 'Testimonials Section Style 2 section',
         ],
@@ -108,7 +108,7 @@ return [
             'description' => 'Bundles Section section',
         ],
 
-    'case_study_section_style_1' => [
+         'case_study_section_style_1' => [
             'label'       => 'Case Study Section Style 1',
             'description' => 'Case Study Section Style 1 section',
         ],
@@ -116,6 +116,41 @@ return [
 	'contact_form_section_style_1' => [
 		'label'       => 'Contact Form Section Style 1',
 		'description' => 'Contact Form Section Style 1 section',
+	],
+
+	'mena_info_section_style_1' => [
+		'label'       => 'Mena Info Section Style 1',
+		'description' => 'Mena Info Section Style 1 section',
+	],
+
+    'mena_info_section_style_2' => [
+		'label'       => 'Mena Info Section Style 2',
+		'description' => 'Mena Info Section Style 2 section',
+	],
+
+    'mena_info_section_style_3' => [
+		'label'       => 'Mena Info Section Style 3',
+		'description' => 'Mena Info Section Style 3 section',
+	],
+
+	'mena_3_items_in_row_section_style_1' => [
+            'label'       => 'Mena 3 Items in Row Section Style 1',
+            'description' => 'Mena 3 Items in Row Section Style 1 section',
+        ],
+
+    'mena_3_items_in_row_section_style_2' => [
+            'label'       => 'Mena 3 Items in Row Section Style 2',
+            'description' => 'Mena 3 Items in Row Section Style 2 section',
+        ],
+
+    'mena_4_items_in_row_section_style_1' => [
+            'label'       => 'Mena 4 Items in Row Section Style 1',
+            'description' => 'Mena 4 Items in Row Section Style 1 section',
+        ],
+
+	'mena_testimonials_section_style_1' => [
+		'label'       => 'Mena Testimonials Section Style 1',
+		'description' => 'Mena Testimonials Section Style 1 section',
 	],
 
     ],

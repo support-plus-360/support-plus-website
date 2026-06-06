@@ -23,7 +23,36 @@
         app.component('v-tinymce', {
             template: '#v-tinymce-template',
 
-            props: ['selector', 'field'],
+            props: {
+                selector: {
+                    type: String,
+                    required: true,
+                },
+                field: {
+                    type: Object,
+                    required: true,
+                },
+                plugins: {
+                    type: String,
+                    default: 'image media wordcount save fullscreen code table lists link',
+                },
+                toolbar: {
+                    type: String,
+                    default: 'placeholders | bold italic strikethrough forecolor backcolor image alignleft aligncenter alignright alignjustify | link hr | numlist bullist outdent indent | removeformat | code | table',
+                },
+                showPlaceholders: {
+                    type: Boolean,
+                    default: true,
+                },
+                menubar: {
+                    type: [String, Boolean],
+                    default: false,
+                },
+                minHeight: {
+                    type: Number,
+                    default: 300,
+                },
+            },
 
             data() {
                 return {
@@ -38,7 +67,7 @@
             mounted() {
                 this.destroyTinymceInstance();
 
-                this.init();
+                this.waitAndInit();
 
                 this.$emitter.on('change-theme', (theme) => {
                     this.destroyTinymceInstance();
@@ -46,20 +75,56 @@
                     this.currentSkin = (theme === 'dark') ? 'oxide-dark' : 'oxide';
                     this.currentContentCSS = (theme === 'dark') ? 'dark' : 'default';
 
-                    this.init();
+                    this.waitAndInit();
                 });
             },
 
             methods: {
+                editorId() {
+                    return (this.selector || '').replace(/^textarea#/, '');
+                },
+
                 destroyTinymceInstance() {
-                    if (! tinymce.activeEditor) {
+                    if (typeof tinymce === 'undefined') {
                         return;
                     }
 
-                    tinymce.activeEditor.destroy();
+                    const id = this.editorId();
+
+                    if (! id) {
+                        return;
+                    }
+
+                    const editor = tinymce.get(id);
+
+                    if (editor) {
+                        editor.remove();
+                    }
+                },
+
+                waitAndInit(attempts = 0) {
+                    if (typeof tinymce !== 'undefined') {
+                        this.$nextTick(() => this.init());
+
+                        return;
+                    }
+
+                    if (attempts < 50) {
+                        window.setTimeout(() => this.waitAndInit(attempts + 1), 100);
+                    }
                 },
 
                 init() {
+                    const target = document.querySelector(this.selector);
+
+                    if (! target) {
+                        return;
+                    }
+
+                    if (this.editorId() && tinymce.get(this.editorId())) {
+                        return;
+                    }
+
                     let self = this;
 
                     let tinyMCEHelper = {
@@ -169,44 +234,59 @@
                         },
                     };
 
+                    const selfComponent = this;
+
+                    const defaultPlugins = 'image media wordcount save fullscreen code table lists link';
+                    const defaultToolbar = 'placeholders | bold italic strikethrough forecolor backcolor image alignleft aligncenter alignright alignjustify | link hr | numlist bullist outdent indent | removeformat | code | table';
+
                     tinyMCEHelper.initTinyMCE({
                         selector: this.selector,
-                        plugins: 'image media wordcount save fullscreen code table lists link',
-                        toolbar: 'placeholders | bold italic strikethrough forecolor backcolor image alignleft aligncenter alignright alignjustify | link hr | numlist bullist outdent indent | removeformat | code | table',
+                        plugins: this.plugins || defaultPlugins,
+                        toolbar: this.toolbar || defaultToolbar,
+                        menubar: this.menubar || false,
+                        min_height: this.minHeight || 300,
                         image_advtab: true,
-                        directionality: 'ltr',
+                        directionality: document.documentElement.getAttribute('dir') || 'ltr',
+                        promotion: false,
+                        branding: false,
                         setup: (editor) => {
-                            let toggleState = false;
-
-                            editor.ui.registry.addMenuButton('placeholders', {
-                                text: 'Placeholders',
-                                fetch: function (callback) {
-                                    const items = [
-                                        @foreach($placeholders as $placeholder)
-                                            {
-                                                type: 'nestedmenuitem',
-                                                text: '{{ $placeholder['text'] }}',
-                                                getSubmenuItems: () => [
-                                                    @foreach($placeholder['menu'] as $child)
-                                                        {
-                                                            type: 'menuitem',
-                                                            text: '{{ $child['text'] }}',
-                                                            onAction: function () {
-                                                                editor.insertContent('{{ $child['value'] }}');
+                            if (selfComponent.showPlaceholders) {
+                                editor.ui.registry.addMenuButton('placeholders', {
+                                    text: 'Placeholders',
+                                    fetch: function (callback) {
+                                        const items = [
+                                            @foreach($placeholders as $placeholder)
+                                                {
+                                                    type: 'nestedmenuitem',
+                                                    text: '{{ $placeholder['text'] }}',
+                                                    getSubmenuItems: () => [
+                                                        @foreach($placeholder['menu'] as $child)
+                                                            {
+                                                                type: 'menuitem',
+                                                                text: '{{ $child['text'] }}',
+                                                                onAction: function () {
+                                                                    editor.insertContent('{{ $child['value'] }}');
+                                                                },
                                                             },
-                                                        },
-                                                    @endforeach
-                                                ],
-                                            },
-                                        @endforeach
-                                    ];
+                                                        @endforeach
+                                                    ],
+                                                },
+                                            @endforeach
+                                        ];
 
-                                    callback(items);
+                                        callback(items);
+                                    }
+                                });
+                            }
+
+                            editor.on('init', () => {
+                                if (selfComponent.field?.value) {
+                                    editor.setContent(selfComponent.field.value);
                                 }
                             });
 
                             ['change', 'paste', 'keyup'].forEach((event) => {
-                                editor.on(event, () => this.field.onInput(editor.getContent()));
+                                editor.on(event, () => selfComponent.field.onInput(editor.getContent()));
                             });
                         }
                     });

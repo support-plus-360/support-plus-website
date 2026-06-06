@@ -4,10 +4,12 @@ namespace Webkul\Cms\DataGrids;
 
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\DB;
+use Webkul\Cms\Concerns\FiltersDataGridByCompany;
 use Webkul\DataGrid\DataGrid;
 
 class LinkDataGrid extends DataGrid
 {
+    use FiltersDataGridByCompany;
     public function prepareQueryBuilder(): Builder
     {
         $locale = app()->getLocale();
@@ -52,7 +54,7 @@ class LinkDataGrid extends DataGrid
         $this->addFilter('deleted_at', 'cms_links.deleted_at');
         $this->addFilter('company_id', 'cms_links.company_id');
 
-        return $queryBuilder;
+        return $this->applyCompanyTabScope($queryBuilder, 'cms_links.company_id');
     }
 
     public function prepareColumns(): void

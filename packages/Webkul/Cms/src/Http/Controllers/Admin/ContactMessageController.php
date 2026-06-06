@@ -6,18 +6,21 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Event;
 use Illuminate\View\View;
 use Webkul\Admin\Http\Controllers\Controller;
+use Webkul\Cms\Concerns\InteractsWithCmsCompanyTabs;
 use Webkul\Cms\DataGrids\ContactMessageDataGrid;
 use Webkul\Cms\Models\ContactMessage;
 
 class ContactMessageController extends Controller
 {
+    use InteractsWithCmsCompanyTabs;
+
     public function index(): View|JsonResponse
     {
         if (request()->ajax()) {
             return datagrid(ContactMessageDataGrid::class)->process();
         }
 
-        return view('cms::contact-messages.index');
+        return view('cms::contact-messages.index', $this->cmsCompanyTabs());
     }
 
     public function destroy(int $id): JsonResponse

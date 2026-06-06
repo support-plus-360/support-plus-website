@@ -1,5 +1,6 @@
 @php($types = ['page' => 'Page', 'service' => 'Service', 'case_study' => 'Case Study', 'industry' => 'Industry'])
 @php($statuses = ['draft' => 'Draft', 'published' => 'Published', 'archived' => 'Archived'])
+@php($withBuilderHints = $withBuilderHints ?? false)
 
 <div class="flex flex-col gap-2.5 max-xl:flex-wrap">
     <div class="flex flex-1 flex-col gap-2 max-xl:flex-auto">
@@ -19,7 +20,12 @@
 			<!-- company -->
 			<x-admin::form.control-group>
 				<x-admin::form.control-group.label class="required">
-				@lang('cms::app.pages.form.company')
+				<span class="inline-flex items-center gap-1.5">
+					@lang('cms::app.pages.form.company')
+					@if ($withBuilderHints)
+						@include('cms::components.builder-hint', ['hint' => __('cms::app.pages.builder.hints.page_company')])
+					@endif
+				</span>
 				</x-admin::form.control-group.label>
 				
 				<x-admin::form.control-group.control
@@ -42,7 +48,12 @@
 
 		<x-admin::form.control-group>
 			<x-admin::form.control-group.label class="required">
-			@lang('cms::app.pages.form.name')
+			<span class="inline-flex items-center gap-1.5">
+				@lang('cms::app.pages.form.name')
+				@if ($withBuilderHints)
+					@include('cms::components.builder-hint', ['hint' => __('cms::app.pages.builder.hints.page_name')])
+				@endif
+			</span>
 			</x-admin::form.control-group.label>
 
 			<x-admin::form.control-group.control
@@ -60,7 +71,12 @@
 
 		<x-admin::form.control-group>
 			<x-admin::form.control-group.label class="required">
-			@lang('cms::app.pages.form.slug')
+			<span class="inline-flex items-center gap-1.5">
+				@lang('cms::app.pages.form.slug')
+				@if ($withBuilderHints)
+					@include('cms::components.builder-hint', ['hint' => __('cms::app.pages.builder.hints.page_slug')])
+				@endif
+			</span>
 			</x-admin::form.control-group.label>
 
 			<x-admin::form.control-group.control
@@ -81,7 +97,12 @@
 		<div class="grid grid-cols-5 gap-4">
 			<x-admin::form.control-group>
 			<x-admin::form.control-group.label class="required">
-			@lang('cms::app.pages.form.type')
+			<span class="inline-flex items-center gap-1.5">
+				@lang('cms::app.pages.form.type')
+				@if ($withBuilderHints)
+					@include('cms::components.builder-hint', ['hint' => __('cms::app.pages.builder.hints.page_type')])
+				@endif
+			</span>
 			</x-admin::form.control-group.label>
 
 			<x-admin::form.control-group.control
@@ -104,7 +125,12 @@
 
 			<x-admin::form.control-group>
 			<x-admin::form.control-group.label class="required">
-			@lang('cms::app.pages.form.status')
+			<span class="inline-flex items-center gap-1.5">
+				@lang('cms::app.pages.form.status')
+				@if ($withBuilderHints)
+					@include('cms::components.builder-hint', ['hint' => __('cms::app.pages.builder.hints.page_status')])
+				@endif
+			</span>
 			</x-admin::form.control-group.label>
 
 			<x-admin::form.control-group.control
@@ -127,7 +153,12 @@
 		
 			<x-admin::form.control-group>
 			<x-admin::form.control-group.label>
-			@lang('cms::app.pages.form.order')
+			<span class="inline-flex items-center gap-1.5">
+				@lang('cms::app.pages.form.order')
+				@if ($withBuilderHints)
+					@include('cms::components.builder-hint', ['hint' => __('cms::app.pages.builder.hints.page_order')])
+				@endif
+			</span>
 			</x-admin::form.control-group.label>
 
 			<x-admin::form.control-group.control
@@ -143,7 +174,12 @@
 
 			<x-admin::form.control-group>
 			<x-admin::form.control-group.label>
-			@lang('cms::app.pages.form.published_at')
+			<span class="inline-flex items-center gap-1.5">
+				@lang('cms::app.pages.form.published_at')
+				@if ($withBuilderHints)
+					@include('cms::components.builder-hint', ['hint' => __('cms::app.pages.builder.hints.page_published_at')])
+				@endif
+			</span>
 			</x-admin::form.control-group.label>
 
 			<x-admin::form.control-group.control
@@ -159,7 +195,12 @@
 
 			<x-admin::form.control-group class="!mb-0">
 			<x-admin::form.control-group.label>
-			@lang('cms::app.pages.form.active')
+			<span class="inline-flex items-center gap-1.5">
+				@lang('cms::app.pages.form.active')
+				@if ($withBuilderHints)
+					@include('cms::components.builder-hint', ['hint' => __('cms::app.pages.builder.hints.page_active')])
+				@endif
+			</span>
 			</x-admin::form.control-group.label>
 
 			<label class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
@@ -217,7 +258,12 @@
 
                         <x-admin::form.control-group>
                             <x-admin::form.control-group.label class="required">
-                                @lang('cms::app.pages.form.title')
+                                <span class="inline-flex items-center gap-1.5">
+                                    @lang('cms::app.pages.form.title')
+                                    @if ($withBuilderHints)
+                                        @include('cms::components.builder-hint', ['hint' => __('cms::app.pages.builder.hints.page_title')])
+                                    @endif
+                                </span>
                             </x-admin::form.control-group.label>
 
                             <x-admin::form.control-group.control
@@ -234,7 +280,12 @@
 
                         <x-admin::form.control-group>
                             <x-admin::form.control-group.label>
-                                @lang('cms::app.pages.form.meta_description')
+                                <span class="inline-flex items-center gap-1.5">
+                                    @lang('cms::app.pages.form.meta_description')
+                                    @if ($withBuilderHints)
+                                        @include('cms::components.builder-hint', ['hint' => __('cms::app.pages.builder.hints.page_meta_description')])
+                                    @endif
+                                </span>
                             </x-admin::form.control-group.label>
 
                             <x-admin::form.control-group.control
@@ -250,7 +301,12 @@
 
                         <x-admin::form.control-group class="!mb-0">
                             <x-admin::form.control-group.label>
-                                @lang('cms::app.pages.form.meta_keywords')
+                                <span class="inline-flex items-center gap-1.5">
+                                    @lang('cms::app.pages.form.meta_keywords')
+                                    @if ($withBuilderHints)
+                                        @include('cms::components.builder-hint', ['hint' => __('cms::app.pages.builder.hints.page_meta_keywords')])
+                                    @endif
+                                </span>
                             </x-admin::form.control-group.label>
 
                             <x-admin::form.control-group.control

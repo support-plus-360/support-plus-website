@@ -4,10 +4,12 @@ namespace Webkul\Cms\DataGrids;
 
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\DB;
+use Webkul\Cms\Concerns\FiltersDataGridByCompany;
 use Webkul\DataGrid\DataGrid;
 
 class NavMenuDataGrid extends DataGrid
 {
+    use FiltersDataGridByCompany;
     public function prepareQueryBuilder(): Builder
     {
         $queryBuilder = DB::table('cms_nav_menus')
@@ -27,7 +29,7 @@ class NavMenuDataGrid extends DataGrid
         $this->addFilter('company_id', 'cms_nav_menus.company_id');
         $this->addFilter('deleted_at', 'cms_nav_menus.deleted_at');
 
-        return $queryBuilder;
+        return $this->applyCompanyTabScope($queryBuilder, 'cms_nav_menus.company_id');
     }
 
     public function prepareColumns(): void

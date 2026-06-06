@@ -16,15 +16,15 @@
  *   {{ITEM_CARD_HREF}} (first item link URL or #), {{ITEM_IMAGE_MARKUP}} (item main image, else icon URL as img, else gradient)
  * - Item link row (optional): {{LINK_URL}}, {{LINK_LABEL}} inside item_link_row; wrapper uses {{ITEM_LINK_ROWS}}
  *
- * `preview_image`: basename only (e.g. `stacked.png`). The builder resolves, in order:
- * (1) `public/vendor/webkul/cms/builder-layout-previews/{file}` after publish,
- * (2) `packages/Webkul/Cms/src/Resources/assets/builder-layout-previews/{file}` in the package.
+ * `preview_image`: path under `builder-layout-previews/v1/` (e.g. `v1/hero_section_style_1.png`
+ * or `hero_section_style_1.png` — bare filenames are prefixed with `v1/` automatically).
+ * Resolved from `public/vendor/webkul/cms/builder-layout-previews/v1/` after publish, or package assets.
  * You may also use a full `https://` URL or an app path starting with `/` for `url()`.
  */
 return [
 	'hero_section_style_1' => [
 	'preview_caption' => 'Hero Section Style 1 — centered headline, two-column copy',
-	'preview_image'   => 'hero_section_style_1.png',
+	'preview_image'   => 'v1/hero_section_style_1.png',
 	'templates'     => [
 		'body' => <<<'HTML'
 			<section class="section-fade relative overflow-hidden pt-10">
@@ -80,7 +80,7 @@ return [
 
 	'3_items_in_row_section_style_1' => [
 	'preview_caption' => '3 Items in Row Section Style 1 — centered headline, three-column cards',
-	'preview_image'   => '3_items_in_row_section_style_1.png',
+	'preview_image'   => 'v1/3_items_in_row_section_style_1.png',
 	'templates'     => [
 		'body' => <<<'HTML'
 		<section class="section-fade section-depth relative overflow-hidden py-6 sm:py-10">
@@ -121,7 +121,7 @@ return [
 
 	'3_items_in_row_section_style_2' => [
 	'preview_caption' => '3 Items in Row Section Style 2 — image cards, title overlay, link wraps card',
-	'preview_image'   => '3_items_in_row_section_style_2.png',
+	'preview_image'   => 'v1/3_items_in_row_section_style_2.png',
 	'templates'     => [
 		'body' => <<<'HTML'
 			<section class="section-fade section-unified relative overflow-hidden py-6">
@@ -163,7 +163,7 @@ return [
 
 	'3_items_in_row_section_style_3' => [
 		'preview_caption' => '3 Items in Row Section Style 3 — specialization cards with feature lists',
-		'preview_image'   => '3_items_in_row_section_style_3.png',
+		'preview_image'   => 'v1/3_items_in_row_section_style_3.png',
 		'templates'     => [
 			'body' => <<<'HTML'
 			<section class="section-fade relative overflow-hidden py-20">
@@ -199,7 +199,7 @@ return [
 
 	'3_items_in_row_section_style_4' => [
 		'preview_caption' => '3 Items in Row Section Style 4 — case study cards with feature lists',
-		'preview_image'   => '3_items_in_row_section_style_4.png',
+		'preview_image'   => 'v1/3_items_in_row_section_style_4.png',
 		'templates'     => [
 			'body' => <<<'HTML'
 			<section class="section-fade relative overflow-hidden py-20">
@@ -235,7 +235,7 @@ return [
 
 	'3_items_in_row_section_style_5' => [
 		'preview_caption' => '3 Items in Row Section Style 5 — platform cards with icon, description & feature list',
-		'preview_image'   => '3_items_in_row_section_style_5.png',
+		'preview_image'   => 'v1/3_items_in_row_section_style_5.png',
 		'templates'     => [
 			'body' => <<<'HTML'
 			<section class="section-fade relative overflow-hidden py-20">
@@ -274,7 +274,7 @@ return [
 
 	'left_image_section_style_1' => [
 	'preview_caption' => 'Left Image Section Style 1 — image left, steps + CTA right',
-	'preview_image'   => 'left_image_section_style_1.png',
+	'preview_image'   => 'v1/left_image_section_style_1.png',
 	'templates'     => [
 		'body' => <<<'HTML'
 		<section class="section-fade section-calm-blue relative overflow-hidden py-4">
@@ -323,7 +323,7 @@ return [
 
 	'two_items_in_row_section_style_1' => [
 		'preview_caption' => 'Two Items in Row Section Style 1 — success cases grid with image cards',
-		'preview_image'   => 'two_items_in_row_section_style_1.png',
+		'preview_image'   => 'v1/two_items_in_row_section_style_1.png',
 		'templates'     => [
 			'body' => <<<'HTML'
 			<section class="section-fade section-unified relative overflow-hidden py-8">
@@ -365,7 +365,7 @@ return [
 
 	'info_section' => [
 		'preview_caption' => 'Info Section — centered CTA with radial gradient background',
-		'preview_image'   => 'info_section.png',
+		'preview_image'   => 'v1/info_section.png',
 		'templates'     => [
 			'body' => <<<'HTML'
 			<section class="section-fade relative overflow-hidden py-16 sm:py-20">
@@ -394,7 +394,7 @@ return [
 
 	'right_image_section_style_1' => [
 		'preview_caption' => 'Right Image Section Style 1 — numbered steps left, image right (Synergy)',
-		'preview_image'   => 'right_image_section_style_1.png',
+		'preview_image'   => 'v1/right_image_section_style_1.png',
 		'templates'     => [
 			'body' => <<<'HTML'
 			<section class="section-fade relative overflow-hidden py-20">
@@ -440,7 +440,7 @@ return [
 
 	'right_testimonial_section' => [
 		'preview_caption' => 'Right Testimonial Section — elite checklist left, testimonial card right',
-		'preview_image'   => 'right_testimonial_section.png',
+		'preview_image'   => 'v1/right_testimonial_section.png',
 		'templates'     => [
 			'body' => <<<'HTML'
 			<section class="section-fade section-depth relative overflow-hidden py-16 sm:py-20">
@@ -501,7 +501,7 @@ return [
 	// show image on left and numbered steps on right
 	'left_image_section_style_2' => [
 		'preview_caption' => 'Left Image Section Style 2 — numbered steps left, image right (Synergy)',
-		'preview_image'   => 'left_image_section_style_2.png',
+		'preview_image'   => 'v1/left_image_section_style_2.png',
 		'templates'     => [
 			'body' => <<<'HTML'
 			<section class="section-fade relative overflow-hidden py-20">
@@ -547,7 +547,7 @@ return [
 
 	'testimonials_section_style_1' => [
 		'preview_caption' => 'Testimonials Section Style 1 — quote cards in 3-column grid',
-		'preview_image'   => 'testimonials_section_style_1.png',
+		'preview_image'   => 'v1/testimonials_section_style_1.png',
 		'templates'     => [
 			'body' => <<<'HTML'
 			<section class="section-fade section-depth relative overflow-hidden py-20">
@@ -592,7 +592,7 @@ return [
 
     'testimonials_section_style_2' => [
 		'preview_caption' => 'Testimonials Section Style 2 — calm blue “why” quotes; with 3 items, center card uses darker green gradient, softer opacity, and avatar',
-		'preview_image'   => 'testimonials_section_style_2.png',
+		'preview_image'   => 'v1/testimonials_section_style_2.png',
 		'templates'     => [
 			'body' => <<<'HTML'
 			<section class="section-fade section-calm-blue relative overflow-hidden py-20">
@@ -634,7 +634,7 @@ return [
 
 	'list_in_columns_section_style_1' => [
 		'preview_caption' => 'List in Columns Section Style 1 — two-column card with benefits & KPIs',
-		'preview_image'   => 'list_in_columns_section_style_1.png',
+		'preview_image'   => 'v1/list_in_columns_section_style_1.png',
 		'templates'     => [
 			'body' => <<<'HTML'
 			<section class="section-fade relative overflow-hidden py-20">
@@ -668,7 +668,7 @@ return [
 
 	'list_in_columns_section_style_2' => [
 		'preview_caption' => 'List in Columns Section Style 2 — two-column card with benefits & KPIs',
-		'preview_image'   => 'list_in_columns_section_style_2.png',
+		'preview_image'   => 'v1/list_in_columns_section_style_2.png',
 		'templates'     => [
 			'body' => <<<'HTML'
 			<section class="section-fade relative overflow-hidden py-20">
@@ -705,7 +705,7 @@ return [
 
 	'list_in_columns_section_style_3' => [
 		'preview_caption' => 'List in Columns Section Style 3 — tech stack tags & compliance list in two cards',
-		'preview_image'   => 'list_in_columns_section_style_3.png',
+		'preview_image'   => 'v1/list_in_columns_section_style_3.png',
 		'templates'     => [
 			'body' => <<<'HTML'
 			<section class="section-fade relative overflow-hidden py-20">
@@ -740,7 +740,7 @@ return [
 
     'list_in_columns_section_style_4' => [
 		'preview_caption' => 'List in Columns Section Style 4 — two core cards with intro, feature list & accent link',
-		'preview_image'   => 'list_in_columns_section_style_4.png',
+		'preview_image'   => 'v1/list_in_columns_section_style_4.png',
 		'templates'     => [
 			'body' => <<<'HTML'
 			<section class="section-fade section-depth relative overflow-hidden py-20">
@@ -779,7 +779,7 @@ return [
 
 	'steps_section_style_1' => [
 		'preview_caption' => 'Steps Section Style 1 — numbered process steps in 4-column grid',
-		'preview_image'   => 'steps_section_style_1.png',
+		'preview_image'   => 'v1/steps_section_style_1.png',
 		'templates'     => [
 			'body' => <<<'HTML'
 			<section class="section-fade relative overflow-hidden py-20">
@@ -811,7 +811,7 @@ return [
 
     '4_items_in_row_section' => [
         'preview_caption' => '4 Items in Row Section — metric cards in a 4-column grid',
-        'preview_image'   => '4_items_in_row_section.png',
+        'preview_image'   => 'v1/4_items_in_row_section.png',
         'templates'     => [
             'body' => <<<'HTML'
             <section class="section-fade relative overflow-hidden py-20">
@@ -845,7 +845,7 @@ return [
 
     'bundles_section' => [
         'preview_caption' => 'Bundles Section — service bundle cards with features & CTAs',
-        'preview_image'   => 'bundles_section.png',
+        'preview_image'   => 'v1/bundles_section.png',
         'templates'     => [
             'body' => <<<'HTML'
             <section class="section-fade relative overflow-hidden py-20">
@@ -886,7 +886,7 @@ return [
 
       'case_study_section_style_1' => [
         'preview_caption' => 'Case Study Section Style 1 — alternating image + copy rows (2nd item reverses columns)',
-        'preview_image'   => 'case_study_section_style_1.png',
+        'preview_image'   => 'v1/case_study_section_style_1.png',
         'templates'     => [
             'body' => <<<'HTML'
             <section class="section-fade section-unified relative overflow-hidden py-20">
@@ -927,7 +927,7 @@ return [
 
     'contact_form_section_style_1' => [
         'preview_caption' => 'Contact Form Section Style 1 — contact details left, message form right',
-        'preview_image'   => 'contact_form_section_style_1.png',
+        'preview_image'   => 'v1/contact_form_section_style_1.png',
         'templates'     => [
             'body' => <<<'HTML'
             <section class="section-fade section-unified relative overflow-hidden py-20">

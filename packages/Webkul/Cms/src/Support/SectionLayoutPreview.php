@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\File;
 
 class SectionLayoutPreview
 {
+    public const PREVIEW_SUBDIRECTORY = 'v1';
+
     /**
      * Package directory for default layout preview assets (SVG/PNG you ship with the package).
      */
@@ -23,11 +25,36 @@ class SectionLayoutPreview
     }
 
     /**
+     * Normalize config value to a safe relative path under builder-layout-previews (e.g. v1/hero.png).
+     */
+    public static function normalizeRelativePreviewPath(?string $value): ?string
+    {
+        if ($value === null || $value === '') {
+            return null;
+        }
+
+        $path = str_replace('\\', '/', trim($value));
+        $path = ltrim($path, '/');
+
+        if ($path === '' || str_contains($path, '..')) {
+            return null;
+        }
+
+        if (! str_contains($path, '/')) {
+            $path = self::PREVIEW_SUBDIRECTORY.'/'.$path;
+        }
+
+        if (! preg_match('#^v1/[a-zA-Z0-9._-]+\.(png|svg|webp)$#', $path)) {
+            return null;
+        }
+
+        return $path;
+    }
+
+    /**
      * Resolve preview image URL for the builder (config value from cms_section_layout_renderers).
      *
-     * Relative filenames: prefer `public/vendor/webkul/cms/builder-layout-previews/` (publish),
-     * then the package `Resources/assets/builder-layout-previews/` via an admin route so PNG/SVG
-     * in the package still load without copying to public.
+     * Relative filenames resolve to `builder-layout-previews/v1/` in public publish or package assets.
      */
     public static function resolveImageUrl(?string $value): ?string
     {
@@ -43,8 +70,9 @@ class SectionLayoutPreview
             return url($value);
         }
 
-        $file = basename(str_replace('\\', '/', $value));
-        if ($file === '' || $file === '.' || $file === '..') {
+        $file = self::normalizeRelativePreviewPath($value);
+
+        if ($file === null) {
             return null;
         }
 
@@ -55,7 +83,7 @@ class SectionLayoutPreview
 
         $packagePath = self::packagePreviewDirectory().'/'.$file;
         if (File::isFile($packagePath)) {
-            return route('admin.cms.builder.layout-preview', ['filename' => $file], true);
+            return route('admin.cms.builder.layout-preview', ['path' => $file], true);
         }
 
         return asset('vendor/webkul/cms/builder-layout-previews/'.$file);

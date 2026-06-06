@@ -53,10 +53,17 @@
         vite()->set(['src/Resources/assets/css/app.css', 'src/Resources/assets/js/app.js'])
     }}
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
-        rel="stylesheet"
-    />
+    @if (app()->getLocale() === 'ar')
+        <link
+            href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
+    @else
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+            rel="stylesheet"
+        />
+    @endif
 
     <link
         rel="preload"
@@ -97,7 +104,11 @@
     {!! view_render_event('admin.layout.head.after') !!}
 </head>
 
-<body class="h-full font-inter dark:bg-gray-950">
+<body @class([
+    'h-full',
+    'dark:bg-gray-950',
+    app()->getLocale() === 'ar' ? 'font-arabic' : 'font-inter',
+])>
     {!! view_render_event('admin.layout.body.before') !!}
 
     <div

@@ -14,80 +14,82 @@ class CmsPageSeeder extends Seeder
      */
     public function run(): void
     {
-        $homePage = Page::create([
-            'slug' => 'home',
-            'name' => 'Home',
-            'is_active' => true,
-            'order' => 1,
-            'company_id' => 1,
-        ]);
+
+	// support plus pages
+	// home page
+	$homePage = Page::create([
+		'slug' => 'home',
+		'name' => 'Home',
+		'is_active' => true,
+		'order' => 1,
+		'company_id' => 1,
+	]);
 
 	// page translation 
 	PageTranslation::create([
-	'cms_page_id'=>$homePage->id,
-	'locale'=>'en',
-	'title'=>'Home Page',
-	'meta_description'=>'',
-	'meta_keywords'=>'',
+		'cms_page_id'=>$homePage->id,
+		'locale'=>'en',
+		'title'=>'Home Page',
+		'meta_description'=>'',
+		'meta_keywords'=>'',
 	]);
 
 	PageTranslation::create([
-	'cms_page_id'=>$homePage->id,
-	'locale'=>'ar',
-	'title'=>'الصفحة الرئيسية',
-	'meta_description'=>'',
-	'meta_keywords'=>'',
+		'cms_page_id'=>$homePage->id,
+		'locale'=>'ar',
+		'title'=>'الصفحة الرئيسية',
+		'meta_description'=>'',
+		'meta_keywords'=>'',
 	]);
 
-
-
-        $healthcarePage = Page::create([
-            'slug' => 'healthcare',
-            'name' => 'Health Care',
-            'is_active' => true,
-            'order' => 2,
-            'company_id' => 1,
-        ]);
-
-	PageTranslation::create([
-	'cms_page_id'=>$healthcarePage->id,
-	'locale'=>'en',
-	'title'=>'Health Care',
-	'meta_description'=>'',
-	'meta_keywords'=>'',
-	]);
-	
-	PageTranslation::create([
-	'cms_page_id'=>$healthcarePage->id,
-	'locale'=>'ar',
-	'title'=>'الرعاية الصحية',
-	'meta_description'=>'',
-	'meta_keywords'=>'',
+	// healthcare page
+	$healthcarePage = Page::create([
+		'slug' => 'healthcare',
+		'name' => 'Health Care',
+		'is_active' => true,
+		'order' => 2,
+		'company_id' => 1,
 	]);
 
-
-        $digitalMarketingPage = Page::create([
-            'slug' => 'digital-marketing',
-            'name' => 'Digital Marketing',
-            'is_active' => true,
-            'order' => 3,
-            'company_id' => 1,
-        ]);
-
 	PageTranslation::create([
-	'cms_page_id'=>$digitalMarketingPage->id,
-	'locale'=>'en',
-	'title'=>'Digital Marketing',
-	'meta_description'=>'',
-	'meta_keywords'=>'',
+		'cms_page_id'=>$healthcarePage->id,
+		'locale'=>'en',
+		'title'=>'Health Care',
+		'meta_description'=>'',
+		'meta_keywords'=>'',
 	]);
 	
 	PageTranslation::create([
-	'cms_page_id'=>$digitalMarketingPage->id,
-	'locale'=>'ar',
-	'title'=>'التسويق الرقمي',
-	'meta_description'=>'',
-	'meta_keywords'=>'',
+		'cms_page_id'=>$healthcarePage->id,
+		'locale'=>'ar',
+		'title'=>'الرعاية الصحية',
+		'meta_description'=>'',
+		'meta_keywords'=>'',
+	]);
+
+
+	$digitalMarketingPage = Page::create([
+		'slug' => 'digital-marketing',
+		'name' => 'Digital Marketing',
+		'is_active' => true,
+		'order' => 3,
+		'company_id' => 1,
+	]);
+
+	PageTranslation::create([
+		'cms_page_id'=>$digitalMarketingPage->id,
+		'locale'=>'en',
+		'title'=>'Digital Marketing',
+		'meta_description'=>'',
+		'meta_keywords'=>'',
+	]);
+	
+	PageTranslation::create([
+		'cms_page_id'=>$digitalMarketingPage->id,
+		'locale'=>'ar',
+		'title'=>'التسويق الرقمي',
+		'meta_description'=>'',
+		'meta_keywords'=>'',
 	]);
 	
 	$softwareHousePage = Page::create([
@@ -96,22 +98,22 @@ class CmsPageSeeder extends Seeder
             'is_active' => true,
             'order' => 4,
             'company_id' => 1,
-        ]);
+          ]);
 
 	PageTranslation::create([
-	'cms_page_id'=>$softwareHousePage->id,
-	'locale'=>'en',
-	'title'=>'Software House',
-	'meta_description'=>'',
-	'meta_keywords'=>'',
+		'cms_page_id'=>$softwareHousePage->id,
+		'locale'=>'en',
+		'title'=>'Software House',
+		'meta_description'=>'',
+		'meta_keywords'=>'',
 	]);
 	
 	PageTranslation::create([
-	'cms_page_id'=>$softwareHousePage->id,
-	'locale'=>'ar',
-	'title'=>'منزل البرمجيات',
-	'meta_description'=>'',
-	'meta_keywords'=>'',
+		'cms_page_id'=>$softwareHousePage->id,
+		'locale'=>'ar',
+		'title'=>'منزل البرمجيات',
+		'meta_description'=>'',
+		'meta_keywords'=>'',
 	]);
 
 	// --------------------------
@@ -122,22 +124,22 @@ class CmsPageSeeder extends Seeder
             'is_active' => true,
             'order' => 5,
             'company_id' => 1,
-        ]);
+          ]);
 
 	PageTranslation::create([
-	'cms_page_id'=>$callCenterPage->id,
-	'locale'=>'en',
-	'title'=>'Call Center',
-	'meta_description'=>'',
-	'meta_keywords'=>'',
+		'cms_page_id'=>$callCenterPage->id,
+		'locale'=>'en',
+		'title'=>'Call Center',
+		'meta_description'=>'',
+		'meta_keywords'=>'',
 	]);
 	
 	PageTranslation::create([
-	'cms_page_id'=>$callCenterPage->id,
-	'locale'=>'ar',
-	'title'=>'مركز الاتصال',
-	'meta_description'=>'',
-	'meta_keywords'=>'',
+		'cms_page_id'=>$callCenterPage->id,
+		'locale'=>'ar',
+		'title'=>'مركز الاتصال',
+		'meta_description'=>'',
+		'meta_keywords'=>'',
 	]);
 	
 	// --------------------------
@@ -217,5 +219,115 @@ class CmsPageSeeder extends Seeder
 	'meta_description'=>'',
 	'meta_keywords'=>'',
 	]);
+
+
+
+// -------------------------- end of support plus pages ----------------------------------
+
+	// mena support plus pages
+	$homePage = Page::create([
+		'slug' => 'home',
+		'name' => 'Home',
+		'is_active' => true,
+		'order' => 1,
+		'company_id' => 2,
+	]);
+
+	PageTranslation::create([
+		'cms_page_id'=>$homePage->id,
+		'locale'=>'en',
+		'title'=>'Home',
+		'meta_description'=>'',
+		'meta_keywords'=>'',
+	]);
+	
+	PageTranslation::create([
+		'cms_page_id'=>$homePage->id,
+		'locale'=>'ar',
+		'title'=>'الصفحة الرئيسية',
+		'meta_description'=>'',
+		'meta_keywords'=>'',
+	]);
+
+	// services page
+	$servicesPage = Page::create([
+		'slug' => 'mena-services',
+		'name' => 'Mena Services',
+		'is_active' => true,
+		'order' => 2,
+		'company_id' => 2,
+	]);
+	
+	PageTranslation::create([
+		'cms_page_id'=>$servicesPage->id,
+		'locale'=>'en',
+		'title'=>'Services',
+		'meta_description'=>'',
+		'meta_keywords'=>'',
+	]);
+
+	PageTranslation::create([
+		'cms_page_id'=>$servicesPage->id,
+		'locale'=>'ar',
+		'title'=>'الخدمات',
+		'meta_description'=>'',
+		'meta_keywords'=>'',
+	]);
+
+    // mena case studies page
+    $caseStudiesPage = Page::create([
+		'slug' => 'mena-case-studies',
+		'name' => 'Mena Case Studies',
+		'is_active' => true,
+		'order' => 3,
+		'company_id' => 2,
+	]);
+	
+	PageTranslation::create([
+		'cms_page_id'=>$caseStudiesPage->id,
+		'locale'=>'en',
+		'title'=>'Case Studies',
+		'meta_description'=>'',
+		'meta_keywords'=>'',
+	]);
+	
+	PageTranslation::create([
+		'cms_page_id'=>$caseStudiesPage->id,
+		'locale'=>'ar',
+		'title'=>'الدراسات الميدانية',
+		'meta_description'=>'',
+		'meta_keywords'=>'',
+	]);
+
+
+
+    // about us page
+    $aboutUsPage = Page::create([
+		'slug' => 'mena-about-us',
+		'name' => 'Mena About Us',
+		'is_active' => true,
+		'order' => 4,
+		'company_id' => 2,
+	]);
+	
+	PageTranslation::create([
+		'cms_page_id'=>$aboutUsPage->id,
+		'locale'=>'en',
+		'title'=>'About Us',
+		'meta_description'=>'',
+		'meta_keywords'=>'',
+	]);
+	
+	PageTranslation::create([
+		'cms_page_id'=>$aboutUsPage->id,
+		'locale'=>'ar',
+		'title'=>'عن الشركة',
+		'meta_description'=>'',
+		'meta_keywords'=>'',
+	]);
+
+
+
+
     }
 }

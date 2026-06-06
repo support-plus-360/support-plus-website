@@ -6,9 +6,22 @@
     $sectionLayouts = $sectionLayouts ?? config('cms.section_layouts.layouts', []);
     $defaultSectionLayout = $defaultSectionLayout ?? config('cms.section_layouts.default', array_key_first($sectionLayouts) ?: 'hero_section_style_1');
     $cmsBuilderLayoutPreview = $cmsBuilderLayoutPreview ?? \Webkul\Cms\Support\SectionLayoutPreview::scriptPayload($sectionLayouts);
+    $cmsBuilderSectionLayoutGuide = [];
+    foreach ($sectionLayouts as $layoutKey => $layoutMeta) {
+        $preview = $cmsBuilderLayoutPreview[$layoutKey] ?? [];
+        $cmsBuilderSectionLayoutGuide[] = [
+            'key'             => $layoutKey,
+            'label'           => $layoutMeta['label'] ?? $layoutKey,
+            'description'     => $layoutMeta['description'] ?? '',
+            'preview_image'   => $preview['preview_image'] ?? null,
+            'preview_caption' => $preview['preview_caption'] ?? ($layoutMeta['description'] ?? ''),
+        ];
+    }
 @endphp
 
 <x-admin::layouts>
+    @include('cms::components.builder-hint-styles')
+
     <x-slot:title>
         @lang('cms::app.pages.builder.title')
     </x-slot>
@@ -142,6 +155,143 @@
             .dark .cms-builder-remove-btn:hover {
                 background: rgb(127 29 29);
             }
+            .cms-layout-preview-zoomable {
+                cursor: zoom-in;
+                transition: box-shadow 0.15s ease, opacity 0.15s ease;
+            }
+            .cms-layout-preview-zoomable:hover {
+                opacity: 0.92;
+                box-shadow: 0 4px 14px rgb(0 0 0 / 0.12);
+            }
+            .cms-builder-modal {
+                position: fixed;
+                inset: 0;
+                z-index: 10050;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 1rem;
+            }
+            .cms-builder-modal[hidden] {
+                display: none !important;
+            }
+            body.cms-builder-modal-open {
+                overflow: hidden;
+            }
+            .cms-builder-modal__backdrop {
+                position: absolute;
+                inset: 0;
+                background: rgb(0 0 0 / 0.65);
+            }
+            .cms-builder-modal__panel {
+                position: relative;
+                z-index: 1;
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                max-width: min(95vw, 960px);
+                max-height: 90vh;
+                overflow: hidden;
+                border-radius: 0.75rem;
+                border: 1px solid rgb(229 231 235);
+                background: rgb(255 255 255);
+                box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.35);
+            }
+            .dark .cms-builder-modal__panel {
+                border-color: rgb(55 65 81);
+                background: rgb(17 24 39);
+            }
+            .cms-builder-modal__panel--wide {
+                max-width: min(95vw, 1280px);
+            }
+            .cms-builder-modal__header {
+                display: flex;
+                align-items: flex-start;
+                justify-content: space-between;
+                gap: 1rem;
+                padding: 1rem 1.25rem;
+                border-bottom: 1px solid rgb(229 231 235);
+            }
+            .dark .cms-builder-modal__header {
+                border-bottom-color: rgb(55 65 81);
+            }
+            .cms-builder-modal__body {
+                overflow: auto;
+                padding: 1rem 1.25rem 1.25rem;
+            }
+            .cms-builder-modal__close {
+                flex-shrink: 0;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                width: 2rem;
+                height: 2rem;
+                border-radius: 0.375rem;
+                border: 1px solid rgb(229 231 235);
+                background: rgb(249 250 251);
+                font-size: 1.25rem;
+                line-height: 1;
+                color: rgb(75 85 99);
+            }
+            .cms-builder-modal__close:hover {
+                background: rgb(243 244 246);
+            }
+            .dark .cms-builder-modal__close {
+                border-color: rgb(55 65 81);
+                background: rgb(31 41 55);
+                color: rgb(209 213 219);
+            }
+            .cms-builder-modal__zoom-img {
+                display: block;
+                width: 100%;
+                height: auto;
+                max-height: calc(90vh - 8rem);
+                object-fit: contain;
+                border-radius: 0.5rem;
+                background: rgb(249 250 251);
+            }
+            .dark .cms-builder-modal__zoom-img {
+                background: rgb(31 41 55);
+            }
+            .cms-layout-guide-card {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+                border-radius: 0.5rem;
+                border: 1px solid rgb(229 231 235);
+                background: rgb(249 250 251);
+                padding: 0.75rem;
+            }
+            .dark .cms-layout-guide-card {
+                border-color: rgb(55 65 81);
+                background: rgb(31 41 55);
+            }
+            .cms-layout-guide-card img {
+                display: block;
+                width: 100%;
+                height: auto;
+                border-radius: 0.375rem;
+                border: 1px solid rgb(229 231 235);
+                cursor: zoom-in;
+            }
+            .dark .cms-layout-guide-card img {
+                border-color: rgb(55 65 81);
+            }
+            .cms-layout-guide-grid {
+                display: grid;
+                grid-template-columns: repeat(1, minmax(0, 1fr));
+                gap: 1rem;
+            }
+            @media (min-width: 640px) {
+                .cms-layout-guide-grid {
+                    grid-template-columns: repeat(2, minmax(0, 1fr));
+                }
+            }
+            @media (min-width: 1024px) {
+                .cms-layout-guide-grid {
+                    grid-template-columns: repeat(3, minmax(0, 1fr));
+                }
+            }
         </style>
     @endPushOnce
 
@@ -157,9 +307,9 @@
                     <div class="text-xl font-bold dark:text-white">
                         @lang('cms::app.pages.builder.title')
                     </div>
-                    <p class="max-w-3xl text-sm text-gray-600 dark:text-gray-400">
+                    <!-- <p class="max-w-3xl text-sm text-gray-600 dark:text-gray-400">
                         @lang('cms::app.pages.builder.help')
-                    </p>
+                    </p> -->
                 </div>
 
                 <div class="flex flex-shrink-0 flex-col items-end gap-2">
@@ -259,6 +409,16 @@
                         data-main-media-url="{{ e($section->getFirstMediaUrl('main_media')) }}"
                     >
                         <input type="hidden" name="sections[{{ $si }}][id]" value="{{ old('sections.'.$si.'.id', $section->id) }}" />
+
+                        <div class="mb-3 flex flex-wrap items-center gap-2 border-b border-gray-200 pb-3 dark:border-gray-800">
+                            <button
+                                type="button"
+                                class="secondary-button text-xs"
+                                data-cms-open-layout-guide
+                            >
+                                @lang('cms::app.pages.builder.layout-guide-btn')
+                            </button>
+                        </div>
 
                         {{-- Native <details>: works for cloned “Add section” HTML (Vue accordions would not compile). --}}
                         <div class="cms-section-builder-layout w-full">
@@ -564,29 +724,36 @@
 
                             <aside class="cms-section-preview-aside space-y-2">
                                 <p class="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                                    @lang('cms::app.pages.builder.layout-preview-thumb')
+                                </p>
+                                {{-- Live HTML preview disabled for now — layout reference image only --}}
+                                {{--
+                                <p class="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
                                     @lang('cms::app.pages.builder.preview-heading')
                                 </p>
                                 <div
                                     class="cms-section-preview-shell max-h-[min(70vh,560px)] min-h-[220px] overflow-auto rounded-lg border border-gray-200 bg-gray-50 p-3 text-sm text-gray-800 shadow-inner dark:border-gray-700 dark:bg-gray-950 dark:text-gray-100"
                                     data-cms-section-preview
                                 ></div>
+                                <p class="text-xs text-gray-500 dark:text-gray-400">
+                                    @lang('cms::app.pages.builder.preview-locale-hint')
+                                </p>
+                                --}}
                                 <figure class="cms-layout-preview-figure" data-cms-layout-preview-figure hidden>
                                     <img
                                         alt=""
                                         loading="lazy"
                                         decoding="async"
-                                        class="mt-2"
+                                        class="cms-layout-preview-zoomable mt-2 w-full rounded-lg border border-gray-200 dark:border-gray-700"
                                         data-cms-layout-preview-image
+                                        title="@lang('cms::app.pages.builder.layout-preview-zoom-hint')"
                                         hidden
                                     />
                                     <figcaption class="mt-1 text-xs text-gray-500 dark:text-gray-400" data-cms-layout-preview-caption hidden></figcaption>
+                                    <p class="mt-1 text-xs text-gray-400 dark:text-gray-500">
+                                        @lang('cms::app.pages.builder.layout-preview-zoom-hint')
+                                    </p>
                                 </figure>
-                                <p class="text-xs text-gray-500 dark:text-gray-400">
-                                    @lang('cms::app.pages.builder.preview-locale-hint')
-                                </p>
-                                <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
-                                    @lang('cms::app.pages.builder.layout-preview-thumb')
-                                </p>
                             </aside>
 
                         </div>{{-- editor + preview row --}}
@@ -615,6 +782,15 @@
             data-main-media-url=""
         >
             <input type="hidden" name="sections[__SI__][id]" value="" />
+            <div class="mb-3 flex flex-wrap items-center gap-2 border-b border-gray-200 pb-3 dark:border-gray-800">
+                <button
+                    type="button"
+                    class="secondary-button text-xs"
+                    data-cms-open-layout-guide
+                >
+                    @lang('cms::app.pages.builder.layout-guide-btn')
+                </button>
+            </div>
             <div class="cms-section-builder-layout w-full">
                 <div class="min-w-0">
                     <details class="cms-builder-details rounded-lg border border-gray-200 bg-gray-50 dark:border-gray-800 dark:bg-gray-900/50" open>
@@ -720,23 +896,79 @@
                 </div>
                 <aside class="cms-section-preview-aside space-y-2">
                     <p class="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                        @lang('cms::app.pages.builder.layout-preview-thumb')
+                    </p>
+                    {{-- Live HTML preview disabled for now — layout reference image only --}}
+                    {{--
+                    <p class="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
                         @lang('cms::app.pages.builder.preview-heading')
                     </p>
                     <div
                         class="cms-section-preview-shell max-h-[min(70vh,560px)] min-h-[220px] overflow-auto rounded-lg border border-gray-200 bg-gray-50 p-3 text-sm text-gray-800 shadow-inner dark:border-gray-700 dark:bg-gray-950 dark:text-gray-100"
                         data-cms-section-preview
                     ></div>
-                    <figure class="cms-layout-preview-figure" data-cms-layout-preview-figure hidden>
-                        <img alt="" loading="lazy" decoding="async" class="mt-2" data-cms-layout-preview-image hidden />
-                        <figcaption class="mt-1 text-xs text-gray-500 dark:text-gray-400" data-cms-layout-preview-caption hidden></figcaption>
-                    </figure>
                     <p class="text-xs text-gray-500 dark:text-gray-400">
                         @lang('cms::app.pages.builder.preview-locale-hint')
                     </p>
-                    <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
-                        @lang('cms::app.pages.builder.layout-preview-thumb')
-                    </p>
+                    --}}
+                    <figure class="cms-layout-preview-figure" data-cms-layout-preview-figure hidden>
+                        <img
+                            alt=""
+                            loading="lazy"
+                            decoding="async"
+                            class="cms-layout-preview-zoomable mt-2 w-full rounded-lg border border-gray-200 dark:border-gray-700"
+                            data-cms-layout-preview-image
+                            title="@lang('cms::app.pages.builder.layout-preview-zoom-hint')"
+                            hidden
+                        />
+                        <figcaption class="mt-1 text-xs text-gray-500 dark:text-gray-400" data-cms-layout-preview-caption hidden></figcaption>
+                        <p class="mt-1 text-xs text-gray-400 dark:text-gray-500">
+                            @lang('cms::app.pages.builder.layout-preview-zoom-hint')
+                        </p>
+                    </figure>
                 </aside>
+            </div>
+        </div>
+    </div>
+
+    <div id="cms-layout-image-zoom-modal" class="cms-builder-modal" hidden aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="cms-layout-zoom-modal-title">
+        <div class="cms-builder-modal__backdrop" data-cms-close-modal tabindex="-1"></div>
+        <div class="cms-builder-modal__panel">
+            <div class="cms-builder-modal__header">
+                <div class="min-w-0">
+                    <p id="cms-layout-zoom-modal-title" class="text-base font-semibold text-gray-800 dark:text-white">
+                        @lang('cms::app.pages.builder.layout-preview-zoom-title')
+                    </p>
+                    <p class="mt-0.5 text-sm text-gray-500 dark:text-gray-400" data-cms-zoom-modal-caption></p>
+                </div>
+                <button type="button" class="cms-builder-modal__close" data-cms-close-modal aria-label="@lang('cms::app.pages.builder.modal-close')">
+                    ×
+                </button>
+            </div>
+            <div class="cms-builder-modal__body">
+                <img alt="" class="cms-builder-modal__zoom-img" data-cms-zoom-modal-image />
+            </div>
+        </div>
+    </div>
+
+    <div id="cms-layout-guide-modal" class="cms-builder-modal" hidden aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="cms-layout-guide-modal-title">
+        <div class="cms-builder-modal__backdrop" data-cms-close-modal tabindex="-1"></div>
+        <div class="cms-builder-modal__panel cms-builder-modal__panel--wide">
+            <div class="cms-builder-modal__header">
+                <div class="min-w-0">
+                    <p id="cms-layout-guide-modal-title" class="text-base font-semibold text-gray-800 dark:text-white">
+                        @lang('cms::app.pages.builder.layout-guide-title')
+                    </p>
+                    <p class="mt-0.5 text-sm text-gray-500 dark:text-gray-400">
+                        @lang('cms::app.pages.builder.layout-guide-help')
+                    </p>
+                </div>
+                <button type="button" class="cms-builder-modal__close" data-cms-close-modal aria-label="@lang('cms::app.pages.builder.modal-close')">
+                    ×
+                </button>
+            </div>
+            <div class="cms-builder-modal__body">
+                <div class="cms-layout-guide-grid" data-cms-layout-guide-grid></div>
             </div>
         </div>
     </div>
@@ -849,6 +1081,10 @@
             (() => {
                 const LAYOUT_PREVIEW = @json($cmsBuilderLayoutPreview);
                 const LAYOUT_FALLBACK = @json($defaultSectionLayout);
+                const SECTION_LAYOUT_GUIDE = @json($cmsBuilderSectionLayoutGuide);
+                const CMS_MODAL_LABELS = {
+                    noPreview: @json(__('cms::app.pages.builder.layout-guide-no-preview')),
+                };
 
                 const esc = (s) => {
                     const d = document.createElement('div');
@@ -856,6 +1092,8 @@
 
                     return d.innerHTML;
                 };
+
+                const escAttr = (s) => esc(s).replace(/"/g, '&quot;');
 
                 const escUrl = (u) => {
                     const s = u == null ? '' : String(u);
@@ -1308,6 +1546,11 @@
                 };
 
                 const refreshSectionPreview = (sectionRoot) => {
+                    // Live HTML preview disabled — update layout reference image only.
+                    syncLayoutPreviewThumb(sectionRoot);
+
+                    /*
+                    Restore live preview when re-enabling data-cms-section-preview in the aside:
                     const preview = sectionRoot.querySelector('[data-cms-section-preview]');
                     if (! preview) {
                         return;
@@ -1329,6 +1572,7 @@
                     };
                     preview.innerHTML = renderFromConfig(layout, payload);
                     syncLayoutPreviewThumb(sectionRoot);
+                    */
                 };
 
                 const debouncePreview = (sectionRoot) => {
@@ -1579,6 +1823,133 @@
                 };
 
                 wireSectionPreviewDelegation();
+
+                const zoomModalEl = () => document.getElementById('cms-layout-image-zoom-modal');
+                const guideModalEl = () => document.getElementById('cms-layout-guide-modal');
+
+                const openBuilderModal = (modal) => {
+                    if (! modal) {
+                        return;
+                    }
+                    modal.removeAttribute('hidden');
+                    modal.setAttribute('aria-hidden', 'false');
+                    document.body.classList.add('cms-builder-modal-open');
+                };
+
+                const closeBuilderModal = (modal) => {
+                    if (! modal) {
+                        return;
+                    }
+                    modal.setAttribute('hidden', 'hidden');
+                    modal.setAttribute('aria-hidden', 'true');
+                    if (! document.querySelector('.cms-builder-modal:not([hidden])')) {
+                        document.body.classList.remove('cms-builder-modal-open');
+                    }
+                };
+
+                const closeAllBuilderModals = () => {
+                    document.querySelectorAll('.cms-builder-modal').forEach((modal) => closeBuilderModal(modal));
+                };
+
+                const openLayoutZoomModal = (src, caption) => {
+                    const modal = zoomModalEl();
+                    const img = modal?.querySelector('[data-cms-zoom-modal-image]');
+                    const cap = modal?.querySelector('[data-cms-zoom-modal-caption]');
+                    if (! modal || ! img || ! src) {
+                        return;
+                    }
+                    img.src = src;
+                    img.alt = caption || '';
+                    if (cap) {
+                        cap.textContent = caption || '';
+                    }
+                    openBuilderModal(modal);
+                };
+
+                const buildLayoutGuideGrid = () => {
+                    const grid = document.querySelector('[data-cms-layout-guide-grid]');
+                    if (! grid || grid.dataset.built === '1') {
+                        return;
+                    }
+                    grid.dataset.built = '1';
+                    grid.innerHTML = SECTION_LAYOUT_GUIDE.map((entry) => {
+                        const label = esc(entry.label || entry.key || '');
+                        const description = esc(entry.description || '');
+                        const caption = escAttr(entry.preview_caption || entry.description || entry.label || '');
+                        const thumb = entry.preview_image
+                            ? `<img src="${escAttr(entry.preview_image)}" alt="${label}" loading="lazy" decoding="async" data-cms-guide-layout-thumb data-caption="${caption}" />`
+                            : `<div class="flex min-h-[120px] items-center justify-center rounded-md border border-dashed border-gray-300 bg-white px-3 text-center text-xs text-gray-500 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-400">${esc(CMS_MODAL_LABELS.noPreview)}</div>`;
+
+                        return `<article class="cms-layout-guide-card">
+                            ${thumb}
+                            <div>
+                                <p class="text-sm font-semibold text-gray-800 dark:text-white">${label}</p>
+                                ${description ? `<p class="mt-1 text-xs text-gray-500 dark:text-gray-400">${description}</p>` : ''}
+                            </div>
+                        </article>`;
+                    }).join('');
+                };
+
+                const wireBuilderModals = () => {
+                    if (window.__cmsBuilderModalsWired) {
+                        return;
+                    }
+                    window.__cmsBuilderModalsWired = true;
+
+                    buildLayoutGuideGrid();
+
+                    document.addEventListener('click', (e) => {
+                        const guideBtn = e.target?.closest?.('[data-cms-open-layout-guide]');
+                        if (guideBtn) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            buildLayoutGuideGrid();
+                            openBuilderModal(guideModalEl());
+
+                            return;
+                        }
+
+                        const previewImg = e.target?.closest?.('[data-cms-layout-preview-image]');
+                        if (previewImg && previewImg.src && ! previewImg.hasAttribute('hidden')) {
+                            e.preventDefault();
+                            const caption = previewImg.alt
+                                || previewImg.closest('figure')?.querySelector('[data-cms-layout-preview-caption]')?.textContent
+                                || '';
+                            openLayoutZoomModal(previewImg.src, caption);
+
+                            return;
+                        }
+
+                        const guideThumb = e.target?.closest?.('[data-cms-guide-layout-thumb]');
+                        if (guideThumb?.src) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            openLayoutZoomModal(
+                                guideThumb.src,
+                                guideThumb.getAttribute('data-caption') || guideThumb.alt || '',
+                            );
+
+                            return;
+                        }
+
+                        const closeTarget = e.target?.closest?.('[data-cms-close-modal]');
+                        if (closeTarget) {
+                            const modal = closeTarget.closest('.cms-builder-modal');
+                            if (modal) {
+                                e.preventDefault();
+                                closeBuilderModal(modal);
+                            }
+                        }
+                    }, true);
+
+                    document.addEventListener('keydown', (e) => {
+                        if (e.key === 'Escape') {
+                            closeAllBuilderModals();
+                        }
+                    });
+                };
+
+                wireBuilderModals();
 
                 const bindAllSections = () => {
                     document.querySelectorAll('#cms-sections-root [data-cms-section]').forEach((el) => bindSection(el));

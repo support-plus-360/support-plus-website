@@ -7,6 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Event;
 use Illuminate\View\View;
 use Webkul\Admin\Http\Controllers\Controller;
+use Webkul\Cms\Concerns\InteractsWithCmsCompanyTabs;
 use Webkul\Cms\Concerns\InteractsWithCmsMedia;
 use Webkul\Cms\DataGrids\SectionDataGrid;
 use Webkul\Cms\Http\Requests\SectionRequest;
@@ -15,7 +16,7 @@ use Webkul\Cms\Models\Page;
 use Webkul\Company\Models\Company;
 class SectionController extends Controller
 {
-    use InteractsWithCmsMedia;
+    use InteractsWithCmsCompanyTabs, InteractsWithCmsMedia;
 
     public function __construct(protected SectionRepository $sectionRepository) {}
 
@@ -25,7 +26,7 @@ class SectionController extends Controller
             return datagrid(SectionDataGrid::class)->process();
         }
 
-        return view('cms::sections.index');
+        return view('cms::sections.index', $this->cmsCompanyTabs());
     }
 
     public function create(): View

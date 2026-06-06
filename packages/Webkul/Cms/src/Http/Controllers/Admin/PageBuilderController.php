@@ -65,18 +65,20 @@ class PageBuilderController extends Controller
     /**
      * Serve a layout reference image from public (publish) or package assets.
      */
-    public function layoutPreviewAsset(string $filename): BinaryFileResponse
+    public function layoutPreviewAsset(string $path): BinaryFileResponse
     {
-        if (! preg_match('/^[a-zA-Z0-9._-]+$/', $filename)) {
+        $relative = SectionLayoutPreview::normalizeRelativePreviewPath($path);
+
+        if ($relative === null) {
             abort(404);
         }
 
-        $publicPath = SectionLayoutPreview::publicPreviewDirectory().'/'.$filename;
+        $publicPath = SectionLayoutPreview::publicPreviewDirectory().'/'.$relative;
         if (File::isFile($publicPath)) {
             return response()->file($publicPath);
         }
 
-        $packagePath = SectionLayoutPreview::packagePreviewDirectory().'/'.$filename;
+        $packagePath = SectionLayoutPreview::packagePreviewDirectory().'/'.$relative;
         if (File::isFile($packagePath)) {
             return response()->file($packagePath);
         }

@@ -97,12 +97,16 @@
         >
             @php
                 $defaultAttributes = [
-                    'class' => 'w-full rounded border border-gray-200 px-2.5 py-2 text-sm font-normal text-gray-800 transition-all hover:border-gray-400 focus:border-gray-400 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300 dark:hover:border-gray-400 dark:focus:border-gray-400'
+                    'class' => 'w-full rounded border border-gray-200 px-2.5 py-2 text-sm font-normal text-gray-800 transition-all hover:border-gray-400 focus:border-gray-400 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300 dark:hover:border-gray-400 dark:focus:border-gray-400',
                 ];
 
-                if ($attributes->get('tinymce', false) || $attributes->get(':tinymce', false)) {
-                    $defaultAttributes['id'] = $attributes->get(':id', 'id');
-                }
+                $textareaAttributeNames = [
+                    'value', ':value', 'v-model', 'rules', ':rules', 'label', ':label',
+                    'tinymce', ':tinymce', 'tinymce-plugins', 'tinymce-toolbar', 'tinymce-menubar',
+                    'tinymce-min-height', 'tinymce-placeholders', ':tinymce-placeholders',
+                ];
+
+                $tinymceEditorId = $attributes->get('id') ?? $attributes->get(':id');
             @endphp
 
             <textarea
@@ -112,17 +116,28 @@
                 :class="[errors.length ? 'border !border-red-600 hover:border-red-600' : '']"
                 {{
                     $attributes
-                        ->except(['value', ':value', 'v-model', 'rules', ':rules', 'label', ':label'])
+                        ->except($textareaAttributeNames)
                         ->merge($defaultAttributes)
                 }}
             >
             </textarea>
 
             @if ($attributes->get('tinymce', false) || $attributes->get(':tinymce', false))
-                <x-admin::tinymce
-                    :selector="'textarea#' . ($attributes->get('id') ?? $attributes->get(':id'))"
-                    ::field="field"
-                />
+                @php
+                    $tinymceSelector = $tinymceEditorId ? 'textarea#'.$tinymceEditorId : null;
+                    $tinymceShowPlaceholders = filter_var($attributes->get('tinymce-placeholders', true), FILTER_VALIDATE_BOOLEAN);
+                @endphp
+                @if ($tinymceSelector)
+                    <x-admin::tinymce
+                        :selector="$tinymceSelector"
+                        ::field="field"
+                        @if ($attributes->has('tinymce-plugins')) plugins="{{ $attributes->get('tinymce-plugins') }}" @endif
+                        @if ($attributes->has('tinymce-toolbar')) toolbar="{{ $attributes->get('tinymce-toolbar') }}" @endif
+                        @if ($attributes->has('tinymce-menubar')) menubar="{{ $attributes->get('tinymce-menubar') }}" @endif
+                        @if ($attributes->has('tinymce-min-height')) :min-height="{{ (int) $attributes->get('tinymce-min-height') }}" @endif
+                        :show-placeholders="$tinymceShowPlaceholders"
+                    />
+                @endif
             @endif
         </v-field>
 

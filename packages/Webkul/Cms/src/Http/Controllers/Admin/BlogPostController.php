@@ -8,6 +8,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Event;
 use Illuminate\View\View;
 use Webkul\Admin\Http\Controllers\Controller;
+use Webkul\Cms\Concerns\InteractsWithCmsCompanyTabs;
 use Webkul\Cms\Concerns\InteractsWithBlogPostPayload;
 use Webkul\Cms\Concerns\InteractsWithCmsMedia;
 use Webkul\Cms\DataGrids\BlogPostDataGrid;
@@ -19,7 +20,7 @@ use Webkul\Cms\Models\BlogPost;
 
 class BlogPostController extends Controller
 {
-    use InteractsWithBlogPostPayload, InteractsWithCmsMedia;
+    use InteractsWithBlogPostPayload, InteractsWithCmsCompanyTabs, InteractsWithCmsMedia;
 
     public function __construct(protected BlogPostRepository $blogPostRepository) {}
 
@@ -29,7 +30,7 @@ class BlogPostController extends Controller
             return datagrid(BlogPostDataGrid::class)->process();
         }
 
-        return view('cms::blog-posts.index');
+        return view('cms::blog-posts.index', $this->cmsCompanyTabs());
     }
 
     public function create(): View

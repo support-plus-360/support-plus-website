@@ -7,6 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Event;
 use Illuminate\View\View;
 use Webkul\Admin\Http\Controllers\Controller;
+use Webkul\Cms\Concerns\InteractsWithCmsCompanyTabs;
 use Webkul\Cms\Concerns\InteractsWithPagePayload;
 use Webkul\Cms\DataGrids\PageDataGrid;
 use Webkul\Cms\Http\Requests\PageRequest;
@@ -15,7 +16,7 @@ use Webkul\Company\Models\Company;
 
 class PageController extends Controller
 {
-    use InteractsWithPagePayload;
+    use InteractsWithCmsCompanyTabs, InteractsWithPagePayload;
 
     public function __construct(protected PageRepository $pageRepository) {}
 
@@ -25,7 +26,7 @@ class PageController extends Controller
             return datagrid(PageDataGrid::class)->process();
         }
 
-        return view('cms::pages.index');
+        return view('cms::pages.index', $this->cmsCompanyTabs());
     }
 
     public function create(): View

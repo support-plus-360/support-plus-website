@@ -4,10 +4,12 @@ namespace Webkul\Cms\DataGrids;
 
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\DB;
+use Webkul\Cms\Concerns\FiltersDataGridByCompany;
 use Webkul\DataGrid\DataGrid;
 
 class ItemDataGrid extends DataGrid
 {
+    use FiltersDataGridByCompany;
     public function prepareQueryBuilder(): Builder
     {
         $locale = app()->getLocale();
@@ -40,8 +42,9 @@ class ItemDataGrid extends DataGrid
         $this->addFilter('id', 'cms_items.id');
         $this->addFilter('section_id', 'cms_items.section_id');
         $this->addFilter('type', 'cms_items.type');
+        $this->addFilter('company_id', 'cms_items.company_id');
 
-        return $queryBuilder;
+        return $this->applyCompanyTabScope($queryBuilder, 'cms_items.company_id');
     }
 
     public function prepareColumns(): void

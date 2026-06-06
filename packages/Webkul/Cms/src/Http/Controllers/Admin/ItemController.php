@@ -7,6 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Event;
 use Illuminate\View\View;
 use Webkul\Admin\Http\Controllers\Controller;
+use Webkul\Cms\Concerns\InteractsWithCmsCompanyTabs;
 use Webkul\Cms\Concerns\InteractsWithCmsMedia;
 use Webkul\Cms\Concerns\InteractsWithItemPayload;
 use Webkul\Cms\DataGrids\ItemDataGrid;
@@ -17,7 +18,7 @@ use Webkul\Cms\Models\Section;
 
 class ItemController extends Controller
 {
-    use InteractsWithCmsMedia, InteractsWithItemPayload;
+    use InteractsWithCmsCompanyTabs, InteractsWithCmsMedia, InteractsWithItemPayload;
 
     public function __construct(protected ItemRepository $itemRepository) {}
 
@@ -27,7 +28,7 @@ class ItemController extends Controller
             return datagrid(ItemDataGrid::class)->process();
         }
 
-        return view('cms::items.index');
+        return view('cms::items.index', $this->cmsCompanyTabs());
     }
 
     public function create(): View

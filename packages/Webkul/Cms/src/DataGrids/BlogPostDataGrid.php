@@ -4,10 +4,12 @@ namespace Webkul\Cms\DataGrids;
 
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\DB;
+use Webkul\Cms\Concerns\FiltersDataGridByCompany;
 use Webkul\DataGrid\DataGrid;
 
 class BlogPostDataGrid extends DataGrid
 {
+    use FiltersDataGridByCompany;
     public function prepareQueryBuilder(): Builder
     {
         $locale = app()->getLocale();
@@ -54,7 +56,7 @@ class BlogPostDataGrid extends DataGrid
         $this->addFilter('deleted_at', 'cms_blog_posts.deleted_at');
         $this->addFilter('company_id', 'cms_blog_posts.company_id');
 
-        return $queryBuilder;
+        return $this->applyCompanyTabScope($queryBuilder, 'cms_blog_posts.company_id');
     }
 
     public function prepareColumns(): void

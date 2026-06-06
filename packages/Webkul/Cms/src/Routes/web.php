@@ -23,8 +23,8 @@ Route::middleware(['web', 'admin_locale', 'user'])
 
             Route::get('', [CmsController::class, 'index'])->name('admin.cms.index');
 
-            Route::get('builder-layout-preview/{filename}', [PageBuilderController::class, 'layoutPreviewAsset'])
-                ->where('filename', '[a-zA-Z0-9._-]+')
+            Route::get('builder-layout-preview/{path}', [PageBuilderController::class, 'layoutPreviewAsset'])
+                ->where('path', '.*')
                 ->name('admin.cms.builder.layout-preview');
 
             Route::controller(PageBuilderController::class)->prefix('pages')->group(function () {

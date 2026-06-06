@@ -4,10 +4,12 @@ namespace Webkul\Cms\DataGrids;
 
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\DB;
+use Webkul\Cms\Concerns\FiltersDataGridByCompany;
 use Webkul\DataGrid\DataGrid;
 
 class ContactMessageDataGrid extends DataGrid
 {
+    use FiltersDataGridByCompany;
     public function prepareQueryBuilder(): Builder
     {
         $queryBuilder = DB::table('cms_contact_messages')
@@ -30,7 +32,7 @@ class ContactMessageDataGrid extends DataGrid
         $this->addFilter('phone', 'cms_contact_messages.phone');
         $this->addFilter('created_at', 'cms_contact_messages.created_at');
 
-        return $queryBuilder;
+        return $this->applyCompanyTabScope($queryBuilder, 'cms_contact_messages.company_id');
     }
 
     public function prepareColumns(): void

@@ -38,10 +38,17 @@
         vite()->set(['src/Resources/assets/css/app.css', 'src/Resources/assets/js/app.js'])
     }}
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet"
-    />
+    @if (app()->getLocale() === 'ar')
+        <link
+            href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
+    @else
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+            rel="stylesheet"
+        />
+    @endif
 
     <link
         href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap"
@@ -81,7 +88,9 @@
     {!! view_render_event('admin.layout.head') !!}
 </head>
 
-<body>
+<body @class([
+    app()->getLocale() === 'ar' ? 'font-arabic' : '',
+])>
     {!! view_render_event('admin.layout.body.before') !!}
 
     <div id="app">

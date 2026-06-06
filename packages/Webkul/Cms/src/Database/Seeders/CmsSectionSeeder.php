@@ -976,7 +976,7 @@ class CmsSectionSeeder extends Seeder
 		'description' => 'هل أنت مستعد لتنمية منشأتك الصحية؟ لنتحدث عن استراتيجية النمو.',
 	]);
 
-// contact_form_section_style_1
+    // contact_form_section_style_1
 		$contactSection2 = Section::create([
 		'name' => 'Contact Page Section 2',
 		'section_layout' => 'contact_form_section_style_1',
@@ -1003,6 +1003,450 @@ class CmsSectionSeeder extends Seeder
 	]);
 
 
+// -------------------------- end of contact page sections ----------------------------------
+
+
+
+
+
+
+
+
+
+// -------------------------- start of mena support plus pages sections ----------------------------------
+
+	// mena home page section 1
+	$menaHomeSection1 = Section::create([
+		'name' => 'Mena Home Page Section 1',
+		'section_layout' => 'mena_info_section_style_1',
+		'settings' => [],
+		'order' => 1,
+		'company_id' => 2,
+		'page_id' => 9,
+	]);
+
+	SectionTranslation::create([
+		'cms_section_id' => $menaHomeSection1->id,
+		'locale' => 'en',
+		'title' => 'Your Medical Center Deserves a Healthier Financial Pulse',
+		'subtitle' => 'Elevating KSA Healthcare',
+		'description' => 'Bridging high-level financial precision with human-centric HR consultancy, we help Saudi healthcare providers stabilize operations, improve margins, and scale with confidence.',
+	]);
 	
-}
+	SectionTranslation::create([
+		'cms_section_id' => $menaHomeSection1->id,
+		'locale' => 'ar',
+		'title' => 'يستحق مركزك الطبي الصحي المالي',
+		'subtitle' => 'رفع مستوى الطب السعودي',
+		'description' => 'نربط الدقة المالية العالية مع الاستشارات البشرية المركزة على الإنسان، نساعد مراكز الطب السعودية على تحقيق توازن عملياتها وتحسين الهامش والنمو بالثقة.',
+	]);
+
+	// mena home page section 2
+	$menaHomeSection2 = Section::create([
+		'name' => 'Mena Home Page Section 2',
+		'section_layout' => 'mena_3_items_in_row_section_style_1',
+		'settings' => [],
+		'order' => 2,
+		'company_id' => 2,
+		'page_id' => 9,
+	]);
+	
+	SectionTranslation::create([
+		'cms_section_id' => $menaHomeSection2->id,
+		'locale' => 'en',
+		'title' => 'Measurable Financial Health',
+		'subtitle' => '',
+		'description' => 'Transforming operational data into strategic results for leading healthcare providers.',
+	]);
+	
+	SectionTranslation::create([
+		'cms_section_id' => $menaHomeSection2->id,
+		'locale' => 'ar',
+		'title' => 'الصحي المالي القابل للقياس',
+		'subtitle' => '',
+		'description' => 'تحويل بيانات العمليات إلى نتائج استراتيجية لمراكز الطب الرائدة.',
+	]);
+
+	// mena home page section 3
+	$menaHomeSection3 = Section::create([
+		'name' => 'Mena Home Page Section 3',
+		'section_layout' => 'mena_testimonials_section_style_1',
+		'settings' => [],
+		'order' => 3,
+		'company_id' => 2,
+		'page_id' => 9,
+	]);
+
+	SectionTranslation::create([
+		'cms_section_id' => $menaHomeSection3->id,
+		'locale' => 'en',
+		'title' => 'Trusted by KSA Healthcare Leaders',
+		'subtitle' => '',
+		'description' => 'We partner with institutions that value sustainable growth and disciplined execution.',
+	]);
+	
+	SectionTranslation::create([
+		'cms_section_id' => $menaHomeSection3->id,
+		'locale' => 'ar',
+		'title' => 'تثق المرضى الطبيون بنا',
+		'subtitle' => '',
+		'description' => 'نعمل مع المؤسسات التي تقدر النمو المستدام والتنفيذ المنظم.',
+	]);
+
+	// mena home page section 4
+	$menaHomeSection4 = Section::create([
+		'name' => 'Mena Home Page Section 4',
+		'section_layout' => 'mena_faqs_section_style_1',
+		'settings' => [],
+		'order' => 4,
+		'company_id' => 2,
+		'page_id' => 9,
+	]);
+
+	SectionTranslation::create([
+		'cms_section_id' => $menaHomeSection4->id,
+		'locale' => 'en',
+		'title' => 'Frequently Asked Questions',
+		'subtitle' => '',
+		'description' => 'Common questions about our financial and operational consulting services in KSA.',
+	]);
+	
+	SectionTranslation::create([
+		'cms_section_id' => $menaHomeSection4->id,
+		'locale' => 'ar',
+		'title' => 'الأسئلة الشائعة',
+		'subtitle' => '',
+		'description' => 'الأسئلة الشائعة حول الاستشارات المالية والتشغيلية في المملكة العربية السعودية.',
+	]);
+
+
+
+// -------------------------- start of mena support plus pages sections ----------------------------------
+
+	// mena services page section 1
+	$menaServicesSection1 = Section::create([
+		'name' => 'Mena Services Page Section 1',
+		'section_layout' => 'mena_info_section_style_2',
+		'settings' => [],
+		'order' => 1,
+		'company_id' => 2,
+		'page_id' => 10,
+	]); 
+
+    SectionTranslation::create([
+		'cms_section_id' => $menaServicesSection1->id,
+		'locale' => 'en',
+		'title' => 'Comprehensive Consultancy',
+		'subtitle' => 'Services Overview',
+		'description' => 'Designed for ambitious healthcare institutions that need sharper financial control, stronger HR systems, and practical implementation support.',
+	]);
+
+    SectionTranslation::create([
+		'cms_section_id' => $menaServicesSection1->id,
+		'locale' => 'ar',
+		'title' => 'الاستشارات الشاملة',
+		'subtitle' => 'نظرة عامة على الخدمات',
+		'description' => 'مصممة للمؤسسات الطبية الرائدة التي تحتاج إلى تحكم مالي أكثر دقة، أنظمة HR أقوى، ودعم تنفيذي عملي.',
+	]);
+
+    // mena services page section 2
+	$menaServicesSection2 = Section::create([
+		'name' => 'Mena Services Page Section 2',
+		'section_layout' => 'mena_4_items_in_row_section_style_1',
+		'settings' => [],
+		'order' => 2,
+		'company_id' => 2,
+		'page_id' => 10,
+	]);
+
+    SectionTranslation::create([
+		'cms_section_id' => $menaServicesSection2->id,
+		'locale' => 'en',
+		'title' => 'Financial Precision',
+		'subtitle' => '',
+		'description' => 'Hands-on finance services that improve control, visibility, and confidence across healthcare operations.',
+	]);
+
+    SectionTranslation::create([
+		'cms_section_id' => $menaServicesSection2->id,
+		'locale' => 'ar',
+		'title' => 'الدقة المالية',
+		'subtitle' => '',
+		'description' => 'خدمات المالية العملية التي تحسن التحكم، الرؤية، والثقة في عمليات الطب الصحي.',
+	]);
+
+
+    // mena services page section 3
+	$menaServicesSection3 = Section::create([
+		'name' => 'Mena Services Page Section 3',
+		'section_layout' => 'mena_3_items_in_row_section_style_2',
+		'settings' => [],
+		'order' => 3,
+		'company_id' => 2,
+		'page_id' => 10,
+	]);
+
+    SectionTranslation::create([
+		'cms_section_id' => $menaServicesSection3->id,
+		'locale' => 'en',
+		'title' => 'HR Solutions',
+		'subtitle' => '',
+		'description' => 'Operational HR support built around compliance, team structure, and sustainable employee experience.'
+	]);
+
+    SectionTranslation::create([
+		'cms_section_id' => $menaServicesSection3->id,
+		'locale' => 'ar',
+		'title' => 'حلول الموظفين',
+		'subtitle' => '',
+		'description' => 'دعم الموظفين التشغيلي المبني على الامتثال، بنية الفريق، والتجربة المستدامة للموظفين.',
+	]);
+
+
+    // mena services page section 4
+	$menaServicesSection4 = Section::create([
+		'name' => 'Mena Services Page Section 4',
+		'section_layout' => 'mena_3_items_in_row_section_style_3',
+		'settings' => [],
+		'order' => 4,
+		'company_id' => 2,
+		'page_id' => 10,
+	]);
+
+    SectionTranslation::create([
+		'cms_section_id' => $menaServicesSection4->id,
+		'locale' => 'en',
+		'title' => 'Proven Results in Healthcare',
+		'subtitle' => '',
+		'description' => 'Our teams work with healthcare leaders to turn finance and HR complexity into measurable operational progress.'
+	]);
+
+    SectionTranslation::create([
+		'cms_section_id' => $menaServicesSection4->id,
+		'locale' => 'ar',
+		'title' => 'النتائج المتجربة في الطب الصحي',
+		'subtitle' => '',
+		'description' => 'يعمل فريقنا مع المرضى الطبيون لتحويل التعقيدات المالية والبشرية إلى تقدم تشغيلي قابل للقياس.',
+	]);
+
+
+    // mena services page section 5
+	$menaServicesSection5 = Section::create([
+		'name' => 'Mena Services Page Section 5',
+		'section_layout' => 'mena_3_items_in_row_section_style_4',
+		'settings' => [],
+		'order' => 5,
+		'company_id' => 2,
+		'page_id' => 10,
+	]);
+
+    SectionTranslation::create([
+		'cms_section_id' => $menaServicesSection5->id,
+		'locale' => 'en',
+		'title' => 'Elevate Your Institution',
+		'subtitle' => '',
+		'description' => 'Whether you need a sharper finance function or more resilient HR operations, we can help you build both with clarity.',
+	]);
+
+    SectionTranslation::create([
+		'cms_section_id' => $menaServicesSection5->id,
+		'locale' => 'ar',
+		'title' => 'رفع مستوى مركزك الطبي',
+		'subtitle' => '',
+		'description' => 'سواء كنت بحاجة إلى وظيفة مالية أكثر دقة أو عمليات HR أكثر متانة، يمكننا مساعدتك في بنائهما بوضوح.',
+	]);
+
+
+
+    // mena case studies page section 1
+	$menaCaseStudiesSection1 = Section::create([
+		'name' => 'Mena Case Studies Page Section 1',
+		'section_layout' => 'mena_info_section_style_3',
+		'settings' => [],
+		'order' => 1,
+		'company_id' => 2,
+		'page_id' => 11,
+	]);
+
+    SectionTranslation::create([
+		'cms_section_id' => $menaCaseStudiesSection1->id,
+		'locale' => 'en',
+		'title' => 'Proven Results in KSA Healthcare',
+		'subtitle' => '',
+		'description' => 'See how we help polyclinics and medical operators reduce leakage, improve reporting, and build stronger operational control.',
+	]);
+
+    SectionTranslation::create([
+		'cms_section_id' => $menaCaseStudiesSection1->id,
+		'locale' => 'ar',
+		'title' => 'النتائج المتجربة في الطب السعودي',
+		'subtitle' => '',
+		'description' => 'ترى كيف نساعد مراكز الطب المركزية والعمليات الطبية في تقليل الفرط وتحسين التقارير وبناء تحكم تشغيلي أقوى.',
+	]);
+
+
+    // mena case studies page section 2
+	$menaCaseStudiesSection2 = Section::create([
+		'name' => 'Mena Case Studies Page Section 2',
+		'section_layout' => 'mena_3_items_in_row_section_style_1',
+		'settings' => [],
+		'order' => 2,
+		'company_id' => 2,
+		'page_id' => 11,
+	]);
+
+    SectionTranslation::create([
+		'cms_section_id' => $menaCaseStudiesSection2->id,
+		'locale' => 'en',
+		'title' => 'Secured 4.5M SAR Investment via SOCPA-Aligned Valuation',
+		'subtitle' => 'Featured Case Study',
+		'description' => 'By restructuring their financial model to meet stringent SOCPA standards and presenting a transparent valuation, we helped facilitate a successful funding round aligned with their expansion roadmap.',
+	]);
+
+    SectionTranslation::create([
+		'cms_section_id' => $menaCaseStudiesSection2->id,
+		'locale' => 'ar',
+		'title' => 'حصل على 4.5 مليون ريال سعودي من الاستثمار عبر التقييم المطابق لـ SOCPA',
+		'subtitle' => 'دراسة الحالة المميزة',
+		'description' => 'بتجديد نموذجهم المالي ليتوافق مع المعايير القائمة على SOCPA وتقديم تقييم شفاف، نساعد في تمكين دورة استثمارية ناجحة مطابقة لمسار التوسع الخاص بهم. ',
+	]);
+
+
+   // mena case studies page section 3
+   $menaCaseStudiesSection3 = Section::create([
+		'name' => 'Mena Case Studies Page Section 3',
+		'section_layout' => 'mena_3_items_in_row_section_style_1',
+		'settings' => [],
+		'order' => 3,
+		'company_id' => 2,
+		'page_id' => 11,
+	]);
+
+    SectionTranslation::create([
+		'cms_section_id' => $menaCaseStudiesSection3->id,
+		'locale' => 'en',
+		'title' => 'Get Results Like These',
+		'subtitle' => '',
+		'description' => 'Stop revenue leakage and build a compliant, immediate healthcare operation. Let our consultants analyze your current setup.'
+	]);
+
+    SectionTranslation::create([
+		'cms_section_id' => $menaCaseStudiesSection3->id,
+		'locale' => 'ar',
+		'title' => 'احصل على نتائج مشابهة لهذه',
+		'subtitle' => '',
+		'description' => 'توقف خرق الإيرادات وبنى عملية طبية مطابقة وفورية. اترك مستشارينا يحللوا الإعداد الحالي لديك.',
+	]);
+
+
+
+
+
+    // mena about us page section 1
+    $menaAboutUsSection1 = Section::create([
+		'name' => 'Mena About Us Page Section 1',
+		'section_layout' => 'mena_info_section_style_1',
+		'settings' => [],
+		'order' => 1,
+		'company_id' => 2,
+		'page_id' => 12,
+	]);
+    
+    SectionTranslation::create([
+		'cms_section_id' => $menaAboutUsSection1->id,
+		'locale' => 'en',
+		'title' => 'Bridging Financial Precision with Human-Centric HR',
+		'subtitle' => 'Comprehensive Healthcare Solutions',
+		'description' => 'Our experienced consultancy empowers medical institutions in KSA to optimize their operational frameworks. We deliver actionable financial strategies, regulatory confidence, and exceptional human resource management.',
+	]);
+
+    SectionTranslation::create([
+		'cms_section_id' => $menaAboutUsSection1->id,
+		'locale' => 'ar',
+		'title' => 'نربط الدقة المالية العالية مع الاستشارات البشرية المركزة على الإنسان',
+		'subtitle' => 'الحلول الطبية الشاملة',
+		'description' => 'نربط الدقة المالية العالية مع الاستشارات البشرية المركزة على الإنسان. نساعد مراكز الطب السعودية على تحقيق توازن عملياتها وتحسين الهامش والنمو بالثقة.',
+	]);
+
+
+    // mena about us page section 2
+    $menaAboutUsSection2 = Section::create([
+		'name' => 'Mena About Us Page Section 2',
+		'section_layout' => 'mena_3_items_in_row_section_style_1',
+		'settings' => [],
+		'order' => 2,
+		'company_id' => 2,
+		'page_id' => 12,
+	]);
+
+    SectionTranslation::create([    
+		'cms_section_id' => $menaAboutUsSection2->id,
+		'locale' => 'en',
+		'title' => 'Strategic Offerings',
+		'subtitle' => '',
+		'description' => 'Tailored methodologies designed specifically for the unique regulatory and operational landscape of the Saudi Arabian healthcare sector.',
+	]);
+
+    SectionTranslation::create([
+		'cms_section_id' => $menaAboutUsSection2->id,
+		'locale' => 'ar',
+		'title' => 'العروض الاستراتيجية',
+		'subtitle' => '',
+		'description' => 'طرق مخصصة مصممة لتناسب الأوضاع المنتظمة والمخصصة لقطاع الطب السعودي.',
+	]);
+
+    // mena about us page section 3
+    $menaAboutUsSection3 = Section::create([
+		'name' => 'Mena About Us Page Section 3',
+		'section_layout' => 'mena_3_items_in_row_section_style_1',
+		'settings' => [],
+		'order' => 3,
+		'company_id' => 2,
+		'page_id' => 12,
+	]);
+
+    SectionTranslation::create([
+		'cms_section_id' => $menaAboutUsSection3->id,
+		'locale' => 'en',
+		'title' => 'Interactive Success Path',
+		'subtitle' => '',
+		'description' => 'Our proven methodology ensures transparent, structured, and timely execution tailored to sustained operational excellence.'
+	]);
+
+    SectionTranslation::create([
+		'cms_section_id' => $menaAboutUsSection3->id,
+		'locale' => 'ar',
+		'title' => 'المسار الناجح التفاعلي',
+		'subtitle' => '',
+		'description' => 'طريقة النجاح المتكرر تضمن التنفيذ الشفاف والمنظم والمناسب للأداء التشغيلي المستدام.',
+	]);
+
+
+    // mena about us page section 4
+    $menaAboutUsSection4 = Section::create([
+		'name' => 'Mena About Us Page Section 4',
+		'section_layout' => 'mena_3_items_in_row_section_style_1',
+		'settings' => [],
+		'order' => 4,
+		'company_id' => 2,
+		'page_id' => 12,
+	]);
+
+    SectionTranslation::create([
+		'cms_section_id' => $menaAboutUsSection4->id,
+		'locale' => 'en',
+		'title' => 'Meet Our Specialists',
+		'subtitle' => '',
+		'description' => 'A multidisciplinary group of financial analysts and human resource experts strengthening medical institutions across Saudi Arabia.'
+	]);
+
+    SectionTranslation::create([
+		'cms_section_id' => $menaAboutUsSection4->id,
+		'locale' => 'ar',
+		'title' => 'المتخصصين المعنيين',
+		'subtitle' => '',
+		'description' => 'مجموعة متعددة التخصصات من المحللين الماليين والخبراء البشريين الذين يعززون مراكز الطب السعودية.',
+	]);
+
+    }
 }

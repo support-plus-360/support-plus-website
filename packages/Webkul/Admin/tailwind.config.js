@@ -32,6 +32,7 @@ module.exports = {
 
             fontFamily: {
                 inter: ['Inter'],
+                arabic: ['Cairo', 'Tahoma', 'Arial', 'sans-serif'],
                 icon: ['icomoon']
             }
         },

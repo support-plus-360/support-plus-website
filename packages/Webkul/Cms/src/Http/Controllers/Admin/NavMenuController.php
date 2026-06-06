@@ -7,6 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Event;
 use Illuminate\View\View;
 use Webkul\Admin\Http\Controllers\Controller;
+use Webkul\Cms\Concerns\InteractsWithCmsCompanyTabs;
 use Webkul\Cms\Concerns\InteractsWithNavMenuPayload;
 use Webkul\Cms\DataGrids\NavMenuDataGrid;
 use Webkul\Cms\Http\Requests\NavMenuRequest;
@@ -15,7 +16,7 @@ use Webkul\Company\Models\Company;
 
 class NavMenuController extends Controller
 {
-    use InteractsWithNavMenuPayload;
+    use InteractsWithCmsCompanyTabs, InteractsWithNavMenuPayload;
 
     public function __construct(protected NavMenuRepository $navMenuRepository) {}
 
@@ -25,7 +26,7 @@ class NavMenuController extends Controller
             return datagrid(NavMenuDataGrid::class)->process();
         }
 
-        return view('cms::nav-menus.index');
+        return view('cms::nav-menus.index', $this->cmsCompanyTabs());
     }
 
     public function create(): View
