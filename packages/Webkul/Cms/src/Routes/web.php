@@ -14,7 +14,7 @@ use Webkul\Cms\Http\Controllers\Admin\ContactMessageController;
 use Webkul\Cms\Http\Controllers\Admin\NavMenuController;
 use Webkul\Cms\Http\Controllers\Admin\NavItemController;
 
-Route::middleware(['web', 'admin_locale', 'user'])
+Route::middleware(['web', 'admin_locale', 'admin_no_cache', 'user'])
     ->prefix(config('app.admin_path'))
     ->group(function () {
         Route::prefix('cms')->group(function () {
@@ -26,6 +26,9 @@ Route::middleware(['web', 'admin_locale', 'user'])
             Route::get('builder-layout-preview/{path}', [PageBuilderController::class, 'layoutPreviewAsset'])
                 ->where('path', '.*')
                 ->name('admin.cms.builder.layout-preview');
+
+            Route::get('builder-layout-config', [PageBuilderController::class, 'layoutConfig'])
+                ->name('admin.cms.builder.layout-config');
 
             Route::controller(PageBuilderController::class)->prefix('pages')->group(function () {
                 Route::get('{id}/builder', 'edit')->whereNumber('id')->name('admin.cms.pages.builder');

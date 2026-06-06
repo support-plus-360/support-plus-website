@@ -2,6 +2,7 @@
 
 namespace Webkul\Cms\Http\Controllers\Admin;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Event;
@@ -27,6 +28,10 @@ class PageBuilderController extends Controller
 
     public function edit(int $id): View
     {
+        if (app()->bound('debugbar')) {
+            app('debugbar')->disable();
+        }
+
         $page = $this->pageRepository->findOrFail($id);
 
         $page->load([
@@ -50,16 +55,26 @@ class PageBuilderController extends Controller
         $sectionLayouts = config('cms.section_layouts.layouts', []);
         $defaultSectionLayout = config('cms.section_layouts.default', array_key_first($sectionLayouts) ?: 'home_hero');
 
-        $cmsBuilderLayoutPreview = SectionLayoutPreview::scriptPayload($sectionLayouts);
-
         return view('cms::pages.builder', compact(
             'page',
             'locales',
             'companies',
             'sectionLayouts',
             'defaultSectionLayout',
-            'cmsBuilderLayoutPreview'
         ));
+    }
+
+    /**
+     * Layout preview metadata for the builder (fetched by JS — not inlined in HTML).
+     */
+    public function layoutConfig(): JsonResponse
+    {
+        $sectionLayouts = config('cms.section_layouts.layouts', []);
+        $fallback = config('cms.section_layouts.default', array_key_first($sectionLayouts) ?: 'hero_section_style_1');
+
+        return response()
+            ->json(SectionLayoutPreview::builderConfigPayload($sectionLayouts, $fallback))
+            ->header('Cache-Control', 'private, max-age=300');
     }
 
     /**

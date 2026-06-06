@@ -5,18 +5,6 @@
     $firstLocale = array_key_first($locales);
     $sectionLayouts = $sectionLayouts ?? config('cms.section_layouts.layouts', []);
     $defaultSectionLayout = $defaultSectionLayout ?? config('cms.section_layouts.default', array_key_first($sectionLayouts) ?: 'hero_section_style_1');
-    $cmsBuilderLayoutPreview = $cmsBuilderLayoutPreview ?? \Webkul\Cms\Support\SectionLayoutPreview::scriptPayload($sectionLayouts);
-    $cmsBuilderSectionLayoutGuide = [];
-    foreach ($sectionLayouts as $layoutKey => $layoutMeta) {
-        $preview = $cmsBuilderLayoutPreview[$layoutKey] ?? [];
-        $cmsBuilderSectionLayoutGuide[] = [
-            'key'             => $layoutKey,
-            'label'           => $layoutMeta['label'] ?? $layoutKey,
-            'description'     => $layoutMeta['description'] ?? '',
-            'preview_image'   => $preview['preview_image'] ?? null,
-            'preview_caption' => $preview['preview_caption'] ?? ($layoutMeta['description'] ?? ''),
-        ];
-    }
 @endphp
 
 <x-admin::layouts>
@@ -1079,12 +1067,14 @@
     @pushOnce('scripts', 'cms.builder.section-live-preview')
         <script>
             (() => {
-                const LAYOUT_PREVIEW = @json($cmsBuilderLayoutPreview);
-                const LAYOUT_FALLBACK = @json($defaultSectionLayout);
-                const SECTION_LAYOUT_GUIDE = @json($cmsBuilderSectionLayoutGuide);
+                const LAYOUT_CONFIG_URL = @json(route('admin.cms.builder.layout-config'));
                 const CMS_MODAL_LABELS = {
                     noPreview: @json(__('cms::app.pages.builder.layout-guide-no-preview')),
                 };
+
+                let LAYOUT_PREVIEW = {};
+                let LAYOUT_FALLBACK = @json($defaultSectionLayout);
+                let SECTION_LAYOUT_GUIDE = [];
 
                 const esc = (s) => {
                     const d = document.createElement('div');
@@ -1095,225 +1085,11 @@
 
                 const escAttr = (s) => esc(s).replace(/"/g, '&quot;');
 
-                const escUrl = (u) => {
-                    const s = u == null ? '' : String(u);
-                    if (s === '') {
-                        return '';
-                    }
-                    if (s.startsWith('blob:')) {
-                        return s;
-                    }
-
-                    return esc(s);
-                };
-
-                const tplToken = (k) => '{' + '{' + k + '}' + '}';
-
-                const applyTpl = (template, map) => {
-                    if (! template) {
-                        return '';
-                    }
-                    let out = template;
-                    for (const [k, v] of Object.entries(map)) {
-                        out = out.split(tplToken(k)).join(v == null ? '' : String(v));
-                    }
-
-                    return out;
-                };
-
                 const layoutDefinition = (layoutKey) => {
-                    let def = LAYOUT_PREVIEW[layoutKey];
-                    if (! def?.templates?.body) {
-                        def = LAYOUT_PREVIEW[LAYOUT_FALLBACK] || def;
-                    }
-                    if (! def?.templates?.body) {
-                        def = Object.values(LAYOUT_PREVIEW)[0];
-                    }
-
-                    return def;
-                };
-
-                const CONTACT_FORM_ICON_MAIL = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>';
-                const CONTACT_FORM_ICON_PHONE = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>';
-                const CONTACT_FORM_ICON_MESSAGE = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>';
-                const CONTACT_FORM_ICONS_BY_INDEX = [CONTACT_FORM_ICON_MAIL, CONTACT_FORM_ICON_PHONE, CONTACT_FORM_ICON_MESSAGE];
-
-                const contactFormItemIconMarkup = (rawIcon, itemIndex) => {
-                    const key = rawIcon ? String(rawIcon).trim().toLowerCase() : '';
-                    if (/^https?:\/\//i.test(key) || key.startsWith('/')) {
-                        return `<img src="${esc(key)}" alt="" class="h-5 w-5 object-contain" loading="lazy" decoding="async" />`;
-                    }
-                    if (key.includes('phone') || key.includes('tel')) {
-                        return CONTACT_FORM_ICON_PHONE;
-                    }
-                    if (key.includes('message') || key.includes('whatsapp') || key.includes('chat')) {
-                        return CONTACT_FORM_ICON_MESSAGE;
-                    }
-                    if (key.includes('mail') || key.includes('email')) {
-                        return CONTACT_FORM_ICON_MAIL;
-                    }
-
-                    return CONTACT_FORM_ICONS_BY_INDEX[itemIndex % CONTACT_FORM_ICONS_BY_INDEX.length];
-                };
-
-                const renderFromConfig = (layoutKey, data) => {
-                    const def = layoutDefinition(layoutKey);
-                    if (! def?.templates?.body) {
-                        return `<div class="text-sm text-gray-500">${esc('No layout template')}</div>`;
-                    }
-                    const t = def.templates;
-                    const sub = data.subtitle && t.subtitle_section_when
-                        ? applyTpl(t.subtitle_section_when, { SUBTITLE: esc(data.subtitle) })
-                        : '';
-                    const desc = data.description && t.description_section_when
-                        ? applyTpl(t.description_section_when, { DESCRIPTION: esc(data.description) })
-                        : '';
-                    let linksSection = '';
-                    if (data.links?.length && t.link_row) {
-                        const rows = data.links.map((l) => applyTpl(t.link_row, {
-                            LINK_URL: esc(l.url || '#'),
-                            LINK_LABEL: esc(l.label || 'Link'),
-                        })).join('');
-                        linksSection = t.links_wrapper_when
-                            ? applyTpl(t.links_wrapper_when, { LINK_ROWS: rows })
-                            : rows;
-                    }
-                    const secMain = (data.main_image_url || '').trim();
-                    let sectionMainImageMarkup = '<div class="absolute inset-0 bg-gradient-to-br from-slate-700 via-slate-600 to-slate-800" aria-hidden="true"></div>';
-                    if (secMain) {
-                        sectionMainImageMarkup = `<img src="${escUrl(secMain)}" alt="" class="absolute inset-0 h-full w-full object-cover" loading="lazy" decoding="async" />`;
-                    }
-                    const allItems = data.items || [];
-                    const isTestimonialType = (it) => String(it.type || '').toLowerCase() === 'testimonial';
-                    const listItems = t.testimonial_item
-                        ? allItems.filter((it) => ! isTestimonialType(it))
-                        : allItems;
-                    const firstTestimonialItem = t.testimonial_item
-                        ? allItems.find((it) => isTestimonialType(it))
-                        : null;
-
-                    const renderItemMarkup = (it, itemIndex, itemsSource) => {
-                        const iconText = it.icon ? String(it.icon).trim().slice(0, 2) : '•';
-                        const rawIcon = it.icon ? String(it.icon).trim() : '';
-                        const isLikelyImgUrl = /^https?:\/\//i.test(rawIcon) || rawIcon.startsWith('/');
-                        const titleEsc = esc(it.title || '');
-                        const itemMain = (it.main_image_url || '').trim();
-			let itemImageMarkup = '<div class="absolute inset-0 bg-gradient-to-br from-slate-700 via-slate-600 to-slate-800" aria-hidden="true"></div>';
-                        if (itemMain) {
-                            itemImageMarkup = `<img src="${escUrl(itemMain)}" alt="${titleEsc}" class="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-125 group-hover:brightness-110" loading="lazy" decoding="async" />`;
-                        } else if (isLikelyImgUrl && rawIcon) {
-                            itemImageMarkup = `<img src="${esc(rawIcon)}" alt="${titleEsc}" class="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-125 group-hover:brightness-110" loading="lazy" decoding="async" />`;
-                        }
-                        const initial = titleEsc ? titleEsc.charAt(0) : '?';
-                        let itemAvatarMarkup;
-                        if (itemMain) {
-                            itemAvatarMarkup = `<div class="relative h-12 w-12 shrink-0 overflow-hidden rounded-full border-2 border-cyan-400"><img src="${escUrl(itemMain)}" alt="${titleEsc}" class="h-full w-full object-cover" loading="lazy" decoding="async" /></div>`;
-                        } else if (isLikelyImgUrl && rawIcon) {
-                            itemAvatarMarkup = `<div class="relative h-12 w-12 shrink-0 overflow-hidden rounded-full border-2 border-cyan-400"><img src="${esc(rawIcon)}" alt="${titleEsc}" class="h-full w-full object-cover" loading="lazy" decoding="async" /></div>`;
-                        } else {
-                            itemAvatarMarkup = `<div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-blue-600 to-indigo-500"><span class="text-sm font-bold text-white">${initial}</span></div>`;
-                        }
-                        const calmBlueT2 = layoutKey === 'testimonials_section_style_2';
-                        const caseStudyS1 = layoutKey === 'case_study_section_style_1';
-                        const testimonialItemCount = itemsSource.length;
-                        let itemAvatarForTpl = itemAvatarMarkup;
-                        let itemCardSkin = '';
-                        if (caseStudyS1 && itemIndex % 2 === 1) {
-                            itemCardSkin = 'md:[&>.case-study-image]:order-2 md:[&>.case-study-content]:order-1';
-                        }
-                        if (calmBlueT2) {
-                            if (testimonialItemCount === 3) {
-                                if (itemIndex === 1) {
-                                    itemCardSkin = 'border-blue-500/30 bg-gradient-to-br from-[#04140e] to-[#000501] opacity-70 transition duration-300 hover:opacity-100 rounded-[30px]';
-                                    const twoInitials = titleEsc.length >= 2 ? titleEsc.slice(0, 2) : initial;
-                                    if (itemMain) {
-                                        itemAvatarForTpl = `<div class="relative h-10 w-10 shrink-0 overflow-hidden rounded-full border border-cyan-400/50 bg-cyan-400/20"><img src="${escUrl(itemMain)}" alt="${titleEsc}" class="h-full w-full object-cover" loading="lazy" decoding="async" /></div>`;
-                                    } else if (isLikelyImgUrl && rawIcon) {
-                                        itemAvatarForTpl = `<div class="relative h-10 w-10 shrink-0 overflow-hidden rounded-full border border-cyan-400/50 bg-cyan-400/20"><img src="${esc(rawIcon)}" alt="${titleEsc}" class="h-full w-full object-cover" loading="lazy" decoding="async" /></div>`;
-                                    } else {
-                                        itemAvatarForTpl = `<div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-cyan-400/50 bg-cyan-400/20"><span class="text-xs font-bold text-cyan-400">${twoInitials}</span></div>`;
-                                    }
-                                } else {
-                                    itemCardSkin = 'border-blue-500/30 bg-gradient-to-br from-[#1A1D4D] to-[#16172d] rounded-lg';
-                                    itemAvatarForTpl = '';
-                                }
-                            } else {
-                                itemCardSkin = 'border-blue-500/30 bg-gradient-to-br from-[#1A1D4D] to-[#16172d] rounded-lg';
-                            }
-                        }
-                        const isub = it.sub_title && t.item_subtitle_section_when
-                            ? applyTpl(t.item_subtitle_section_when, { ITEM_SUBTITLE: esc(it.sub_title) })
-                            : '';
-                        const icont = it.content && t.item_content_section_when
-                            ? applyTpl(t.item_content_section_when, { ITEM_CONTENT: t.item_content_raw ? it.content : esc(it.content) })
-                            : '';
-                        let itemLinksSection = '';
-                        const itemLinks = it.links || [];
-                        const cardHrefRaw = itemLinks[0]?.url;
-                        const itemCardHref = esc(
-                            cardHrefRaw && String(cardHrefRaw).trim()
-                                ? String(cardHrefRaw).trim()
-                                : '#',
-                        );
-                        if (itemLinks.length && t.item_link_row) {
-                            const rows = itemLinks.map((l) => applyTpl(t.item_link_row, {
-                                LINK_URL: esc(l.url || '#'),
-                                LINK_LABEL: esc(l.label || 'Link'),
-                            })).join('');
-                            itemLinksSection = t.item_links_wrapper_when
-                                ? applyTpl(t.item_links_wrapper_when, { ITEM_LINK_ROWS: rows })
-                                : rows;
-                        }
-
-                        const contactFormS1 = layoutKey === 'contact_form_section_style_1';
-                        const itemIconMarkup = contactFormS1
-                            ? contactFormItemIconMarkup(rawIcon, itemIndex)
-                            : esc(iconText);
-
-                        return applyTpl(t.item, {
-                            ITEM_TITLE: esc(it.title),
-                            ITEM_SUBTITLE_SECTION: isub,
-                            ITEM_CONTENT_SECTION: icont,
-                            ITEM_ICON_DISPLAY: esc(iconText),
-                            ITEM_ICON_MARKUP: itemIconMarkup,
-                            ITEM_LINKS_SECTION: itemLinksSection,
-                            ITEM_CARD_HREF: itemCardHref,
-                            ITEM_IMAGE_MARKUP: itemImageMarkup,
-                            ITEM_AVATAR_MARKUP: itemAvatarForTpl,
-                            ITEM_COUNT: itemIndex + 1,
-                            ITEM_CARD_SKIN: itemCardSkin,
-                        });
-                    };
-
-                    const items = listItems.map((it, idx) => renderItemMarkup(it, idx, listItems)).join('');
-
-                    let testimonialItemSection = '';
-                    if (t.testimonial_item && firstTestimonialItem) {
-                        const it = firstTestimonialItem;
-                        const tSub = it.sub_title && t.testimonial_item_subtitle_section_when
-                            ? applyTpl(t.testimonial_item_subtitle_section_when, { ITEM_SUBTITLE: esc(it.sub_title) })
-                            : '';
-                        const tCont = it.content && t.testimonial_item_content_section_when
-                            ? applyTpl(t.testimonial_item_content_section_when, {
-                                ITEM_CONTENT: t.testimonial_item_content_raw ? it.content : esc(it.content),
-                            })
-                            : '';
-                        testimonialItemSection = applyTpl(t.testimonial_item, {
-                            ITEM_TITLE: esc(it.title),
-                            ITEM_SUBTITLE_SECTION: tSub,
-                            ITEM_CONTENT_SECTION: tCont,
-                        });
-                    }
-
-                    return applyTpl(t.body, {
-                        TITLE: esc(data.title),
-                        SUBTITLE_SECTION: sub,
-                        DESCRIPTION_SECTION: desc,
-                        LINKS_SECTION: linksSection,
-                        ITEMS: items,
-                        TESTIMONIAL_ITEM_SECTION: testimonialItemSection,
-                        SECTION_MAIN_IMAGE_MARKUP: sectionMainImageMarkup,
-                    });
+                    return LAYOUT_PREVIEW[layoutKey]
+                        || LAYOUT_PREVIEW[LAYOUT_FALLBACK]
+                        || Object.values(LAYOUT_PREVIEW)[0]
+                        || {};
                 };
 
                 const syncLayoutPreviewThumb = (sectionRoot) => {
@@ -1346,233 +1122,8 @@
                     }
                 };
 
-                /**
-                 * Active locale for a tab group = panel without Tailwind `hidden` (matches setActive in locale scripts).
-                 */
-                const panelIsVisible = (panel) => {
-                    if (panel.classList.contains('hidden')) {
-                        return false;
-                    }
-                    if (panel.hidden) {
-                        return false;
-                    }
-                    try {
-                        return window.getComputedStyle(panel).display !== 'none';
-                    } catch (e) {
-                        return true;
-                    }
-                };
-
-                const visibleLocaleForTabGroup = (editor, groupId, fallbackLocale) => {
-                    const panels = editor.querySelectorAll(`.cms-locale-panel[data-tab-group="${groupId}"]`);
-                    for (const panel of panels) {
-                        if (panelIsVisible(panel)) {
-                            return panel.getAttribute('data-tab-panel') || fallbackLocale;
-                        }
-                    }
-
-                    return fallbackLocale;
-                };
-
-                /**
-                 * Preview follows the section's visible translation tab (EN/AR), not a fixed locale.
-                 */
-                const resolvePreviewLocale = (sectionRoot) => {
-                    const editor = sectionRoot.querySelector('[data-cms-section-editor]');
-                    if (! editor) {
-                        return 'en';
-                    }
-                    const si = sectionRoot.getAttribute('data-section-index');
-                    if (si === null || si === '') {
-                        return 'en';
-                    }
-                    const groupId = `cms-builder-section-translations-${si}`;
-                    const locale = visibleLocaleForTabGroup(editor, groupId, sectionRoot.dataset.previewLocale || 'en');
-
-                    return locale || 'en';
-                };
-
-                const resolveItemPreviewLocale = (sectionRoot, si, ii) => {
-                    const editor = sectionRoot.querySelector('[data-cms-section-editor]');
-                    if (! editor) {
-                        return resolvePreviewLocale(sectionRoot);
-                    }
-                    const groupId = `cms-builder-item-translations-${si}-${ii}`;
-
-                    return visibleLocaleForTabGroup(editor, groupId, resolvePreviewLocale(sectionRoot));
-                };
-
-                const resolveSectionLinkPreviewLocale = (sectionRoot, si, li) => {
-                    const editor = sectionRoot.querySelector('[data-cms-section-editor]');
-                    if (! editor) {
-                        return resolvePreviewLocale(sectionRoot);
-                    }
-                    const groupId = `cms-builder-section-${si}-link-${li}`;
-
-                    return visibleLocaleForTabGroup(editor, groupId, resolvePreviewLocale(sectionRoot));
-                };
-
-                const resolveItemLinkPreviewLocale = (sectionRoot, si, ii, ili) => {
-                    const editor = sectionRoot.querySelector('[data-cms-section-editor]');
-                    if (! editor) {
-                        return resolvePreviewLocale(sectionRoot);
-                    }
-                    const groupId = `cms-builder-item-${si}-${ii}-link-${ili}`;
-
-                    return visibleLocaleForTabGroup(editor, groupId, resolveItemPreviewLocale(sectionRoot, si, ii));
-                };
-
-                const readField = (sectionRoot, si, parts) => {
-                    let name = `sections[${si}]`;
-                    for (const p of parts) {
-                        name += `[${p}]`;
-                    }
-                    for (const el of sectionRoot.querySelectorAll('input, textarea, select')) {
-                        if (el.name === name) {
-                            return el.value;
-                        }
-                    }
-
-                    return '';
-                };
-
-                const sectionMainMediaUrl = (sectionRoot) => {
-                    const persisted = (sectionRoot.getAttribute('data-main-media-url') || '').trim();
-                    /** Section main file lives before item blocks; skip item-scoped main inputs. */
-                    for (const inp of sectionRoot.querySelectorAll('input[type="file"][data-main-media-input]')) {
-                        if (inp.closest('[data-cms-item-index]')) {
-                            continue;
-                        }
-                        if (inp.files?.[0]) {
-                            return URL.createObjectURL(inp.files[0]);
-                        }
-                    }
-
-                    return persisted;
-                };
-
-                const itemMainMediaUrl = (sectionRoot, ii) => {
-                    const itemEl = sectionRoot.querySelector(`[data-cms-item-index="${ii}"]`);
-                    const persisted = (itemEl?.getAttribute('data-main-media-url') || '').trim();
-                    const inp = itemEl?.querySelector('input[type="file"][data-main-media-input]');
-                    if (inp?.files?.[0]) {
-                        return URL.createObjectURL(inp.files[0]);
-                    }
-
-                    return persisted;
-                };
-
-                const collectItemLinks = (sectionRoot, si, ii) => {
-                    const nameRe = new RegExp(
-                        `^sections\\[${si}\\]\\[items\\]\\[${ii}\\]\\[links\\]\\[(\\d+)\\]\\[translations\\]\\[(.+?)\\]\\[name\\]$`,
-                    );
-                    const linkIndices = new Set();
-                    sectionRoot.querySelectorAll('input, textarea, select').forEach((el) => {
-                        const m = el.name.match(nameRe);
-                        if (m) {
-                            linkIndices.add(m[1]);
-                        }
-                    });
-                    const out = [];
-                    Array.from(linkIndices)
-                        .sort((a, b) => Number(a) - Number(b))
-                        .forEach((ili) => {
-                            const locale = resolveItemLinkPreviewLocale(sectionRoot, si, ii, ili);
-                            const label = readField(sectionRoot, si, [
-                                'items', ii, 'links', ili, 'translations', locale, 'name',
-                            ]);
-                            const url = readField(sectionRoot, si, ['items', ii, 'links', ili, 'link']);
-                            if (label || url) {
-                                out.push({ label, url });
-                            }
-                        });
-
-                    return out;
-                };
-
-                const collectItems = (sectionRoot, si) => {
-                    const prefixRe = new RegExp(`^sections\\[${si}\\]\\[items\\]\\[(\\d+)\\]`);
-                    const indices = new Set();
-                    sectionRoot.querySelectorAll('input, textarea, select').forEach((el) => {
-                        const m = el.name.match(prefixRe);
-                        if (m) {
-                            indices.add(m[1]);
-                        }
-                    });
-
-                    return Array.from(indices)
-                        .sort((a, b) => Number(a) - Number(b))
-                        .map((ii) => {
-                            const locale = resolveItemPreviewLocale(sectionRoot, si, ii);
-
-                            return {
-                                type: readField(sectionRoot, si, ['items', ii, 'type']) || 'default',
-                                title: readField(sectionRoot, si, ['items', ii, 'translations', locale, 'title']),
-                                sub_title: readField(sectionRoot, si, ['items', ii, 'translations', locale, 'sub_title']),
-                                content: readField(sectionRoot, si, ['items', ii, 'translations', locale, 'content']),
-                                icon: readField(sectionRoot, si, ['items', ii, 'translations', locale, 'icon']),
-                                main_image_url: itemMainMediaUrl(sectionRoot, ii),
-                                links: collectItemLinks(sectionRoot, si, ii),
-                            };
-                        });
-                };
-
-                const collectSectionLinks = (sectionRoot, si) => {
-                    const nameRe = new RegExp(
-                        `^sections\\[${si}\\]\\[links\\]\\[(\\d+)\\]\\[translations\\]\\[(.+?)\\]\\[name\\]$`,
-                    );
-                    const linkIndices = new Set();
-                    sectionRoot.querySelectorAll('input, textarea, select').forEach((el) => {
-                        const m = el.name.match(nameRe);
-                        if (m) {
-                            linkIndices.add(m[1]);
-                        }
-                    });
-                    const out = [];
-                    Array.from(linkIndices)
-                        .sort((a, b) => Number(a) - Number(b))
-                        .forEach((li) => {
-                            const locale = resolveSectionLinkPreviewLocale(sectionRoot, si, li);
-                            const label = readField(sectionRoot, si, [
-                                'links', li, 'translations', locale, 'name',
-                            ]);
-                            const url = readField(sectionRoot, si, ['links', li, 'link']);
-                            if (label || url) {
-                                out.push({ label, url });
-                            }
-                        });
-
-                    return out;
-                };
-
                 const refreshSectionPreview = (sectionRoot) => {
-                    // Live HTML preview disabled — update layout reference image only.
                     syncLayoutPreviewThumb(sectionRoot);
-
-                    /*
-                    Restore live preview when re-enabling data-cms-section-preview in the aside:
-                    const preview = sectionRoot.querySelector('[data-cms-section-preview]');
-                    if (! preview) {
-                        return;
-                    }
-                    const si = sectionRoot.getAttribute('data-section-index');
-                    if (si === null || si === '') {
-                        return;
-                    }
-                    const locale = resolvePreviewLocale(sectionRoot);
-                    const sel = sectionRoot.querySelector('[data-cms-section-layout]');
-                    const layout = sel?.value || LAYOUT_FALLBACK || 'hero_section_style_1';
-                    const payload = {
-                        title: readField(sectionRoot, si, ['translations', locale, 'title']),
-                        subtitle: readField(sectionRoot, si, ['translations', locale, 'subtitle']),
-                        description: readField(sectionRoot, si, ['translations', locale, 'description']),
-                        main_image_url: sectionMainMediaUrl(sectionRoot),
-                        items: collectItems(sectionRoot, si),
-                        links: collectSectionLinks(sectionRoot, si),
-                    };
-                    preview.innerHTML = renderFromConfig(layout, payload);
-                    syncLayoutPreviewThumb(sectionRoot);
-                    */
                 };
 
                 const debouncePreview = (sectionRoot) => {
@@ -1822,8 +1373,6 @@
                     });
                 };
 
-                wireSectionPreviewDelegation();
-
                 const zoomModalEl = () => document.getElementById('cms-layout-image-zoom-modal');
                 const guideModalEl = () => document.getElementById('cms-layout-guide-modal');
 
@@ -1949,8 +1498,6 @@
                     });
                 };
 
-                wireBuilderModals();
-
                 const bindAllSections = () => {
                     document.querySelectorAll('#cms-sections-root [data-cms-section]').forEach((el) => bindSection(el));
                 };
@@ -2029,18 +1576,37 @@
                     bindAllSections();
                 };
 
-                bootBuilderPreview();
-
-                window.addEventListener('load', () => {
-                    bootBuilderPreview();
-                    setTimeout(() => bootBuilderPreview({ skipLocaleInit: true }), 0);
-                    setTimeout(() => bootBuilderPreview({ skipLocaleInit: true }), 100);
-                    setTimeout(() => bootBuilderPreview({ skipLocaleInit: true }), 500);
-                });
-
                 let si = {{ (int) $nextSectionIndex }};
 
-                wireBuilderRemovals();
+                const startBuilder = () => {
+                    wireSectionPreviewDelegation();
+                    wireBuilderModals();
+                    wireBuilderRemovals();
+                    wireAddSectionDelegation();
+                    bootBuilderPreview();
+
+                    window.addEventListener('load', () => {
+                        bootBuilderPreview();
+                        setTimeout(() => bootBuilderPreview({ skipLocaleInit: true }), 0);
+                        setTimeout(() => bootBuilderPreview({ skipLocaleInit: true }), 100);
+                        setTimeout(() => bootBuilderPreview({ skipLocaleInit: true }), 500);
+                    });
+                };
+
+                fetch(LAYOUT_CONFIG_URL, {
+                    credentials: 'same-origin',
+                    headers: { Accept: 'application/json' },
+                })
+                    .then((response) => (response.ok ? response.json() : Promise.reject(response)))
+                    .then((data) => {
+                        LAYOUT_PREVIEW = data.layouts || {};
+                        LAYOUT_FALLBACK = data.fallback || LAYOUT_FALLBACK;
+                        SECTION_LAYOUT_GUIDE = Array.isArray(data.guide) ? data.guide : [];
+                        startBuilder();
+                    })
+                    .catch(() => {
+                        startBuilder();
+                    });
 
                 /**
                  * Admin mounts Vue on #app after load, which replaces the DOM and drops listeners
@@ -2086,8 +1652,6 @@
                         window.cmsBuilderAddSection();
                     }, true);
                 };
-
-                wireAddSectionDelegation();
 
                 /**
                  * Shared helper: clone link template, replace placeholders, append to container, init tabs.

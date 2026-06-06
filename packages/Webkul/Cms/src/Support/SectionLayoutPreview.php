@@ -90,7 +90,29 @@ class SectionLayoutPreview
     }
 
     /**
-     * Payload for window.__CMS_SECTION_LAYOUT_PREVIEW__ (per layout key).
+     * Lightweight builder payload (preview thumbs only — no HTML templates).
+     *
+     * @param  array<string, array<string, mixed>>  $layoutKeys
+     * @return array<string, array{preview_image: ?string, preview_caption: string}>
+     */
+    public static function thumbPayload(array $layoutKeys): array
+    {
+        $renderers = config('cms.section_layout_renderers', []);
+        $out = [];
+
+        foreach (array_keys($layoutKeys) as $key) {
+            $meta = $renderers[$key] ?? [];
+            $out[$key] = [
+                'preview_image'   => self::resolveImageUrl($meta['preview_image'] ?? null),
+                'preview_caption' => (string) ($meta['preview_caption'] ?? ''),
+            ];
+        }
+
+        return $out;
+    }
+
+    /**
+     * Full payload including live-preview templates (large — avoid inlining in builder HTML).
      *
      * @param  array<string, array<string, mixed>>  $layoutKeys  Keys from section_layouts.layouts
      * @return array<string, array{preview_image: ?string, preview_caption: string, templates: array<string, string>}>
@@ -110,5 +132,34 @@ class SectionLayoutPreview
         }
 
         return $out;
+    }
+
+    /**
+     * JSON for the page builder (loaded via fetch — keeps the HTML response small).
+     *
+     * @param  array<string, array<string, mixed>>  $layoutKeys
+     * @return array{layouts: array<string, array{preview_image: ?string, preview_caption: string}>, fallback: string, guide: list<array{key: string, label: string, description: string, preview_image: ?string, preview_caption: string}>}
+     */
+    public static function builderConfigPayload(array $layoutKeys, string $fallback): array
+    {
+        $thumbs = self::thumbPayload($layoutKeys);
+        $guide = [];
+
+        foreach ($layoutKeys as $layoutKey => $layoutMeta) {
+            $preview = $thumbs[$layoutKey] ?? [];
+            $guide[] = [
+                'key'             => $layoutKey,
+                'label'           => $layoutMeta['label'] ?? $layoutKey,
+                'description'     => $layoutMeta['description'] ?? '',
+                'preview_image'   => $preview['preview_image'] ?? null,
+                'preview_caption' => $preview['preview_caption'] ?? ($layoutMeta['description'] ?? ''),
+            ];
+        }
+
+        return [
+            'layouts'  => $thumbs,
+            'fallback' => $fallback,
+            'guide'    => $guide,
+        ];
     }
 }
