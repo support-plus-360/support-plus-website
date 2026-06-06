@@ -9,8 +9,10 @@ use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Webkul\Admin\Console\Commands\AdminViteStatusCommand;
 use Webkul\Admin\Exceptions\Handler;
 use Webkul\Admin\Http\Middleware\Bouncer as BouncerMiddleware;
+use Webkul\Admin\Http\Middleware\DisableResponseCache;
 use Webkul\Admin\Http\Middleware\Locale;
 use Webkul\Admin\Http\Middleware\SanitizeUrl;
 
@@ -27,13 +29,15 @@ class AdminServiceProvider extends ServiceProvider
 
         $router->aliasMiddleware('sanitize_url', SanitizeUrl::class);
 
+        $router->aliasMiddleware('admin_no_cache', DisableResponseCache::class);
+
         include __DIR__.'/../Http/helpers.php';
 
-        Route::middleware(['web', 'admin_locale', 'user'])
+        Route::middleware(['web', 'admin_locale', 'admin_no_cache', 'user'])
             ->prefix(config('app.admin_path'))
             ->group(__DIR__.'/../Routes/Admin/web.php');
 
-        Route::middleware(['web', 'admin_locale'])
+        Route::middleware(['web', 'admin_locale', 'admin_no_cache'])
             ->group(__DIR__.'/../Routes/Front/web.php');
 
         $this->loadMigrationsFrom(__DIR__.'/../Database/Migrations');
@@ -68,6 +72,12 @@ class AdminServiceProvider extends ServiceProvider
         $this->registerFacades();
 
         $this->registerConfig();
+
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                AdminViteStatusCommand::class,
+            ]);
+        }
     }
 
     /**
