@@ -29,7 +29,7 @@ class ViteTags
         }
 
         $buildDirectory = config("krayin-vite.viters.{$namespace}.build_directory", 'admin/build');
-        $base = rtrim(asset($buildDirectory), '/');
+        $base = self::buildBasePath($buildDirectory);
         $version = $manifest['mtime'];
         $tags = [];
         $emitted = [];
@@ -95,7 +95,15 @@ class ViteTags
 
         $buildDirectory = config("krayin-vite.viters.{$namespace}.build_directory", 'admin/build');
 
-        return asset($buildDirectory.'/'.$chunk['file']).'?v='.$manifest['mtime'];
+        return self::buildBasePath($buildDirectory).'/'.$chunk['file'].'?v='.$manifest['mtime'];
+    }
+
+    /**
+     * Root-relative build path — avoids broken absolute URLs when APP_URL is misconfigured.
+     */
+    public static function buildBasePath(string $buildDirectory): string
+    {
+        return '/'.trim($buildDirectory, '/');
     }
 
     /**

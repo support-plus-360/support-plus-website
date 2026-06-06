@@ -14,6 +14,12 @@ class AdminViteStatusCommand extends Command
 
     public function handle(): int
     {
+        $appUrl = (string) config('app.url');
+        if (str_contains($appUrl, '127.0.0.1') || str_contains($appUrl, 'localhost')) {
+            $this->warn('APP_URL is set to a local address: '.$appUrl);
+            $this->warn('Set APP_URL=https://crm.supportplusco.com in .env (admin assets use relative paths, but other URLs may break).');
+        }
+
         $manifest = ViteManifest::read('admin');
 
         if ($manifest === null) {
@@ -35,12 +41,35 @@ class AdminViteStatusCommand extends Command
         $this->line('JS entry: '.$jsFile);
 
         $cssPath = public_path('admin/build/'.$cssFile);
-        $this->line('CSS exists: '.(is_file($cssPath) ? 'yes' : 'NO — rebuild required'));
+        if (! is_file($cssPath)) {
+            $this->error('CSS file missing on disk: '.$cssPath);
+            $this->error('Run: cd packages/Webkul/Admin && npm run build');
+
+            return self::FAILURE;
+        }
+
+        $this->line('CSS exists: yes ('.number_format(filesize($cssPath) / 1024, 1).' KB)');
+
+        $head = (string) file_get_contents($cssPath, false, null, 0, 32);
+        if (str_starts_with(ltrim($head), '<')) {
+            $this->error('CSS file contains HTML, not styles — rebuild required (cd packages/Webkul/Admin && npm run build).');
+
+            return self::FAILURE;
+        }
 
         $sample = ViteTags::admin([$cssKey, $jsKey]);
         $this->newLine();
-        $this->line('Generated tags:');
+        $this->line('Generated tags (relative URLs):');
         $this->line((string) $sample);
+
+        $publicHtml = dirname(base_path()).'/public_html';
+        if (is_dir($publicHtml) && realpath($publicHtml) !== realpath(public_path())) {
+            $this->newLine();
+            $this->warn('public_html exists separately from Laravel public/:');
+            $this->line('  Laravel public: '.public_path());
+            $this->line('  public_html:    '.$publicHtml);
+            $this->warn('Ensure public_html points to src/public (symlink) or copy admin/build after npm run build.');
+        }
 
         return self::SUCCESS;
     }
