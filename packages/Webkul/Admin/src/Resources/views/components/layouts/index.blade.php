@@ -91,8 +91,6 @@
         $brandColor = core()->getConfigData('general.settings.menu_color.brand_color') ?? '#0E90D9';
     @endphp
 
-    @stack('styles')
-
     <style>
         :root {
             --brand-color: {{ $brandColor }};
@@ -152,6 +150,9 @@
     </div>
 
     {!! view_render_event('admin.layout.body.after') !!}
+
+    {{-- Slot content pushes styles after <head>; render the stack here so CMS/builder CSS applies. --}}
+    @stack('styles')
 
     @stack('scripts')
 

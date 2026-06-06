@@ -48,5 +48,22 @@
         .cms-builder-field-group {
             overflow: visible;
         }
+        .cms-builder-field-group__title {
+            margin: 0 0 0.75rem;
+            font-size: 0.8125rem;
+            font-weight: 600;
+            color: rgb(31 41 55);
+        }
+        .dark .cms-builder-field-group__title {
+            color: rgb(243 244 246);
+        }
+        .cms-builder-field-group__help {
+            margin: -0.25rem 0 0.75rem;
+            font-size: 0.75rem;
+            color: rgb(107 114 128);
+        }
+        .dark .cms-builder-field-group__help {
+            color: rgb(156 163 175);
+        }
     </style>
 @endPushOnce

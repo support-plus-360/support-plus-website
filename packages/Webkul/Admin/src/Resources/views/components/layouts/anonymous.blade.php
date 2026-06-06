@@ -75,8 +75,6 @@
         $brandColor = core()->getConfigData('general.settings.menu_color.brand_color') ?? '#0E90D9';
     @endphp
 
-    @stack('styles')
-
     <style>
         :root {
             --brand-color: {{ $brandColor }};
@@ -106,6 +104,8 @@
     </div>
 
     {!! view_render_event('admin.layout.body.after') !!}
+
+    @stack('styles')
 
     @stack('scripts')
 
