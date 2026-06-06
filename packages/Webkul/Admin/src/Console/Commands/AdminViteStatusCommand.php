@@ -68,7 +68,8 @@ class AdminViteStatusCommand extends Command
             $this->warn('public_html exists separately from Laravel public/:');
             $this->line('  Laravel public: '.public_path());
             $this->line('  public_html:    '.$publicHtml);
-            $this->warn('Ensure public_html points to src/public (symlink) or copy admin/build after npm run build.');
+            $this->warn('Run: php artisan admin:sync-public-assets');
+            $this->warn('Or symlink: ln -sfn src/public public_html (from domain root, after backing up public_html).');
         }
 
         return self::SUCCESS;

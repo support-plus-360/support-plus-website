@@ -9,6 +9,7 @@ use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Webkul\Admin\Console\Commands\AdminSyncPublicAssetsCommand;
 use Webkul\Admin\Console\Commands\AdminViteStatusCommand;
 use Webkul\Admin\Exceptions\Handler;
 use Webkul\Admin\Http\Middleware\Bouncer as BouncerMiddleware;
@@ -76,6 +77,7 @@ class AdminServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 AdminViteStatusCommand::class,
+                AdminSyncPublicAssetsCommand::class,
             ]);
         }
     }
