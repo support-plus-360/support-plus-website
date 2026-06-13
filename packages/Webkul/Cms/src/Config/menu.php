@@ -63,4 +63,32 @@ return [
 		'sort'       => 8,
 		'icon-class' => 'icon-mail',
 	],
+	[
+		'key'        => 'cms.case-study-categories',
+		'name'       => 'cms::app.menu.case-study-categories',
+		'route'      => 'admin.cms.case-study-categories.index',
+		'sort'       => 9,
+		'icon-class' => 'icon-file',
+	],
+	[
+		'key'        => 'cms.case-studies',
+		'name'       => 'cms::app.menu.case-studies',
+		'route'      => 'admin.cms.case-studies.index',
+		'sort'       => 10,
+		'icon-class' => 'icon-file',
+	],
+	[
+		'key'        => 'cms.service-types',
+		'name'       => 'cms::app.menu.service-types',
+		'route'      => 'admin.cms.service-types.index',
+		'sort'       => 11,
+		'icon-class' => 'icon-file',
+	],
+	[
+		'key'        => 'cms.services',
+		'name'       => 'cms::app.menu.services',
+		'route'      => 'admin.cms.services.index',
+		'sort'       => 12,
+		'icon-class' => 'icon-file',
+	],
 ];

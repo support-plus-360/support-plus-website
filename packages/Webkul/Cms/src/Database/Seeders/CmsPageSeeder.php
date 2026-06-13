@@ -18,18 +18,18 @@ class CmsPageSeeder extends Seeder
 	// support plus pages
 	// home page
 	$homePage = Page::create([
-		'slug' => 'home',
-		'name' => 'Home',
+		'slug' => 'support-plus-home',
+		'name' => 'Support Plus Home',
 		'is_active' => true,
 		'order' => 1,
 		'company_id' => 1,
 	]);
 
-	// page translation 
+	// page translation
 	PageTranslation::create([
 		'cms_page_id'=>$homePage->id,
 		'locale'=>'en',
-		'title'=>'Home Page',
+		'title'=>'Support Plus Home',
 		'meta_description'=>'',
 		'meta_keywords'=>'',
 	]);
@@ -37,15 +37,15 @@ class CmsPageSeeder extends Seeder
 	PageTranslation::create([
 		'cms_page_id'=>$homePage->id,
 		'locale'=>'ar',
-		'title'=>'الصفحة الرئيسية',
+		'title'=>'الرئيسية',
 		'meta_description'=>'',
 		'meta_keywords'=>'',
 	]);
 
 	// healthcare page
 	$healthcarePage = Page::create([
-		'slug' => 'healthcare',
-		'name' => 'Health Care',
+		'slug' => 'support-plus-healthcare',
+		'name' => 'Support Plus Healthcare',
 		'is_active' => true,
 		'order' => 2,
 		'company_id' => 1,
@@ -54,11 +54,11 @@ class CmsPageSeeder extends Seeder
 	PageTranslation::create([
 		'cms_page_id'=>$healthcarePage->id,
 		'locale'=>'en',
-		'title'=>'Health Care',
+		'title'=>'Support Plus Healthcare',
 		'meta_description'=>'',
 		'meta_keywords'=>'',
 	]);
-	
+
 	PageTranslation::create([
 		'cms_page_id'=>$healthcarePage->id,
 		'locale'=>'ar',
@@ -69,8 +69,8 @@ class CmsPageSeeder extends Seeder
 
 
 	$digitalMarketingPage = Page::create([
-		'slug' => 'digital-marketing',
-		'name' => 'Digital Marketing',
+		'slug' => 'support-plus-digital-marketing',
+		'name' => 'Support Plus Digital Marketing',
 		'is_active' => true,
 		'order' => 3,
 		'company_id' => 1,
@@ -79,11 +79,11 @@ class CmsPageSeeder extends Seeder
 	PageTranslation::create([
 		'cms_page_id'=>$digitalMarketingPage->id,
 		'locale'=>'en',
-		'title'=>'Digital Marketing',
+		'title'=>'Support Plus Digital Marketing',
 		'meta_description'=>'',
 		'meta_keywords'=>'',
 	]);
-	
+
 	PageTranslation::create([
 		'cms_page_id'=>$digitalMarketingPage->id,
 		'locale'=>'ar',
@@ -91,10 +91,10 @@ class CmsPageSeeder extends Seeder
 		'meta_description'=>'',
 		'meta_keywords'=>'',
 	]);
-	
+
 	$softwareHousePage = Page::create([
-            'slug' => 'software-house',
-            'name' => 'Software House',
+            'slug' => 'support-plus-software-house',
+            'name' => 'Support Plus Software House',
             'is_active' => true,
             'order' => 4,
             'company_id' => 1,
@@ -103,11 +103,11 @@ class CmsPageSeeder extends Seeder
 	PageTranslation::create([
 		'cms_page_id'=>$softwareHousePage->id,
 		'locale'=>'en',
-		'title'=>'Software House',
+		'title'=>'Support Plus Software House',
 		'meta_description'=>'',
 		'meta_keywords'=>'',
 	]);
-	
+
 	PageTranslation::create([
 		'cms_page_id'=>$softwareHousePage->id,
 		'locale'=>'ar',
@@ -119,8 +119,8 @@ class CmsPageSeeder extends Seeder
 	// --------------------------
 
 	$callCenterPage = Page::create([
-            'slug' => 'call-center',
-            'name' => 'Call Center',
+            'slug' => 'support-plus-call-center',
+            'name' => 'Support Plus Call Center',
             'is_active' => true,
             'order' => 5,
             'company_id' => 1,
@@ -129,11 +129,11 @@ class CmsPageSeeder extends Seeder
 	PageTranslation::create([
 		'cms_page_id'=>$callCenterPage->id,
 		'locale'=>'en',
-		'title'=>'Call Center',
+		'title'=>'Support Plus Call Center',
 		'meta_description'=>'',
 		'meta_keywords'=>'',
 	]);
-	
+
 	PageTranslation::create([
 		'cms_page_id'=>$callCenterPage->id,
 		'locale'=>'ar',
@@ -141,12 +141,12 @@ class CmsPageSeeder extends Seeder
 		'meta_description'=>'',
 		'meta_keywords'=>'',
 	]);
-	
+
 	// --------------------------
 
 	$servicesPage = Page::create([
-            'slug' => 'services',
-            'name' => 'All services',
+            'slug' => 'support-plus-services',
+            'name' => 'Support Plus Services',
             'is_active' => true,
             'order' => 6,
             'company_id' => 1,
@@ -155,11 +155,11 @@ class CmsPageSeeder extends Seeder
 	PageTranslation::create([
 	'cms_page_id'=>$servicesPage->id,
 	'locale'=>'en',
-	'title'=>'All services',
+	'title'=>'Support Plus Services',
 	'meta_description'=>'',
 	'meta_keywords'=>'',
 	]);
-	
+
 	PageTranslation::create([
 	'cms_page_id'=>$servicesPage->id,
 	'locale'=>'ar',
@@ -167,57 +167,57 @@ class CmsPageSeeder extends Seeder
 	'meta_description'=>'',
 	'meta_keywords'=>'',
 	]);
-	
+
 	// --------------------------
 
 	$caseStudiesPage = Page::create([
-            'slug' => 'case-studies',
-            'name' => 'Case Studies',
+            'slug' => 'support-plus-case-studies',
+            'name' => 'Support Plus Case Studies',
             'is_active' => true,
             'order' => 7,
             'company_id' => 1,
         ]);
 
 	PageTranslation::create([
-	'cms_page_id'=>$caseStudiesPage->id,
-	'locale'=>'en',
-	'title'=>'Case Studies',
-	'meta_description'=>'',
-	'meta_keywords'=>'',
+        'cms_page_id'=>$caseStudiesPage->id,
+        'locale'=>'en',
+        'title'=>'Support Plus Case Studies',
+        'meta_description'=>'',
+        'meta_keywords'=>'',
 	]);
-	
+
 	PageTranslation::create([
-	'cms_page_id'=>$caseStudiesPage->id,
-	'locale'=>'ar',
-	'title'=>'الدراسات الميدانية',
-	'meta_description'=>'',
-	'meta_keywords'=>'',
+        'cms_page_id'=>$caseStudiesPage->id,
+        'locale'=>'ar',
+        'title'=>'الدراسات الميدانية',
+        'meta_description'=>'',
+        'meta_keywords'=>'',
 	]);
-	
+
 	// --------------------------
 
 	$contactPage = Page::create([
-            'slug' => 'contact',
-            'name' => 'Contact',
+            'slug' => 'support-plus-contact',
+            'name' => 'Support Plus Contact',
             'is_active' => true,
             'order' => 8,
             'company_id' => 1,
         ]);
 
 	PageTranslation::create([
-	'cms_page_id'=>$contactPage->id,
-	'locale'=>'en',
-	'title'=>'Contact',
-	'meta_description'=>'',
-	'meta_keywords'=>'',
+        'cms_page_id'=>$contactPage->id,
+        'locale'=>'en',
+        'title'=>'Support Plus Contact',
+        'meta_description'=>'',
+        'meta_keywords'=>'',
 	]);
-	
+
 	PageTranslation::create([
-	'cms_page_id'=>$contactPage->id,
-	'locale'=>'ar',
-	'title'=>'اتصل بنا',
-	'meta_description'=>'',
-	'meta_keywords'=>'',
+        'cms_page_id'=>$contactPage->id,
+        'locale'=>'ar',
+        'title'=>' اتصل بنا',
+        'meta_description'=>'',
+        'meta_keywords'=>'',
 	]);
 
 
@@ -226,8 +226,8 @@ class CmsPageSeeder extends Seeder
 
 	// mena support plus pages
 	$homePage = Page::create([
-		'slug' => 'home',
-		'name' => 'Home',
+		'slug' => 'mena-support-home',
+		'name' => 'Mena Support Home',
 		'is_active' => true,
 		'order' => 1,
 		'company_id' => 2,
@@ -240,7 +240,7 @@ class CmsPageSeeder extends Seeder
 		'meta_description'=>'',
 		'meta_keywords'=>'',
 	]);
-	
+
 	PageTranslation::create([
 		'cms_page_id'=>$homePage->id,
 		'locale'=>'ar',
@@ -251,13 +251,13 @@ class CmsPageSeeder extends Seeder
 
 	// services page
 	$servicesPage = Page::create([
-		'slug' => 'mena-services',
-		'name' => 'Mena Services',
+		'slug' => 'mena-support-services',
+		'name' => 'Mena Support Services',
 		'is_active' => true,
 		'order' => 2,
 		'company_id' => 2,
 	]);
-	
+
 	PageTranslation::create([
 		'cms_page_id'=>$servicesPage->id,
 		'locale'=>'en',
@@ -276,13 +276,13 @@ class CmsPageSeeder extends Seeder
 
     // mena case studies page
     $caseStudiesPage = Page::create([
-		'slug' => 'mena-case-studies',
-		'name' => 'Mena Case Studies',
+		'slug' => 'mena-support-case-studies',
+		'name' => 'Mena Support Case Studies',
 		'is_active' => true,
 		'order' => 3,
 		'company_id' => 2,
 	]);
-	
+
 	PageTranslation::create([
 		'cms_page_id'=>$caseStudiesPage->id,
 		'locale'=>'en',
@@ -290,7 +290,7 @@ class CmsPageSeeder extends Seeder
 		'meta_description'=>'',
 		'meta_keywords'=>'',
 	]);
-	
+
 	PageTranslation::create([
 		'cms_page_id'=>$caseStudiesPage->id,
 		'locale'=>'ar',
@@ -303,13 +303,13 @@ class CmsPageSeeder extends Seeder
 
     // about us page
     $aboutUsPage = Page::create([
-		'slug' => 'mena-about-us',
-		'name' => 'Mena About Us',
+		'slug' => 'mena-support-about-us',
+		'name' => 'Mena Support About Us',
 		'is_active' => true,
 		'order' => 4,
 		'company_id' => 2,
 	]);
-	
+
 	PageTranslation::create([
 		'cms_page_id'=>$aboutUsPage->id,
 		'locale'=>'en',
@@ -317,7 +317,7 @@ class CmsPageSeeder extends Seeder
 		'meta_description'=>'',
 		'meta_keywords'=>'',
 	]);
-	
+
 	PageTranslation::create([
 		'cms_page_id'=>$aboutUsPage->id,
 		'locale'=>'ar',
@@ -327,7 +327,29 @@ class CmsPageSeeder extends Seeder
 	]);
 
 
+    // blog page
+    $blogPage = Page::create([
+		'slug' => 'mena-support-blog',
+		'name' => 'Mena Support Blog',
+		'is_active' => true,
+		'order' => 5,
+		'company_id' => 2,
+	]);
 
+	PageTranslation::create([
+		'cms_page_id'=>$blogPage->id,
+		'locale'=>'en',
+		'title'=>'Blog',
+		'meta_description'=>'',
+		'meta_keywords'=>'',
+	]);
 
+	PageTranslation::create([
+		'cms_page_id'=>$blogPage->id,
+		'locale'=>'ar',
+		'title'=>'المدونة',
+		'meta_description'=>'',
+		'meta_keywords'=>'',
+	]);
     }
 }

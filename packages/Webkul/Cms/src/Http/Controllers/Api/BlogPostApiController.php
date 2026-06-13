@@ -32,7 +32,7 @@ class BlogPostApiController extends Controller
 
         $query = $this->blogPostRepository->getModel()
             ->newQuery()
-            ->with('translations')
+            ->with(['translations', 'media'])
             ->orderByDesc('id');
 
         if ($this->isCompanyMismatch($resolvedCompanyId, $companyId)) {
@@ -62,7 +62,26 @@ class BlogPostApiController extends Controller
         //     return $this->companyMismatchResponse();
         // }
 
-        $blogPost->loadMissing('translations');
+        $blogPost->loadMissing('translations', 'media');
+
+        return response()->json($blogPost);
+    }
+
+    public function showBySlug(Request $request, string $slug): JsonResponse
+    {
+        $blogPost = $this->blogPostRepository->getModel()
+            ->newQuery()
+            ->with(['translations', 'media'])
+            ->where('slug', $slug)
+            ->first();
+
+        if (! $blogPost) {
+            return response()->json([
+                'message' => 'Blog post not found',
+            ], 404);
+        }
+
+        $blogPost->loadMissing('translations', 'media');
 
         return response()->json($blogPost);
     }
@@ -80,6 +99,7 @@ class BlogPostApiController extends Controller
 
         $blogPosts = $this->blogPostRepository->getModel()
             ->newQuery()
+            ->with(['translations', 'media'])
             ->whereHas('blogCategories', function ($query) use ($categoryId) {
                 $query->where('cms_blog_categories.id', $categoryId);
             })
@@ -116,7 +136,7 @@ class BlogPostApiController extends Controller
 
         Event::dispatch('cms.blog-posts.create.after', $blogPost);
 
-        $blogPost->loadMissing('translations');
+        $blogPost->loadMissing('translations', 'media');
 
         return response()->json($blogPost, 201);
     }
@@ -151,7 +171,7 @@ class BlogPostApiController extends Controller
 
         Event::dispatch('cms.blog-posts.update.after', $blogPost);
 
-        $blogPost->loadMissing('translations');
+        $blogPost->loadMissing('translations', 'media');
 
         return response()->json($blogPost);
     }

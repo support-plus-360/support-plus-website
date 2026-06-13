@@ -9,6 +9,10 @@ use Webkul\Cms\Http\Controllers\Api\BlogPostApiController;
 use Webkul\Cms\Http\Controllers\Api\ItemApiController;
 use Webkul\Cms\Http\Controllers\Api\ContactMessageApiController;
 use Webkul\Cms\Http\Controllers\Api\NavMenuApiController;
+use Webkul\Cms\Http\Controllers\Api\CaseStudyCategoryApiController;
+use Webkul\Cms\Http\Controllers\Api\CaseStudyApiController;
+use Webkul\Cms\Http\Controllers\Api\ServiceTypeApiController;
+use Webkul\Cms\Http\Controllers\Api\ServiceApiController;
 
 // pages
 Route::prefix('cms/api/pages')->controller(PageApiController::class)->group(function () {
@@ -75,14 +79,53 @@ Route::middleware('api')
         Route::post('', 'store')->name('cms.api.contact-messages.store');
     });
 
+// case study categories
+Route::prefix('cms/api/case-study-categories')->controller(CaseStudyCategoryApiController::class)->group(function () {
+    Route::get('', 'index')->name('admin.cms.api.case-study-categories.index');
+    Route::post('', 'store')->name('admin.cms.api.case-study-categories.store');
+    Route::get('{id}', 'show')->whereNumber('id')->name('admin.cms.api.case-study-categories.show');
+    Route::put('{id}', 'update')->whereNumber('id')->name('admin.cms.api.case-study-categories.update');
+    Route::delete('{id}', 'destroy')->whereNumber('id')->name('admin.cms.api.case-study-categories.destroy');
+});
+
+// case studies
+Route::prefix('cms/api/case-studies')->controller(CaseStudyApiController::class)->group(function () {
+    Route::get('', 'index')->name('admin.cms.api.case-studies.index');
+    Route::post('', 'store')->name('admin.cms.api.case-studies.store');
+    Route::get('{id}', 'show')->whereNumber('id')->name('admin.cms.api.case-studies.show');
+    Route::get('{slug}', 'showBySlug')->name('admin.cms.api.case-studies.showBySlug');
+    Route::get('category/{categoryId}', 'getByCategoryId')->whereNumber('categoryId')->name('admin.cms.api.case-studies.getByCategoryId');
+    Route::put('{id}', 'update')->whereNumber('id')->name('admin.cms.api.case-studies.update');
+    Route::delete('{id}', 'destroy')->whereNumber('id')->name('admin.cms.api.case-studies.destroy');
+});
+
+// service types
+Route::prefix('cms/api/service-types')->controller(ServiceTypeApiController::class)->group(function () {
+    Route::get('', 'index')->name('admin.cms.api.service-types.index');
+    Route::post('', 'store')->name('admin.cms.api.service-types.store');
+    Route::get('{id}', 'show')->whereNumber('id')->name('admin.cms.api.service-types.show');
+    Route::put('{id}', 'update')->whereNumber('id')->name('admin.cms.api.service-types.update');
+    Route::delete('{id}', 'destroy')->whereNumber('id')->name('admin.cms.api.service-types.destroy');
+});
+
+// services
+Route::prefix('cms/api/services')->controller(ServiceApiController::class)->group(function () {
+    Route::get('', 'index')->name('admin.cms.api.services.index');
+    Route::post('', 'store')->name('admin.cms.api.services.store');
+    Route::get('{id}', 'show')->whereNumber('id')->name('admin.cms.api.services.show');
+    Route::get('{slug}', 'showBySlug')->name('admin.cms.api.services.showBySlug');
+    Route::get('type/{serviceTypeId}', 'getByServiceTypeId')->whereNumber('serviceTypeId')->name('admin.cms.api.services.getByServiceTypeId');
+    Route::put('{id}', 'update')->whereNumber('id')->name('admin.cms.api.services.update');
+    Route::delete('{id}', 'destroy')->whereNumber('id')->name('admin.cms.api.services.destroy');
+});
+
 // blog posts
 Route::prefix('cms/api/blog-posts')->controller(BlogPostApiController::class)->group(function () {
             Route::get('', 'index')->name('admin.cms.api.blog-posts.index');
             Route::post('', 'store')->name('admin.cms.api.blog-posts.store');
             Route::get('{id}', 'show')->whereNumber('id')->name('admin.cms.api.blog-posts.show');
+            Route::get('{slug}', 'showBySlug')->name('admin.cms.api.blog-posts.showBySlug');
             Route::get('category/{categoryId}', 'getBlogPostsByCategoryId')->whereNumber('categoryId')->name('admin.cms.api.blog-posts.getBlogPostsByCategoryId');
             Route::put('{id}', 'update')->whereNumber('id')->name('admin.cms.api.blog-posts.update');
             Route::delete('{id}', 'destroy')->whereNumber('id')->name('admin.cms.api.blog-posts.destroy');
         });
-
-

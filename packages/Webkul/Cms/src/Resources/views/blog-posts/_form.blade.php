@@ -154,7 +154,7 @@ $publishedValue = '';
 					</x-admin::form.control-group>
 				</div>
 
-				<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+				<div class="grid grid-cols-2 gap-4 md:grid-cols-2">
 
 					@if($blogPost)
 					<x-admin::form.control-group>
@@ -170,6 +170,16 @@ $publishedValue = '';
 							control-name="views_count" />
 					</x-admin::form.control-group>
 					@endif
+					<x-admin::form.control-group>
+						<x-admin::form.control-group.label>
+							@lang('cms::app.blog-posts.form.author_name')
+						</x-admin::form.control-group.label>
+						<x-admin::form.control-group.control type="text"
+							id="author_name" name="author_name"
+							:value="old('author_name', $blogPost?->author_name ?? '')"
+							:label="trans('cms::app.blog-posts.form.author_name')" />
+					</x-admin::form.control-group>
+
 				</div>
 
 				<div class="grid grid-cols-2 gap-4 sm:grid-cols-4">
@@ -180,7 +190,8 @@ $publishedValue = '';
 								value="1"
 								class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700"
 								@checked(old('is_featured',
-								$blogPost?->is_featured ?? false)) />
+								$blogPost?->is_featured
+							?? false)) />
 							<span>@lang('cms::app.blog-posts.form.featured')</span>
 						</label>
 					</x-admin::form.control-group>
@@ -191,7 +202,8 @@ $publishedValue = '';
 								value="1"
 								class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700"
 								@checked(old('allow_comments',
-								$blogPost?->allow_comments ?? false)) />
+								$blogPost?->allow_comments
+							?? false)) />
 							<span>@lang('cms::app.blog-posts.form.allow_comments')</span>
 						</label>
 					</x-admin::form.control-group>
@@ -202,7 +214,8 @@ $publishedValue = '';
 								value="1"
 								class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700"
 								@checked(old('is_indexable',
-								$blogPost?->is_indexable ?? true)) />
+								$blogPost?->is_indexable
+							?? true)) />
 							<span>@lang('cms::app.blog-posts.form.indexable')</span>
 						</label>
 					</x-admin::form.control-group>
@@ -212,7 +225,8 @@ $publishedValue = '';
 							<input type="checkbox" name="is_active" value="1"
 								class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700"
 								@checked(old('is_active',
-								$blogPost?->is_active ?? true)) />
+								$blogPost?->is_active
+							?? true)) />
 							<span>@lang('cms::app.blog-posts.form.active')</span>
 						</label>
 					</x-admin::form.control-group>
@@ -257,7 +271,8 @@ $publishedValue = '';
 					</div>
 
 					@foreach($locales as $locale => $localeLabel)
-					@php($row = $blogPost?->translations?->firstWhere('locale', $locale))
+					@php($row = $blogPost?->translations?->firstWhere('locale',
+					$locale))
 					<div class="cms-locale-panel {{ $locale === $firstLocale ? '' : 'hidden' }}"
 						data-tab-group="{{ $tabId }}"
 						data-tab-panel="{{ $locale }}">
@@ -297,9 +312,12 @@ $publishedValue = '';
 								<x-admin::form.control-group.label>
 									@lang('cms::app.blog-posts.form.content')
 								</x-admin::form.control-group.label>
-								@include('cms::components.blog-content-editor', [
-									'locale' => $locale,
-									'value' => old('translations.'.$locale.'.content', $row?->content ?? ''),
+								@include('cms::components.blog-content-editor',
+								[
+								'locale' => $locale,
+								'value' =>
+								old('translations.'.$locale.'.content',
+								$row?->content ?? ''),
 								])
 								<x-admin::form.control-group.error
 									control-name="translations.{{ $locale }}.content" />
@@ -377,13 +395,10 @@ $publishedValue = '';
 </div>
 
 @pushOnce('scripts', 'cms.blog-posts-tinymce')
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.6.2/tinymce.min.js"
-	crossorigin="anonymous"
-	referrerpolicy="no-referrer"
-></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.6.2/tinymce.min.js" crossorigin="anonymous"
+	referrerpolicy="no-referrer"></script>
 <script>
-(function () {
+(function() {
 	const uploadUrl = @json(route('admin.tinymce.upload'));
 	const csrfToken = @json(csrf_token());
 	const documentBaseUrl = @json(asset('/'));
@@ -401,7 +416,7 @@ $publishedValue = '';
 				return;
 			}
 			const json = JSON.parse(xhr.responseText);
-			if (! json?.location) {
+			if (!json?.location) {
 				reject('Invalid upload response');
 				return;
 			}
@@ -435,17 +450,22 @@ $publishedValue = '';
 			return false;
 		}
 
-		const pending = Array.from(document.querySelectorAll('textarea.blog-post-content-editor'))
-			.filter((el) => el.id && ! tinymce.get(el.id));
+		const pending = Array.from(document.querySelectorAll(
+				'textarea.blog-post-content-editor'))
+			.filter((el) => el.id && !tinymce.get(el.id));
 
-		if (! pending.length) {
-			return document.querySelectorAll('textarea.blog-post-content-editor').length > 0;
+		if (!pending.length) {
+			return document.querySelectorAll('textarea.blog-post-content-editor')
+				.length > 0;
 		}
 
 		const config = baseEditorConfig();
 
 		pending.forEach((target) => {
-			tinymce.init({ ...config, target });
+			tinymce.init({
+				...config,
+				target
+			});
 		});
 
 		return true;
@@ -460,7 +480,8 @@ $publishedValue = '';
 			return;
 		}
 
-		const textareas = document.querySelectorAll('textarea.blog-post-content-editor');
+		const textareas = document.querySelectorAll(
+			'textarea.blog-post-content-editor');
 
 		if (textareas.length === 0) {
 			if (attempt < 80) {
@@ -488,10 +509,11 @@ $publishedValue = '';
 	}, true);
 
 	window.cmsBlogContentEditorResize = (panel) => {
-		if (! panel || typeof tinymce === 'undefined') {
+		if (!panel || typeof tinymce === 'undefined') {
 			return;
 		}
-		panel.querySelectorAll('textarea.blog-post-content-editor').forEach((textarea) => {
+		panel.querySelectorAll('textarea.blog-post-content-editor').forEach((
+			textarea) => {
 			const editor = tinymce.get(textarea.id);
 			if (editor) {
 				editor.fire('ResizeEditor');
@@ -512,16 +534,18 @@ $publishedValue = '';
 	};
 
 	const setActive = (group, tab) => {
-		document.querySelectorAll(`.cms-locale-tab[data-tab-group="${group}"]`).forEach(
-			(btn) => {
-				const isActive = btn.getAttribute('data-tab') ===
-					tab;
-				btn.classList.toggle('bg-gray-100', isActive);
-				btn.classList.toggle('dark:bg-gray-950',
-				isActive);
-				btn.classList.toggle('text-gray-900', isActive);
-				btn.classList.toggle('dark:text-white', isActive);
-			});
+		document.querySelectorAll(`.cms-locale-tab[data-tab-group="${group}"]`)
+			.forEach(
+				(btn) => {
+					const isActive = btn.getAttribute('data-tab') ===
+						tab;
+					btn.classList.toggle('bg-gray-100', isActive);
+					btn.classList.toggle('dark:bg-gray-950',
+						isActive);
+					btn.classList.toggle('text-gray-900', isActive);
+					btn.classList.toggle('dark:text-white',
+						isActive);
+				});
 		document.querySelectorAll(`.cms-locale-panel[data-tab-group="${group}"]`)
 			.forEach((panel) => {
 				const isActive = panel.getAttribute(

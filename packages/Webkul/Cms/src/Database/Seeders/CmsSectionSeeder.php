@@ -6,6 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Webkul\Cms\Models\Section;
 use Webkul\Cms\Models\SectionTranslation;
+use Webkul\Cms\Models\Page;
 
 class CmsSectionSeeder extends Seeder
 {
@@ -15,7 +16,7 @@ class CmsSectionSeeder extends Seeder
     public function run(): void
     {
 
-// home page sections
+    // home page sections
         $homeSection1 = Section::create([
             'name' => 'Home Page Section 1',
             'section_layout' => 'hero_section_style_1',
@@ -26,22 +27,22 @@ class CmsSectionSeeder extends Seeder
             'page_id' => 1,
         ]);
 
-	SectionTranslation::create([
-		'cms_section_id'=>$homeSection1->id,
-		'locale'=>'en',
-		'title'=>'Scale Your Medical Practice With Precision',
-		'subtitle'=>'Strategic Healthcare Growth Partner',
-		'description'=>'Support Plus 360 provides specialized **Marketing**, **Software**, and **Call Center** solutions designed exclusively for healthcare providers to maximize revenue and patient trust.',
-	]);
+        SectionTranslation::create([
+            'cms_section_id'=>$homeSection1->id,
+            'locale'=>'en',
+            'title'=>'Scale Your Medical Practice With Precision',
+            'subtitle'=>'Strategic Healthcare Growth Partner',
+            'description'=>'Support Plus 360 provides specialized **Marketing**, **Software**, and **Call Center** solutions designed exclusively for healthcare providers to maximize revenue and patient trust.',
+        ]);
 
 
-	SectionTranslation::create([
-		'cms_section_id'=>$homeSection1->id,
-		'locale'=>'ar',
-		'title'=>'قم بتحقيق نمو طبي عالي بدقة',
-		'subtitle'=>'شريك نمو طبي مهمل',
-		'description'=>'Support Plus 360 يقدم حلول **التسويق**، **البرمجيات**، و **مركز الاتصال** المخصص لممارسات الطب المحددة بشكل خاص لزيادة الإيرادات والثقة المرضية.',
-	]);
+        SectionTranslation::create([
+            'cms_section_id'=>$homeSection1->id,
+            'locale'=>'ar',
+            'title'=>'قم بتحقيق نمو طبي عالي بدقة',
+            'subtitle'=>'شريك نمو طبي مهمل',
+            'description'=>'Support Plus 360 يقدم حلول **التسويق**، **البرمجيات**، و **مركز الاتصال** المخصص لممارسات الطب المحددة بشكل خاص لزيادة الإيرادات والثقة المرضية.',
+        ]);
 
 
 
@@ -54,20 +55,20 @@ class CmsSectionSeeder extends Seeder
             'page_id' => 1,
         ]);
         SectionTranslation::create([
-	'cms_section_id'=>$homeSection2->id,
-	'locale'=>'en',
-	'title'=>"Why Your Business Doesn't Grow",
-	'subtitle'=> '',
-	'description'=>"Three critical gaps limiting your facility's growth and operational excellence.",
-	]);
+            'cms_section_id'=>$homeSection2->id,
+            'locale'=>'en',
+            'title'=>"Why Your Business Doesn't Grow",
+            'subtitle'=> '',
+            'description'=>"Three critical gaps limiting your facility's growth and operational excellence.",
+        ]);
 
-	SectionTranslation::create([
-	'cms_section_id'=>$homeSection2->id,
-	'locale'=>'ar',
-	'title'=>'لماذا لا ينمو مؤسستك',
-	'subtitle'=>'',
-	'description'=>'ثلاث فجوات مهمة لا تقيد نمو مركزك والفعالية التشغيلية.',
-	]);
+        SectionTranslation::create([
+            'cms_section_id'=>$homeSection2->id,
+            'locale'=>'ar',
+            'title'=>'لماذا لا ينمو مؤسستك',
+            'subtitle'=>'',
+            'description'=>'ثلاث فجوات مهمة لا تقيد نمو مركزك والفعالية التشغيلية.',
+        ]);
 
 // --------------------------
 
@@ -80,20 +81,20 @@ class CmsSectionSeeder extends Seeder
             'page_id' => 1,
         ]);
         SectionTranslation::create([
-	'cms_section_id'=>$homeSection3->id,
-	'locale'=>'en',
-	'title'=>'Our Core Pillars',
-	'subtitle'=>'',
-	'description'=>'Integrated solutions designed for exponential healthcare growth.',
-	]);
+        'cms_section_id'=>$homeSection3->id,
+        'locale'=>'en',
+        'title'=>'Our Core Pillars',
+        'subtitle'=>'',
+        'description'=>'Integrated solutions designed for exponential healthcare growth.',
+        ]);
 
-	SectionTranslation::create([
-	'cms_section_id'=>$homeSection3->id,
-	'locale'=>'ar',
-	'title'=>'العوامل الأساسية لدينا',
-	'subtitle'=> '',
-	'description'=>'الحلول المدمجة المصممة للنمو الطبي الأسي.',
-	]);
+        SectionTranslation::create([
+        'cms_section_id'=>$homeSection3->id,
+        'locale'=>'ar',
+        'title'=>'العوامل الأساسية لدينا',
+        'subtitle'=> '',
+        'description'=>'الحلول المدمجة المصممة للنمو الطبي الأسي.',
+        ]);
 
 
 // --------------------------
@@ -1015,6 +1016,8 @@ class CmsSectionSeeder extends Seeder
 
 // -------------------------- start of mena support plus pages sections ----------------------------------
 
+
+    $menaHomePage = Page::where('slug', 'mena-support-home')->first();
 	// mena home page section 1
 	$menaHomeSection1 = Section::create([
 		'name' => 'Mena Home Page Section 1',
@@ -1022,7 +1025,7 @@ class CmsSectionSeeder extends Seeder
 		'settings' => [],
 		'order' => 1,
 		'company_id' => 2,
-		'page_id' => 9,
+		'page_id' => $menaHomePage->id,
 	]);
 
 	SectionTranslation::create([
@@ -1032,7 +1035,7 @@ class CmsSectionSeeder extends Seeder
 		'subtitle' => 'Elevating KSA Healthcare',
 		'description' => 'Bridging high-level financial precision with human-centric HR consultancy, we help Saudi healthcare providers stabilize operations, improve margins, and scale with confidence.',
 	]);
-	
+
 	SectionTranslation::create([
 		'cms_section_id' => $menaHomeSection1->id,
 		'locale' => 'ar',
@@ -1048,9 +1051,9 @@ class CmsSectionSeeder extends Seeder
 		'settings' => [],
 		'order' => 2,
 		'company_id' => 2,
-		'page_id' => 9,
+		'page_id' => $menaHomePage->id,
 	]);
-	
+
 	SectionTranslation::create([
 		'cms_section_id' => $menaHomeSection2->id,
 		'locale' => 'en',
@@ -1058,7 +1061,7 @@ class CmsSectionSeeder extends Seeder
 		'subtitle' => '',
 		'description' => 'Transforming operational data into strategic results for leading healthcare providers.',
 	]);
-	
+
 	SectionTranslation::create([
 		'cms_section_id' => $menaHomeSection2->id,
 		'locale' => 'ar',
@@ -1074,7 +1077,7 @@ class CmsSectionSeeder extends Seeder
 		'settings' => [],
 		'order' => 3,
 		'company_id' => 2,
-		'page_id' => 9,
+		'page_id' => $menaHomePage->id,
 	]);
 
 	SectionTranslation::create([
@@ -1084,7 +1087,7 @@ class CmsSectionSeeder extends Seeder
 		'subtitle' => '',
 		'description' => 'We partner with institutions that value sustainable growth and disciplined execution.',
 	]);
-	
+
 	SectionTranslation::create([
 		'cms_section_id' => $menaHomeSection3->id,
 		'locale' => 'ar',
@@ -1100,7 +1103,7 @@ class CmsSectionSeeder extends Seeder
 		'settings' => [],
 		'order' => 4,
 		'company_id' => 2,
-		'page_id' => 9,
+		'page_id' => $menaHomePage->id,
 	]);
 
 	SectionTranslation::create([
@@ -1110,7 +1113,7 @@ class CmsSectionSeeder extends Seeder
 		'subtitle' => '',
 		'description' => 'Common questions about our financial and operational consulting services in KSA.',
 	]);
-	
+
 	SectionTranslation::create([
 		'cms_section_id' => $menaHomeSection4->id,
 		'locale' => 'ar',
@@ -1123,6 +1126,7 @@ class CmsSectionSeeder extends Seeder
 
 // -------------------------- start of mena support plus pages sections ----------------------------------
 
+    $menaServicesPage = Page::where('slug', 'mena-support-services')->first();
 	// mena services page section 1
 	$menaServicesSection1 = Section::create([
 		'name' => 'Mena Services Page Section 1',
@@ -1130,18 +1134,18 @@ class CmsSectionSeeder extends Seeder
 		'settings' => [],
 		'order' => 1,
 		'company_id' => 2,
-		'page_id' => 10,
-	]); 
-
-    SectionTranslation::create([
-		'cms_section_id' => $menaServicesSection1->id,
-		'locale' => 'en',
-		'title' => 'Comprehensive Consultancy',
-		'subtitle' => 'Services Overview',
-		'description' => 'Designed for ambitious healthcare institutions that need sharper financial control, stronger HR systems, and practical implementation support.',
+		'page_id' => $menaServicesPage->id,
 	]);
 
-    SectionTranslation::create([
+	SectionTranslation::create([
+			'cms_section_id' => $menaServicesSection1->id,
+			'locale' => 'en',
+			'title' => 'Comprehensive Consultancy',
+			'subtitle' => 'Services Overview',
+			'description' => 'Designed for ambitious healthcare institutions that need sharper financial control, stronger HR systems, and practical implementation support.',
+		]);
+
+	SectionTranslation::create([
 		'cms_section_id' => $menaServicesSection1->id,
 		'locale' => 'ar',
 		'title' => 'الاستشارات الشاملة',
@@ -1150,78 +1154,78 @@ class CmsSectionSeeder extends Seeder
 	]);
 
     // mena services page section 2
-	$menaServicesSection2 = Section::create([
-		'name' => 'Mena Services Page Section 2',
-		'section_layout' => 'mena_4_items_in_row_section_style_1',
-		'settings' => [],
-		'order' => 2,
-		'company_id' => 2,
-		'page_id' => 10,
-	]);
+	// $menaServicesSection2 = Section::create([
+	// 	'name' => 'Mena Services Page Section 2',
+	// 	'section_layout' => 'mena_4_items_in_row_section_style_1',
+	// 	'settings' => [],
+	// 	'order' => 2,
+	// 	'company_id' => 2,
+	// 	'page_id' => $menaServicesPage->id,
+	// ]);
 
-    SectionTranslation::create([
-		'cms_section_id' => $menaServicesSection2->id,
-		'locale' => 'en',
-		'title' => 'Financial Precision',
-		'subtitle' => '',
-		'description' => 'Hands-on finance services that improve control, visibility, and confidence across healthcare operations.',
-	]);
+    // SectionTranslation::create([
+	// 	'cms_section_id' => $menaServicesSection2->id,
+	// 	'locale' => 'en',
+	// 	'title' => 'Financial Precision',
+	// 	'subtitle' => '',
+	// 	'description' => 'Hands-on finance services that improve control, visibility, and confidence across healthcare operations.',
+	// ]);
 
-    SectionTranslation::create([
-		'cms_section_id' => $menaServicesSection2->id,
-		'locale' => 'ar',
-		'title' => 'الدقة المالية',
-		'subtitle' => '',
-		'description' => 'خدمات المالية العملية التي تحسن التحكم، الرؤية، والثقة في عمليات الطب الصحي.',
-	]);
+    // SectionTranslation::create([
+	// 	'cms_section_id' => $menaServicesSection2->id,
+	// 	'locale' => 'ar',
+	// 	'title' => 'الدقة المالية',
+	// 	'subtitle' => '',
+	// 	'description' => 'خدمات المالية العملية التي تحسن التحكم، الرؤية، والثقة في عمليات الطب الصحي.',
+	// ]);
 
 
     // mena services page section 3
-	$menaServicesSection3 = Section::create([
-		'name' => 'Mena Services Page Section 3',
-		'section_layout' => 'mena_3_items_in_row_section_style_2',
-		'settings' => [],
-		'order' => 3,
-		'company_id' => 2,
-		'page_id' => 10,
-	]);
+	// $menaServicesSection3 = Section::create([
+	// 	'name' => 'Mena Services Page Section 3',
+	// 	'section_layout' => 'mena_3_items_in_row_section_style_2',
+	// 	'settings' => [],
+	// 	'order' => 3,
+	// 	'company_id' => 2,
+	// 	'page_id' => $menaServicesPage->id,
+	// ]);
 
-    SectionTranslation::create([
-		'cms_section_id' => $menaServicesSection3->id,
-		'locale' => 'en',
-		'title' => 'HR Solutions',
-		'subtitle' => '',
-		'description' => 'Operational HR support built around compliance, team structure, and sustainable employee experience.'
-	]);
+    // SectionTranslation::create([
+	// 	'cms_section_id' => $menaServicesSection3->id,
+	// 	'locale' => 'en',
+	// 	'title' => 'HR Solutions',
+	// 	'subtitle' => '',
+	// 	'description' => 'Operational HR support built around compliance, team structure, and sustainable employee experience.'
+	// ]);
 
-    SectionTranslation::create([
-		'cms_section_id' => $menaServicesSection3->id,
-		'locale' => 'ar',
-		'title' => 'حلول الموظفين',
-		'subtitle' => '',
-		'description' => 'دعم الموظفين التشغيلي المبني على الامتثال، بنية الفريق، والتجربة المستدامة للموظفين.',
-	]);
+    // SectionTranslation::create([
+	// 	'cms_section_id' => $menaServicesSection3->id,
+	// 	'locale' => 'ar',
+	// 	'title' => 'حلول الموظفين',
+	// 	'subtitle' => '',
+	// 	'description' => 'دعم الموظفين التشغيلي المبني على الامتثال، بنية الفريق، والتجربة المستدامة للموظفين.',
+	// ]);
 
 
-    // mena services page section 4
+    // mena services page section 2
 	$menaServicesSection4 = Section::create([
 		'name' => 'Mena Services Page Section 4',
-		'section_layout' => 'mena_3_items_in_row_section_style_3',
+		'section_layout' => 'mena_3_items_in_column_section_style_3',
 		'settings' => [],
 		'order' => 4,
 		'company_id' => 2,
-		'page_id' => 10,
+		'page_id' => $menaServicesPage->id,
 	]);
 
-    SectionTranslation::create([
-		'cms_section_id' => $menaServicesSection4->id,
-		'locale' => 'en',
-		'title' => 'Proven Results in Healthcare',
-		'subtitle' => '',
-		'description' => 'Our teams work with healthcare leaders to turn finance and HR complexity into measurable operational progress.'
-	]);
+	SectionTranslation::create([
+			'cms_section_id' => $menaServicesSection4->id,
+			'locale' => 'en',
+			'title' => 'Proven Results in Healthcare',
+			'subtitle' => '',
+			'description' => 'Our teams work with healthcare leaders to turn finance and HR complexity into measurable operational progress.'
+		]);
 
-    SectionTranslation::create([
+	SectionTranslation::create([
 		'cms_section_id' => $menaServicesSection4->id,
 		'locale' => 'ar',
 		'title' => 'النتائج المتجربة في الطب الصحي',
@@ -1230,26 +1234,26 @@ class CmsSectionSeeder extends Seeder
 	]);
 
 
-    // mena services page section 5
-	$menaServicesSection5 = Section::create([
-		'name' => 'Mena Services Page Section 5',
-		'section_layout' => 'mena_3_items_in_row_section_style_4',
+    // mena services page section 3
+	$menaServicesSection3 = Section::create([
+		'name' => 'Mena Services Page Section 3',
+		'section_layout' => 'mena_info_section_style_4',
 		'settings' => [],
 		'order' => 5,
 		'company_id' => 2,
-		'page_id' => 10,
+		'page_id' => $menaServicesPage->id,
 	]);
 
-    SectionTranslation::create([
-		'cms_section_id' => $menaServicesSection5->id,
-		'locale' => 'en',
-		'title' => 'Elevate Your Institution',
-		'subtitle' => '',
-		'description' => 'Whether you need a sharper finance function or more resilient HR operations, we can help you build both with clarity.',
-	]);
+	SectionTranslation::create([
+			'cms_section_id' => $menaServicesSection3->id,
+			'locale' => 'en',
+			'title' => 'Elevate Your Institution',
+			'subtitle' => '',
+			'description' => 'Whether you need a sharper finance function or more resilient HR operations, we can help you build both with clarity.',
+		]);
 
-    SectionTranslation::create([
-		'cms_section_id' => $menaServicesSection5->id,
+	SectionTranslation::create([
+		'cms_section_id' => $menaServicesSection3->id,
 		'locale' => 'ar',
 		'title' => 'رفع مستوى مركزك الطبي',
 		'subtitle' => '',
@@ -1257,91 +1261,91 @@ class CmsSectionSeeder extends Seeder
 	]);
 
 
-
-    // mena case studies page section 1
+	$menaCaseStudiesPage = Page::where('slug', 'mena-support-case-studies')->first();
+	// mena case studies page section 1
 	$menaCaseStudiesSection1 = Section::create([
 		'name' => 'Mena Case Studies Page Section 1',
 		'section_layout' => 'mena_info_section_style_3',
 		'settings' => [],
 		'order' => 1,
 		'company_id' => 2,
-		'page_id' => 11,
+		'page_id' => $menaCaseStudiesPage->id,
 	]);
 
-    SectionTranslation::create([
-		'cms_section_id' => $menaCaseStudiesSection1->id,
-		'locale' => 'en',
-		'title' => 'Proven Results in KSA Healthcare',
-		'subtitle' => '',
-		'description' => 'See how we help polyclinics and medical operators reduce leakage, improve reporting, and build stronger operational control.',
-	]);
+	SectionTranslation::create([
+			'cms_section_id' => $menaCaseStudiesSection1->id,
+			'locale' => 'en',
+			'title' => 'Proven Results in KSA Healthcare',
+			'subtitle' => '',
+			'description' => 'See how we help polyclinics and medical operators reduce leakage, improve reporting, and build stronger operational control.',
+		]);
 
-    SectionTranslation::create([
-		'cms_section_id' => $menaCaseStudiesSection1->id,
-		'locale' => 'ar',
-		'title' => 'النتائج المتجربة في الطب السعودي',
-		'subtitle' => '',
-		'description' => 'ترى كيف نساعد مراكز الطب المركزية والعمليات الطبية في تقليل الفرط وتحسين التقارير وبناء تحكم تشغيلي أقوى.',
-	]);
+	SectionTranslation::create([
+			'cms_section_id' => $menaCaseStudiesSection1->id,
+			'locale' => 'ar',
+			'title' => 'النتائج المتجربة في الطب السعودي',
+			'subtitle' => '',
+			'description' => 'ترى كيف نساعد مراكز الطب المركزية والعمليات الطبية في تقليل الفرط وتحسين التقارير وبناء تحكم تشغيلي أقوى.',
+		]);
 
 
-    // mena case studies page section 2
-	$menaCaseStudiesSection2 = Section::create([
-		'name' => 'Mena Case Studies Page Section 2',
-		'section_layout' => 'mena_3_items_in_row_section_style_1',
-		'settings' => [],
-		'order' => 2,
-		'company_id' => 2,
-		'page_id' => 11,
-	]);
+	// mena case studies page section 2
+	// $menaCaseStudiesSection2 = Section::create([
+	// 	'name' => 'Mena Case Studies Page Section 2',
+	// 	'section_layout' => 'mena_3_items_in_row_section_style_1',
+	// 	'settings' => [],
+	// 	'order' => 2,
+	// 	'company_id' => 2,
+	// 	'page_id' => $menaCaseStudiesPage->id,
+	// ]);
 
-    SectionTranslation::create([
-		'cms_section_id' => $menaCaseStudiesSection2->id,
-		'locale' => 'en',
-		'title' => 'Secured 4.5M SAR Investment via SOCPA-Aligned Valuation',
-		'subtitle' => 'Featured Case Study',
-		'description' => 'By restructuring their financial model to meet stringent SOCPA standards and presenting a transparent valuation, we helped facilitate a successful funding round aligned with their expansion roadmap.',
-	]);
+    // SectionTranslation::create([
+	// 	'cms_section_id' => $menaCaseStudiesSection2->id,
+	// 	'locale' => 'en',
+	// 	'title' => 'Secured 4.5M SAR Investment via SOCPA-Aligned Valuation',
+	// 	'subtitle' => 'Featured Case Study',
+	// 	'description' => 'By restructuring their financial model to meet stringent SOCPA standards and presenting a transparent valuation, we helped facilitate a successful funding round aligned with their expansion roadmap.',
+	// ]);
 
-    SectionTranslation::create([
-		'cms_section_id' => $menaCaseStudiesSection2->id,
-		'locale' => 'ar',
-		'title' => 'حصل على 4.5 مليون ريال سعودي من الاستثمار عبر التقييم المطابق لـ SOCPA',
-		'subtitle' => 'دراسة الحالة المميزة',
-		'description' => 'بتجديد نموذجهم المالي ليتوافق مع المعايير القائمة على SOCPA وتقديم تقييم شفاف، نساعد في تمكين دورة استثمارية ناجحة مطابقة لمسار التوسع الخاص بهم. ',
-	]);
+    // SectionTranslation::create([
+	// 	'cms_section_id' => $menaCaseStudiesSection2->id,
+	// 	'locale' => 'ar',
+	// 	'title' => 'حصل على 4.5 مليون ريال سعودي من الاستثمار عبر التقييم المطابق لـ SOCPA',
+	// 	'subtitle' => 'دراسة الحالة المميزة',
+	// 	'description' => 'بتجديد نموذجهم المالي ليتوافق مع المعايير القائمة على SOCPA وتقديم تقييم شفاف، نساعد في تمكين دورة استثمارية ناجحة مطابقة لمسار التوسع الخاص بهم. ',
+	// ]);
 
 
    // mena case studies page section 3
-   $menaCaseStudiesSection3 = Section::create([
-		'name' => 'Mena Case Studies Page Section 3',
-		'section_layout' => 'mena_3_items_in_row_section_style_1',
-		'settings' => [],
-		'order' => 3,
-		'company_id' => 2,
-		'page_id' => 11,
-	]);
+//    $menaCaseStudiesSection3 = Section::create([
+// 		'name' => 'Mena Case Studies Page Section 3',
+// 		'section_layout' => 'mena_3_items_in_row_section_style_1',
+// 		'settings' => [],
+// 		'order' => 3,
+// 		'company_id' => 2,
+// 		'page_id' => $menaCaseStudiesPage->id,
+// 	]);
 
-    SectionTranslation::create([
-		'cms_section_id' => $menaCaseStudiesSection3->id,
-		'locale' => 'en',
-		'title' => 'Get Results Like These',
-		'subtitle' => '',
-		'description' => 'Stop revenue leakage and build a compliant, immediate healthcare operation. Let our consultants analyze your current setup.'
-	]);
+//     SectionTranslation::create([
+// 		'cms_section_id' => $menaCaseStudiesSection3->id,
+// 		'locale' => 'en',
+// 		'title' => 'Get Results Like These',
+// 		'subtitle' => '',
+// 		'description' => 'Stop revenue leakage and build a compliant, immediate healthcare operation. Let our consultants analyze your current setup.'
+// 	]);
 
-    SectionTranslation::create([
-		'cms_section_id' => $menaCaseStudiesSection3->id,
-		'locale' => 'ar',
-		'title' => 'احصل على نتائج مشابهة لهذه',
-		'subtitle' => '',
-		'description' => 'توقف خرق الإيرادات وبنى عملية طبية مطابقة وفورية. اترك مستشارينا يحللوا الإعداد الحالي لديك.',
-	]);
-
-
+//     SectionTranslation::create([
+// 		'cms_section_id' => $menaCaseStudiesSection3->id,
+// 		'locale' => 'ar',
+// 		'title' => 'احصل على نتائج مشابهة لهذه',
+// 		'subtitle' => '',
+// 		'description' => 'توقف خرق الإيرادات وبنى عملية طبية مطابقة وفورية. اترك مستشارينا يحللوا الإعداد الحالي لديك.',
+// 	]);
 
 
 
+
+    $menaAboutUsPage = Page::where('slug', 'mena-support-about-us')->first();
     // mena about us page section 1
     $menaAboutUsSection1 = Section::create([
 		'name' => 'Mena About Us Page Section 1',
@@ -1349,9 +1353,9 @@ class CmsSectionSeeder extends Seeder
 		'settings' => [],
 		'order' => 1,
 		'company_id' => 2,
-		'page_id' => 12,
+		'page_id' => $menaAboutUsPage->id,
 	]);
-    
+
     SectionTranslation::create([
 		'cms_section_id' => $menaAboutUsSection1->id,
 		'locale' => 'en',
@@ -1372,14 +1376,14 @@ class CmsSectionSeeder extends Seeder
     // mena about us page section 2
     $menaAboutUsSection2 = Section::create([
 		'name' => 'Mena About Us Page Section 2',
-		'section_layout' => 'mena_3_items_in_row_section_style_1',
+		'section_layout' => 'mena_5_items_in_row_section_style_1',
 		'settings' => [],
 		'order' => 2,
 		'company_id' => 2,
-		'page_id' => 12,
+		'page_id' => $menaAboutUsPage->id,
 	]);
 
-    SectionTranslation::create([    
+    SectionTranslation::create([
 		'cms_section_id' => $menaAboutUsSection2->id,
 		'locale' => 'en',
 		'title' => 'Strategic Offerings',
@@ -1398,11 +1402,11 @@ class CmsSectionSeeder extends Seeder
     // mena about us page section 3
     $menaAboutUsSection3 = Section::create([
 		'name' => 'Mena About Us Page Section 3',
-		'section_layout' => 'mena_3_items_in_row_section_style_1',
+		'section_layout' => 'mena_4_items_in_row_section_style_1',
 		'settings' => [],
 		'order' => 3,
 		'company_id' => 2,
-		'page_id' => 12,
+		'page_id' => $menaAboutUsPage->id,
 	]);
 
     SectionTranslation::create([
@@ -1425,11 +1429,11 @@ class CmsSectionSeeder extends Seeder
     // mena about us page section 4
     $menaAboutUsSection4 = Section::create([
 		'name' => 'Mena About Us Page Section 4',
-		'section_layout' => 'mena_3_items_in_row_section_style_1',
+		'section_layout' => 'mena_4_items_in_row_section_style_2',
 		'settings' => [],
 		'order' => 4,
 		'company_id' => 2,
-		'page_id' => 12,
+		'page_id' => $menaAboutUsPage->id,
 	]);
 
     SectionTranslation::create([

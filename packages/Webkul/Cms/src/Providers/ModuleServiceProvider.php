@@ -27,5 +27,11 @@ class ModuleServiceProvider extends BaseModuleServiceProvider
         \Webkul\Cms\Models\NavMenu::class,
         \Webkul\Cms\Models\NavItem::class,
         \Webkul\Cms\Models\NavItemTranslation::class,
+        \Webkul\Cms\Models\CaseStudyCategory::class,
+        \Webkul\Cms\Models\CaseStudy::class,
+        \Webkul\Cms\Models\CaseStudyTranslation::class,
+        \Webkul\Cms\Models\ServiceType::class,
+        \Webkul\Cms\Models\Service::class,
+        \Webkul\Cms\Models\ServiceTranslation::class,
     ];
 }

@@ -15,6 +15,33 @@ trait InteractsWithCmsMedia
         $this->syncGalleryMedia($request, $model);
     }
 
+    protected function syncIconMedia(Request $request, HasMedia $model): void
+    {
+        if ($request->boolean('delete_icon_media')) {
+            $model->clearMediaCollection('icon_media');
+        }
+
+        if ($request->hasFile('icon_media')) {
+            $model->clearMediaCollection('icon_media');
+            $model->addMediaFromRequest('icon_media')->toMediaCollection('icon_media');
+        }
+
+        $iconMedia = $model->getFirstMedia('icon_media');
+
+        if (! $iconMedia) {
+            return;
+        }
+
+        $iconMedia->setCustomProperty('media_alt', $request->input('icon_media_alt'));
+        $iconMedia->save();
+    }
+
+    protected function syncServiceMediaFromRequest(Request $request, HasMedia $model): void
+    {
+        $this->syncMainMedia($request, $model);
+        $this->syncIconMedia($request, $model);
+    }
+
     protected function syncMainMedia(Request $request, HasMedia $model): void
     {
         if ($request->boolean('delete_main_media')) {

@@ -25,9 +25,11 @@ return new class extends Migration
             $table->string('status')->default('draft'); // draft|published|archived
             $table->timestamp('published_at')->nullable();
 
+            $table->string('author_name')->nullable();
+
             // Optional ownership (must match users.id: increments = unsignedInteger)
-            $table->unsignedInteger('author_id')->nullable();
-            $table->foreign('author_id')->references('id')->on('users')->nullOnDelete();
+            // $table->unsignedInteger('author_id')->nullable();
+            // $table->foreign('author_id')->references('id')->on('users')->nullOnDelete();
 
             // Listing helpers
             $table->boolean('is_featured')->default(false);
@@ -55,7 +57,7 @@ $table->unsignedInteger('order')->default(0);
 
             $table->index(['status', 'published_at']);
             $table->index(['is_featured', 'published_at']);
-            $table->index('author_id');
+            // $table->index('author_id');
 			$table->index('company_id');
         });
 
@@ -98,4 +100,3 @@ $table->unsignedInteger('order')->default(0);
         Schema::dropIfExists('cms_blog_posts');
     }
 };
-

@@ -118,14 +118,22 @@ return [
 		'description' => 'Contact Form Section Style 1 section',
 	],
 
+
+
+
+
+
+
+
+
 	'mena_info_section_style_1' => [
 		'label'       => 'Mena Info Section Style 1',
-		'description' => 'Mena Info Section Style 1 section',
+		'description' => 'Centered hero card with eyebrow badge, headline, description, and two CTAs',
 	],
 
     'mena_info_section_style_2' => [
 		'label'       => 'Mena Info Section Style 2',
-		'description' => 'Mena Info Section Style 2 section',
+		'description' => 'Case studies hero with background image, headline, description, and 3 stats',
 	],
 
     'mena_info_section_style_3' => [
@@ -133,9 +141,19 @@ return [
 		'description' => 'Mena Info Section Style 3 section',
 	],
 
+    'mena_info_section_style_4' => [
+		'label'       => 'Mena Info Section Style 4',
+		'description' => 'Mena Info Section Style 4 section',
+	],
+
+    'mena_3_items_in_column_section_style_3' => [
+		'label'       => 'Mena 3 Items in Column Section Style 3',
+		'description' => '3 items in column section',
+	],
+
 	'mena_3_items_in_row_section_style_1' => [
             'label'       => 'Mena 3 Items in Row Section Style 1',
-            'description' => 'Mena 3 Items in Row Section Style 1 section',
+            'description' => 'Centered stats headline with three icon cards (value, label, description)',
         ],
 
     'mena_3_items_in_row_section_style_2' => [
@@ -148,10 +166,25 @@ return [
             'description' => 'Mena 4 Items in Row Section Style 1 section',
         ],
 
+    'mena_4_items_in_row_section_style_2' => [
+            'label'       => 'Mena 4 Items in Row Section Style 2',
+            'description' => 'Mena 4 Items in Row Section Style 2 section',
+        ],
+
+    'mena_5_items_in_row_section_style_1' => [
+            'label'       => 'Mena 5 Items in Row Section Style 1',
+            'description' => 'Mena 5 Items in Row Section Style 1 section',
+        ],
+
 	'mena_testimonials_section_style_1' => [
 		'label'       => 'Mena Testimonials Section Style 1',
-		'description' => 'Mena Testimonials Section Style 1 section',
+		'description' => 'Testimonials slider with featured center card, prev/next controls, and quote cards',
 	],
+    
+    'mena_faqs_section_style_1' => [
+	'label'       => 'Mena FAQs Section Style 1',
+		'description' => 'FAQs with question and answer',
+    ],
 
     ],
 ];

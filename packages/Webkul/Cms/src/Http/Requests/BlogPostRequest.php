@@ -33,7 +33,7 @@ class BlogPostRequest extends FormRequest
             'is_indexable'         => ['nullable', 'boolean'],
             'is_active'            => ['nullable', 'boolean'],
             'order'                => ['nullable', 'integer', 'min:0'],
-            'author_id'   => ['nullable', 'integer', 'exists:users,id'],
+            'author_name'   => ['nullable', 'string', 'max:255'],
             'company_id'  => ['nullable', 'integer', 'exists:companies,id'],
 
             'cms_blog_category_ids'   => ['required', 'array', 'min:1'],

@@ -884,7 +884,7 @@ return [
         ],
     ],
 
-      'case_study_section_style_1' => [
+    'case_study_section_style_1' => [
         'preview_caption' => 'Case Study Section Style 1 — alternating image + copy rows (2nd item reverses columns)',
         'preview_image'   => 'v1/case_study_section_style_1.png',
         'templates'     => [
@@ -992,6 +992,335 @@ return [
           //   'item_subtitle_section_when' => '<p class="text-gray">{{ITEM_SUBTITLE}}</p>',
             'item_content_section_when' => '<p class="text-gray">{{ITEM_CONTENT}}</p>',
             'item_content_raw' => false,
+        ],
+    ],
+
+
+    'mena_info_section_style_1' => [
+        'preview_caption' => 'Mena Info Section Style 1 — centered hero card with eyebrow, headline, and CTAs',
+        'preview_image'   => 'v1/mena_info_section_style_1.png',
+        'templates'     => [
+            'body' => <<<'HTML'
+            <section class="relative isolate overflow-hidden bg-[#081530] bg-[url('/home_bg.png')] bg-cover bg-center bg-no-repeat text-white">
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(92,162,255,0.22),transparent_34%),linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0))]" aria-hidden="true"></div>
+            <div class="absolute left-1/2 top-28 h-[620px] w-[620px] -translate-x-1/2 rounded-full border border-white/10 opacity-60" aria-hidden="true"></div>
+            <div class="absolute left-1/2 top-40 h-[460px] w-[460px] -translate-x-1/2 rounded-full border border-white/10 opacity-50" aria-hidden="true"></div>
+            <div class="absolute left-1/2 top-52 h-[300px] w-[300px] -translate-x-1/2 rounded-full border border-white/10 opacity-40" aria-hidden="true"></div>
+            <div class="relative mx-auto max-w-7xl px-6 pb-24 pt-6 lg:px-10 lg:pb-28">
+            <div class="mt-14 flex justify-center">
+            <div class="w-full max-w-4xl border border-white/15 bg-white/10 p-8 shadow-2xl shadow-slate-950/25 backdrop-blur md:p-12">
+            <div class="mx-auto max-w-3xl text-center">
+            {{SUBTITLE_SECTION}}
+            <h1 class="mt-6 text-balance text-[60px] font-[700] leading-tight">{{TITLE}}</h1>
+            {{DESCRIPTION_SECTION}}
+            {{LINKS_SECTION}}
+            </div>
+            </div>
+            </div>
+            </div>
+            </section>
+            HTML,
+            'subtitle_section_when' => '<span class="inline-flex rounded-full bg-[#37BBFE33] px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-sky-100">{{SUBTITLE}}</span>',
+            'description_section_when' => '<p class="mx-auto mt-6 max-w-2xl text-pretty text-[18px] font-[400] leading-[28px] text-[#EFF4FF]">{{DESCRIPTION}}</p>',
+            'links_wrapper_when' => '<div class="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">{{LINK_ROWS}}</div>',
+            'link_row' => '<a class="inline-flex min-w-52 items-center justify-center px-6 py-3 text-sm font-semibold transition first:bg-sky-400 first:text-slate-950 first:hover:bg-sky-300 not-first:border not-first:border-white not-first:bg-white/10 not-first:text-white not-first:hover:bg-white/20" href="{{LINK_URL}}">{{LINK_LABEL}}</a>',
+            'item_links_wrapper_when' => '',
+            'item_link_row' => '',
+            'item' => '',
+            'item_content_section_when' => '',
+        ],
+    ],
+
+    'mena_info_section_style_2' => [
+        'preview_caption' => 'Mena Info Section Style 2 — case studies hero with background image, headline, description, and 3 stats',
+        'preview_image'   => 'v1/mena_info_section_style_2.png',
+        'templates'     => [
+            'body' => <<<'HTML'
+            <section class="relative isolate overflow-hidden bg-[#081530] bg-[url('/home_bg.png')] bg-cover bg-center bg-no-repeat text-white">
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(92,162,255,0.22),transparent_34%),linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0))]" aria-hidden="true"></div>
+            <div class="absolute left-1/2 top-28 h-[620px] w-[620px] -translate-x-1/2 rounded-full border border-white/10 opacity-60" aria-hidden="true"></div>
+            <div class="absolute left-1/2 top-40 h-[460px] w-[460px] -translate-x-1/2 rounded-full border border-white/10 opacity-50" aria-hidden="true"></div>
+            <div class="absolute left-1/2 top-52 h-[300px] w-[300px] -translate-x-1/2 rounded-full border border-white/10 opacity-40" aria-hidden="true"></div>
+            <div class="relative mx-auto max-w-7xl px-6 pb-24 pt-6 lg:px-10 lg:pb-28">
+            <div class="mt-14 flex justify-center">
+            <div class="w-full max-w-4xl border border-white/15 bg-white/10 p-8 shadow-2xl shadow-slate-950/25 backdrop-blur md:p-12">
+            <div class="mx-auto max-w-3xl text-center">
+            {{SUBTITLE_SECTION}}
+            <h1 class="mt-6 text-balance text-[60px] font-[700] leading-tight">{{TITLE}}</h1>
+            {{DESCRIPTION_SECTION}}
+            {{LINKS_SECTION}}
+            </div>
+            </div>
+            </div>
+            </div>
+            </section>
+            HTML,
+            'subtitle_section_when' => '<span class="inline-flex rounded-full bg-[#37BBFE33] px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-sky-100">{{SUBTITLE}}</span>',
+            'description_section_when' => '<p class="mx-auto mt-6 max-w-2xl text-pretty text-[18px] font-[400] leading-[28px] text-[#EFF4FF]">{{DESCRIPTION}}</p>',
+            'links_wrapper_when' => '<div class="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">{{LINK_ROWS}}</div>',
+            'link_row' => '<a class="inline-flex min-w-52 items-center justify-center px-6 py-3 text-sm font-semibold transition first:bg-sky-400 first:text-slate-950 first:hover:bg-sky-300 not-first:border not-first:border-white not-first:bg-white/10 not-first:text-white not-first:hover:bg-white/20" href="{{LINK_URL}}">{{LINK_LABEL}}</a>',
+            'item_links_wrapper_when' => '',
+            'item_link_row' => '',
+            'item' => '',
+            'item_content_section_when' => '',
+        ],
+    ],
+
+    'mena_info_section_style_3' => [
+        'preview_caption' => 'Mena Info Section Style 2 — case studies hero with title, description, and 3 stat items',
+        'preview_image'   => 'v1/mena_info_section_style_2.png',
+        'templates'     => [
+            'body' => <<<'HTML'
+            <section class="relative isolate overflow-hidden bg-[#081530] text-white">
+            <div class="absolute inset-0 bg-[url('/case_studies_bg.jpg')] bg-cover bg-center bg-no-repeat" aria-hidden="true"></div>
+            <div class="absolute inset-0 bg-[linear-gradient(90deg,rgba(8,21,48,0.92)_0%,#121F6066_40%,rgba(8,21,48,0.55)_100%)]" aria-hidden="true"></div>
+            <div class="relative mx-auto max-w-8xl px-6 pb-12 pt-12 lg:px-10 lg:pb-14 lg:pt-16">
+            {{SUBTITLE_SECTION}}
+            <h1 class="mt-6 max-w-4xl text-3xl font-semibold leading-tight md:text-6xl">{{TITLE}}</h1>
+            {{DESCRIPTION_SECTION}}
+            <div class="mt-10 grid gap-6 sm:grid-cols-3">{{ITEMS}}</div>
+            </div>
+            </section>
+            HTML,
+            'subtitle_section_when' => '<span class="inline-flex rounded-full border border-white/15 bg-white/8 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-sky-100">{{SUBTITLE}}</span>',
+            'description_section_when' => '<p class="mt-5 max-w-2xl text-base leading-8 text-slate-200 md:text-lg">{{DESCRIPTION}}</p>',
+            'links_wrapper_when' => '',
+            'link_row' => '',
+            'item_links_wrapper_when' => '',
+            'item_link_row' => '',
+            'item' => <<<'HTML'
+            <div>
+            {{ITEM_SUBTITLE_SECTION}}
+            <p class="mt-2 text-xs font-medium uppercase tracking-[0.2em] text-[#FFFFFF]">{{ITEM_TITLE}}</p>
+            </div>
+            HTML,
+            'item_subtitle_section_when' => '<p class="text-4xl font-semibold text-[#37BBFE]">{{ITEM_SUBTITLE}}</p>',
+            'item_content_section_when' => '',
+        ],
+    ],
+
+    'mena_3_items_in_column_section_style_3' => [
+        'preview_caption' => 'Mena 3 Items in Column Section Style 3 — 3 items in column section',
+        'preview_image'   => 'v1/mena_3_items_in_column_section_style_3.png',
+        'templates'     => [
+            'body' => <<<'HTML'
+            <section class="relative isolate overflow-hidden bg-[#081530] text-white">
+            <div class="absolute inset-0 bg-[url('/case_studies_bg.jpg')] bg-cover bg-center bg-no-repeat" aria-hidden="true"></div>
+            <div class="absolute inset-0 bg-[linear-gradient(90deg,rgba(8,21,48,0.92)_0%,#121F6066_40%,rgba(8,21,48,0.55)_100%)]" aria-hidden="true"></div>
+            <div class="relative mx-auto max-w-8xl px-6 pb-12 pt-12 lg:px-10 lg:pb-14 lg:pt-16">
+            {{SUBTITLE_SECTION}}
+            <h1 class="mt-6 max-w-4xl text-3xl font-semibold leading-tight md:text-6xl">{{TITLE}}</h1>
+            {{DESCRIPTION_SECTION}}
+            <div class="mt-10 grid gap-6 sm:grid-cols-3">{{ITEMS}}</div>
+            </div>
+            </section>
+            HTML,
+            'subtitle_section_when' => '<span class="inline-flex rounded-full border border-white/15 bg-white/8 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-sky-100">{{SUBTITLE}}</span>',
+            'description_section_when' => '<p class="mt-5 max-w-2xl text-base leading-8 text-slate-200 md:text-lg">{{DESCRIPTION}}</p>',
+            'links_wrapper_when' => '',
+            'link_row' => '',
+            'item_links_wrapper_when' => '',
+            'item_link_row' => '',
+            'item' => <<<'HTML'
+            <div>
+            {{ITEM_SUBTITLE_SECTION}}
+            <p class="mt-2 text-xs font-medium uppercase tracking-[0.2em] text-[#FFFFFF]">{{ITEM_TITLE}}</p>
+            </div>
+            HTML,
+            'item_subtitle_section_when' => '<p class="text-4xl font-semibold text-[#37BBFE]">{{ITEM_SUBTITLE}}</p>',
+            'item_content_section_when' => '',
+        ],
+    ],
+
+    'mena_3_items_in_row_section_style_1' => [
+        'preview_caption' => 'Mena 3 Items in Row Section Style 1 — stats cards with icon, value, label, and description',
+        'preview_image'   => 'v1/mena_3_items_in_row_section_style_1.png',
+        'templates'     => [
+            'body' => <<<'HTML'
+            <section id="results" class="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-24">
+            <div class="mx-auto max-w-3xl text-center">
+            <h2 class="text-balance text-3xl font-semibold text-slate-950 md:text-5xl">{{TITLE}}</h2>
+            {{SUBTITLE_SECTION}}
+            </div>
+            <div class="mt-12 grid gap-6 md:grid-cols-3">{{ITEMS}}</div>
+            </section>
+            HTML,
+            'subtitle_section_when' => '<p class="mt-4 text-pretty text-base leading-8 text-slate-600">{{SUBTITLE}}</p>',
+            'description_section_when' => '',
+            'links_wrapper_when' => '',
+            'link_row' => '',
+            'item_links_wrapper_when' => '',
+            'item_link_row' => '',
+            'item' => <<<'HTML'
+            <article class="relative rounded-[10px] border border-slate-200 bg-white p-7 shadow-[0_24px_60px_-36px_rgba(15,23,42,0.35)]">
+            <div class="absolute end-0 top-0 h-20 w-20 [&_img]:h-full [&_img]:w-full [&_img]:object-contain">{{ITEM_IMAGE_MARKUP}}</div>
+            {{ITEM_SUBTITLE_SECTION}}
+            <h3 class="mt-5 text-lg font-semibold text-[#000942]">{{ITEM_TITLE}}</h3>
+            {{ITEM_CONTENT_SECTION}}
+            </article>
+            HTML,
+            'item_subtitle_section_when' => '<p class="text-5xl font-semibold text-[#00658E]">{{ITEM_SUBTITLE}}</p>',
+            'item_content_section_when' => '<p class="mt-3 text-sm text-[#454650]">{{ITEM_CONTENT}}</p>',
+        ],
+    ],
+
+    'mena_4_items_in_row_section_style_1' => [
+        'preview_caption' => 'Mena 4 Items in Row Section Style 1 — stats cards with icon, value, label, and description',
+        'preview_image'   => 'v1/mena_4_items_in_row_section_style_1.png',
+        'templates'     => [
+            'body' => <<<'HTML'
+            <section id="results" class="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-24">
+            <div class="mx-auto max-w-3xl text-center">
+            <h2 class="text-balance text-3xl font-semibold text-slate-950 md:text-5xl">{{TITLE}}</h2>
+            {{SUBTITLE_SECTION}}
+            </div>
+            <div class="mt-12 grid gap-6 md:grid-cols-3">{{ITEMS}}</div>
+            </section>
+            HTML,
+            'subtitle_section_when' => '<p class="mt-4 text-pretty text-base leading-8 text-slate-600">{{SUBTITLE}}</p>',
+            'description_section_when' => '',
+            'links_wrapper_when' => '',
+            'link_row' => '',
+            'item_links_wrapper_when' => '',
+            'item_link_row' => '',
+            'item' => <<<'HTML'
+            <article class="relative rounded-[10px] border border-slate-200 bg-white p-7 shadow-[0_24px_60px_-36px_rgba(15,23,42,0.35)]">
+            <div class="absolute end-0 top-0 h-20 w-20 [&_img]:h-full [&_img]:w-full [&_img]:object-contain">{{ITEM_IMAGE_MARKUP}}</div>
+            {{ITEM_SUBTITLE_SECTION}}
+            <h3 class="mt-5 text-lg font-semibold text-[#000942]">{{ITEM_TITLE}}</h3>
+            {{ITEM_CONTENT_SECTION}}
+            </article>
+            HTML,
+            'item_subtitle_section_when' => '<p class="text-5xl font-semibold text-[#00658E]">{{ITEM_SUBTITLE}}</p>',
+            'item_content_section_when' => '<p class="mt-3 text-sm text-[#454650]">{{ITEM_CONTENT}}</p>',
+        ],
+    ],
+
+    'mena_4_items_in_row_section_style_2' => [
+        'preview_caption' => 'Mena 4 Items in Row Section Style 2 — stats cards with icon, value, label, and description',
+        'preview_image'   => 'v1/mena_4_items_in_row_section_style_2.png',
+        'templates'     => [
+            'body' => <<<'HTML'
+            <section id="results" class="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-24">
+            <div class="mx-auto max-w-3xl text-center">
+            <h2 class="text-balance text-3xl font-semibold text-slate-950 md:text-5xl">{{TITLE}}</h2>
+            {{SUBTITLE_SECTION}}
+            </div>
+            <div class="mt-12 grid gap-6 md:grid-cols-3">{{ITEMS}}</div>
+            </section>
+            HTML,
+            'subtitle_section_when' => '<p class="mt-4 text-pretty text-base leading-8 text-slate-600">{{SUBTITLE}}</p>',
+            'description_section_when' => '',
+            'links_wrapper_when' => '',
+            'link_row' => '',
+            'item_links_wrapper_when' => '',
+            'item_link_row' => '',
+            'item' => <<<'HTML'
+            <article class="relative rounded-[10px] border border-slate-200 bg-white p-7 shadow-[0_24px_60px_-36px_rgba(15,23,42,0.35)]">
+            <div class="absolute end-0 top-0 h-20 w-20 [&_img]:h-full [&_img]:w-full [&_img]:object-contain">{{ITEM_IMAGE_MARKUP}}</div>
+            {{ITEM_SUBTITLE_SECTION}}
+            <h3 class="mt-5 text-lg font-semibold text-[#000942]">{{ITEM_TITLE}}</h3>
+            {{ITEM_CONTENT_SECTION}}
+            </article>
+            HTML,
+            'item_subtitle_section_when' => '<p class="text-5xl font-semibold text-[#00658E]">{{ITEM_SUBTITLE}}</p>',
+            'item_content_section_when' => '<p class="mt-3 text-sm text-[#454650]">{{ITEM_CONTENT}}</p>',
+        ],
+    ],
+
+    'mena_5_items_in_row_section_style_1' => [
+        'preview_caption' => 'Mena 5 Items in Row Section Style 1 — stats cards with icon, value, label, and description',
+        'preview_image'   => 'v1/mena_5_items_in_row_section_style_1.png',
+        'templates'     => [
+            'body' => <<<'HTML'
+            <section id="results" class="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-24">
+            <div class="mx-auto max-w-3xl text-center">
+            <h2 class="text-balance text-3xl font-semibold text-slate-950 md:text-5xl">{{TITLE}}</h2>
+            {{SUBTITLE_SECTION}}
+            </div>
+            <div class="mt-12 grid gap-6 md:grid-cols-3">{{ITEMS}}</div>
+            </section>
+            HTML,
+            'subtitle_section_when' => '<p class="mt-4 text-pretty text-base leading-8 text-slate-600">{{SUBTITLE}}</p>',
+            'description_section_when' => '',
+            'links_wrapper_when' => '',
+            'link_row' => '',
+            'item_links_wrapper_when' => '',
+            'item_link_row' => '',
+            'item' => <<<'HTML'
+            <article class="relative rounded-[10px] border border-slate-200 bg-white p-7 shadow-[0_24px_60px_-36px_rgba(15,23,42,0.35)]">
+            <div class="absolute end-0 top-0 h-20 w-20 [&_img]:h-full [&_img]:w-full [&_img]:object-contain">{{ITEM_IMAGE_MARKUP}}</div>
+            {{ITEM_SUBTITLE_SECTION}}
+            <h3 class="mt-5 text-lg font-semibold text-[#000942]">{{ITEM_TITLE}}</h3>
+            {{ITEM_CONTENT_SECTION}}
+            </article>
+            HTML,
+            'item_subtitle_section_when' => '<p class="text-5xl font-semibold text-[#00658E]">{{ITEM_SUBTITLE}}</p>',
+            'item_content_section_when' => '<p class="mt-3 text-sm text-[#454650]">{{ITEM_CONTENT}}</p>',
+        ],
+    ],
+
+	'mena_testimonials_section_style_1' => [
+		'preview_caption' => 'Mena Testimonials Section Style 1 — slider with quote cards (content=quote, title=name, subtitle=role, icon=company)',
+		'preview_image'   => 'v1/mena_testimonials_section_style_1.png',
+		 'templates'     => [
+            'body' => <<<'HTML'
+            <section id="results" class="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-24">
+            <div class="mx-auto max-w-3xl text-center">
+            <h2 class="text-balance text-3xl font-semibold text-slate-950 md:text-5xl">{{TITLE}}</h2>
+            {{SUBTITLE_SECTION}}
+            </div>
+            <div class="mt-12 grid gap-6 md:grid-cols-3">{{ITEMS}}</div>
+            </section>
+            HTML,
+            'subtitle_section_when' => '<p class="mt-4 text-pretty text-base leading-8 text-slate-600">{{SUBTITLE}}</p>',
+            'description_section_when' => '',
+            'links_wrapper_when' => '',
+            'link_row' => '',
+            'item_links_wrapper_when' => '',
+            'item_link_row' => '',
+            'item' => <<<'HTML'
+            <article class="relative rounded-[10px] border border-slate-200 bg-white p-7 shadow-[0_24px_60px_-36px_rgba(15,23,42,0.35)]">
+            <div class="absolute end-0 top-0 h-20 w-20 [&_img]:h-full [&_img]:w-full [&_img]:object-contain">{{ITEM_IMAGE_MARKUP}}</div>
+            {{ITEM_SUBTITLE_SECTION}}
+            <h3 class="mt-5 text-lg font-semibold text-[#000942]">{{ITEM_TITLE}}</h3>
+            {{ITEM_CONTENT_SECTION}}
+            </article>
+            HTML,
+            'item_subtitle_section_when' => '<p class="text-5xl font-semibold text-[#00658E]">{{ITEM_SUBTITLE}}</p>',
+            'item_content_section_when' => '<p class="mt-3 text-sm text-[#454650]">{{ITEM_CONTENT}}</p>',
+        ],
+	],
+
+    'mena_faqs_section_style_1' => [
+        'preview_caption' => 'Mena FAQs Section Style 1 — FAQs with question and answer',
+        'preview_image'   => 'v1/mena_faqs_section_style_1.png',
+        'templates'     => [
+            'body' => <<<'HTML'
+            <section id="results" class="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-24">
+            <div class="mx-auto max-w-3xl text-center">
+            <h2 class="text-balance text-3xl font-semibold text-slate-950 md:text-5xl">{{TITLE}}</h2>
+            {{SUBTITLE_SECTION}}
+            </div>
+            <div class="mt-12 grid gap-6 md:grid-cols-3">{{ITEMS}}</div>
+            </section>
+            HTML,
+            'subtitle_section_when' => '<p class="mt-4 text-pretty text-base leading-8 text-slate-600">{{SUBTITLE}}</p>',
+            'description_section_when' => '',
+            'links_wrapper_when' => '',
+            'link_row' => '',
+            'item_links_wrapper_when' => '',
+            'item_link_row' => '',
+            'item' => <<<'HTML'
+            <article class="relative rounded-[10px] border border-slate-200 bg-white p-7 shadow-[0_24px_60px_-36px_rgba(15,23,42,0.35)]">
+            <div class="absolute end-0 top-0 h-20 w-20 [&_img]:h-full [&_img]:w-full [&_img]:object-contain">{{ITEM_IMAGE_MARKUP}}</div>
+            {{ITEM_SUBTITLE_SECTION}}
+            <h3 class="mt-5 text-lg font-semibold text-[#000942]">{{ITEM_TITLE}}</h3>
+            {{ITEM_CONTENT_SECTION}}
+            </article>
+            HTML,
+            'item_subtitle_section_when' => '<p class="text-5xl font-semibold text-[#00658E]">{{ITEM_SUBTITLE}}</p>',
+            'item_content_section_when' => '<p class="mt-3 text-sm text-[#454650]">{{ITEM_CONTENT}}</p>',
         ],
     ],
 ];

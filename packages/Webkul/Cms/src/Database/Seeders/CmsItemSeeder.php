@@ -1981,7 +1981,7 @@ class CmsItemSeeder extends Seeder
 
 
 // -------------------------- start of mena support plus pages items ----------------------------------
-	$menaHomeSection2 = Section::where('name', 'Home Page Section 2')->first();
+	$menaHomeSection2 = Section::where('name', 'Mena Home Page Section 2')->first();
 	$menaHomeSection2Item1 = Item::create([
 		'section_id' => $menaHomeSection2->id,
 		'type' => 'default',
@@ -2057,9 +2057,84 @@ class CmsItemSeeder extends Seeder
 	]);
 
 
+    // mena home page section 3
+    $menaHomeSection3 = Section::where('name', 'Mena Home Page Section 3')->first();
+    $menaHomeSection3Item1 = Item::create([
+        'section_id' => $menaHomeSection3->id,
+        'type' => 'default',
+        'settings' => null,
+        'order' => 1,
+        'company_id' => 2,
+    ]);
+
+    ItemTranslation::create([
+        'cms_item_id'=>$menaHomeSection3Item1->id,
+        'locale'=>'en',
+        'title'=>'Dr. Tariq Al-Faisal',
+        'sub_title'=>'Medical Director, Riyadh Care',
+        'content'=>"Support Plus didn't just audit our books; they re-engineered our entire HR and financial workflow. The clarity and control we now have over our clinic's operations is unprecedented."
+    ]);
+
+    ItemTranslation::create([
+        'cms_item_id'=>$menaHomeSection3Item1->id,
+        'locale'=>'ar',
+        'title'=>'د. تاريق الفيصل',
+        'sub_title'=>'مدير طبي, رياض جراحة',
+        'content'=>'Support Plus لم يقتصر على التحقق من كتبنا; لقد أعادوا تصميم عملياتنا المالية والموارد البشرية الكاملة. الوضوح والتحكم الذي نملكه الآن على عمليات مركزنا هو غير مسبوق.'
+    ]);
+
+    // item 2
+    $menaHomeSection3Item2 = Item::create([
+        'section_id' => $menaHomeSection3->id,
+        'type' => 'default',
+        'settings' => null,
+        'order' => 2,
+        'company_id' => 2,
+    ]);
+
+    ItemTranslation::create([
+        'cms_item_id'=>$menaHomeSection3Item2->id,
+        'locale'=>'en',
+        'title'=>'Dr. Ahmed Al-Qahtani',
+        'sub_title'=>'Chief Financial Strategist, Riyadh Care',
+        'content'=>"Support Plus didn't just audit our books; they re-engineered our entire HR and financial workflow. The clarity and control we now have over our clinic's operations is unprecedented."
+    ]);
+
+    ItemTranslation::create([
+        'cms_item_id'=>$menaHomeSection3Item2->id,
+        'locale'=>'ar',
+        'title'=>'د. أحمد القحطاني',
+        'sub_title'=>'مدير إستراتيجي المالي, رياض جراحة',
+        'content'=>'Support Plus لم يقتصر على التحقق من كتبنا; لقد أعادوا تصميم عملياتنا المالية والموارد البشرية الكاملة. الوضوح والتحكم الذي نملكه الآن على عمليات مركزنا هو غير مسبوق.'
+    ]);
+
+    // item 3
+    $menaHomeSection3Item3 = Item::create([
+        'section_id' => $menaHomeSection3->id,
+        'type' => 'default',
+        'settings' => null,
+        'order' => 3,
+        'company_id' => 2,
+    ]);
+    ItemTranslation::create([
+        'cms_item_id'=>$menaHomeSection3Item3->id,
+        'locale'=>'en',
+        'title'=>'Dr. Mohammed Al-Faisal',
+        'sub_title'=>'Chief Human Resources Strategist, Riyadh Care',
+        'content'=>"Support Plus didn't just audit our books; they re-engineered our entire HR and financial workflow. The clarity and control we now have over our clinic's operations is unprecedented."
+    ]);
+
+    ItemTranslation::create([
+        'cms_item_id'=>$menaHomeSection3Item3->id,
+        'locale'=>'ar',
+        'title'=>'د. محمد الفيصل',
+        'sub_title'=>'مدير إستراتيجي الموارد البشرية, رياض جراحة',
+        'content'=>'Support Plus لم يقتصر على التحقق من كتبنا; لقد أعادوا تصميم عملياتنا المالية والموارد البشرية الكاملة. الوضوح والتحكم الذي نملكه الآن على عمليات مركزنا هو غير مسبوق.'
+    ]);
+
 
 	// mena home page section 4
-	$menaHomeSection4 = Section::where('name', 'Home Page Section 4')->first();
+	$menaHomeSection4 = Section::where('name', 'Mena Home Page Section 4')->first();
 	$menaHomeSection4Item1 = Item::create([
 		'section_id' => $menaHomeSection4->id,
 		'type' => 'default',
@@ -2140,366 +2215,366 @@ class CmsItemSeeder extends Seeder
 
 
     // mena services page items
-    $menaServicesSection2 = Section::where('name', 'Mena Services Page Section 2')->first();
-    $menaServicesSection2Item1 = Item::create([
-        'section_id' => $menaServicesSection2->id,
-        'type' => 'default',
-        'settings' => null,
-        'order' => 1,
-        'company_id' => 2,
-    ]);
+//     $menaServicesSection2 = Section::where('name', 'Mena Services Page Section 2')->first();
+//     $menaServicesSection2Item1 = Item::create([
+//         'section_id' => $menaServicesSection2->id,
+//         'type' => 'default',
+//         'settings' => null,
+//         'order' => 1,
+//         'company_id' => 2,
+//     ]);
 
-    ItemTranslation::create([
-        'cms_item_id'=>$menaServicesSection2Item1->id,
-        'locale'=>'en',
-        'title'=>'Budgeting',
-        'sub_title'=>'',
-        'content'=>'Strategic budget planning aligned with expansion targets, staffing realities, and margin goals.'
-    ]);
+//     ItemTranslation::create([
+//         'cms_item_id'=>$menaServicesSection2Item1->id,
+//         'locale'=>'en',
+//         'title'=>'Budgeting',
+//         'sub_title'=>'',
+//         'content'=>'Strategic budget planning aligned with expansion targets, staffing realities, and margin goals.'
+//     ]);
 
-    ItemTranslation::create([
-        'cms_item_id'=>$menaServicesSection2Item1->id,
-        'locale'=>'ar',
-        'title'=>'الميزانية',
-        'sub_title'=>'',
-        'content'=>'التخطيط الاستراتيجي للميزانية متوافق مع أهداف التوسع، الواقع الموظفين، وهامش المركز.'
-    ]);
+//     ItemTranslation::create([
+//         'cms_item_id'=>$menaServicesSection2Item1->id,
+//         'locale'=>'ar',
+//         'title'=>'الميزانية',
+//         'sub_title'=>'',
+//         'content'=>'التخطيط الاستراتيجي للميزانية متوافق مع أهداف التوسع، الواقع الموظفين، وهامش المركز.'
+//     ]);
 
     // item 2
-    $menaServicesSection2Item2 = Item::create([
-        'section_id' => $menaServicesSection2->id,
-        'type' => 'default',
-        'settings' => null,
-        'order' => 2,
-        'company_id' => 2,
-    ]);
+//     $menaServicesSection2Item2 = Item::create([
+//         'section_id' => $menaServicesSection2->id,
+//         'type' => 'default',
+//         'settings' => null,
+//         'order' => 2,
+//         'company_id' => 2,
+//     ]);
 
-    ItemTranslation::create([
-        'cms_item_id'=>$menaServicesSection2Item2->id,
-        'locale'=>'en',
-        'title'=>'VAT Governance',
-        'sub_title'=>'',
-        'content'=>'Clear VAT workflows, documentation discipline, and reporting support for Saudi healthcare operators.'
-    ]);
+//     ItemTranslation::create([
+//         'cms_item_id'=>$menaServicesSection2Item2->id,
+//         'locale'=>'en',
+//         'title'=>'VAT Governance',
+//         'sub_title'=>'',
+//         'content'=>'Clear VAT workflows, documentation discipline, and reporting support for Saudi healthcare operators.'
+//     ]);
 
-    ItemTranslation::create([
-        'cms_item_id'=>$menaServicesSection2Item2->id,
-        'locale'=>'ar',
-        'title'=>'التحكم في القيمة المضافة',
-        'sub_title'=>'',
-        'content'=>'عمليات القيمة المضافة الواضحة، التقديم المنظم للمستندات، ودعم التقارير لمراكز الطب الصحي في المملكة العربية السعودية.'
-    ]);
+//     ItemTranslation::create([
+//         'cms_item_id'=>$menaServicesSection2Item2->id,
+//         'locale'=>'ar',
+//         'title'=>'التحكم في القيمة المضافة',
+//         'sub_title'=>'',
+//         'content'=>'عمليات القيمة المضافة الواضحة، التقديم المنظم للمستندات، ودعم التقارير لمراكز الطب الصحي في المملكة العربية السعودية.'
+//     ]);
 
     // item 3
-    $menaServicesSection2Item3 = Item::create([
-        'section_id' => $menaServicesSection2->id,
-        'type' => 'default',
-        'settings' => null,
-        'order' => 3,
-        'company_id' => 2,
-    ]);
+//     $menaServicesSection2Item3 = Item::create([
+//         'section_id' => $menaServicesSection2->id,
+//         'type' => 'default',
+//         'settings' => null,
+//         'order' => 3,
+//         'company_id' => 2,
+//     ]);
 
 
-    ItemTranslation::create([
-        'cms_item_id'=>$menaServicesSection2Item3->id,
-        'locale'=>'en',
-        'title'=>'Virtual CFO',
-        'sub_title'=>'',
-        'content'=>'Executive-level financial oversight for growing clinics and medical groups that need leadership depth.'
-    ]);
+//     ItemTranslation::create([
+//         'cms_item_id'=>$menaServicesSection2Item3->id,
+//         'locale'=>'en',
+//         'title'=>'Virtual CFO',
+//         'sub_title'=>'',
+//         'content'=>'Executive-level financial oversight for growing clinics and medical groups that need leadership depth.'
+//     ]);
 
-    ItemTranslation::create([
-        'cms_item_id'=>$menaServicesSection2Item3->id,
-        'locale'=>'ar',
-        'title'=>'المدير المالي الافتراضي',
-        'sub_title'=>'',
-        'content'=>'الرؤية المالية التنفيذية لمراكز الطب الصحي المتنامية التي تحتاج إلى تقديم الموظفين.'
-    ]);
+//     ItemTranslation::create([
+//         'cms_item_id'=>$menaServicesSection2Item3->id,
+//         'locale'=>'ar',
+//         'title'=>'المدير المالي الافتراضي',
+//         'sub_title'=>'',
+//         'content'=>'الرؤية المالية التنفيذية لمراكز الطب الصحي المتنامية التي تحتاج إلى تقديم الموظفين.'
+//     ]);
 
 
     // item 4
-    $menaServicesSection2Item4 = Item::create([
-        'section_id' => $menaServicesSection2->id,
-        'type' => 'default',
-        'settings' => null,
-        'order' => 4,
-        'company_id' => 2,
-    ]);
+//     $menaServicesSection2Item4 = Item::create([
+//         'section_id' => $menaServicesSection2->id,
+//         'type' => 'default',
+//         'settings' => null,
+//         'order' => 4,
+//         'company_id' => 2,
+//     ]);
 
-    ItemTranslation::create([
-        'cms_item_id'=>$menaServicesSection2Item4->id,
-        'locale'=>'en',
-        'title'=>'Financial Reporting',
-        'sub_title'=>'',
-        'content'=>'Management-ready reporting packages that turn operational data into actionable insight.'
-    ]);
+//     ItemTranslation::create([
+//         'cms_item_id'=>$menaServicesSection2Item4->id,
+//         'locale'=>'en',
+//         'title'=>'Financial Reporting',
+//         'sub_title'=>'',
+//         'content'=>'Management-ready reporting packages that turn operational data into actionable insight.'
+//     ]);
 
-    ItemTranslation::create([
-        'cms_item_id'=>$menaServicesSection2Item4->id,
-        'locale'=>'ar',
-        'title'=>'التقارير المالية',
-        'sub_title'=>'',
-        'content'=>'حزم التقارير المستعدة للإدارة التي تحول بيانات العمليات إلى معلومات قابلة للتطبيق.'
-    ]);
+//     ItemTranslation::create([
+//         'cms_item_id'=>$menaServicesSection2Item4->id,
+//         'locale'=>'ar',
+//         'title'=>'التقارير المالية',
+//         'sub_title'=>'',
+//         'content'=>'حزم التقارير المستعدة للإدارة التي تحول بيانات العمليات إلى معلومات قابلة للتطبيق.'
+//     ]);
 
 
     // item 5
-    $menaServicesSection2Item5 = Item::create([
-        'section_id' => $menaServicesSection2->id,
-        'type' => 'default',
-        'settings' => null,
-        'order' => 5,
-        'company_id' => 2,
-    ]);
+//     $menaServicesSection2Item5 = Item::create([
+//         'section_id' => $menaServicesSection2->id,
+//         'type' => 'default',
+//         'settings' => null,
+//         'order' => 5,
+//         'company_id' => 2,
+//     ]);
 
-    ItemTranslation::create([
-        'cms_item_id'=>$menaServicesSection2Item5->id,
-        'locale'=>'en',
-        'title'=>'Payroll Processing',
-        'sub_title'=>'',
-        'content'=>'Accurate payroll coordination with stronger controls, documentation, and timing discipline.'
-    ]);
+//     ItemTranslation::create([
+//         'cms_item_id'=>$menaServicesSection2Item5->id,
+//         'locale'=>'en',
+//         'title'=>'Payroll Processing',
+//         'sub_title'=>'',
+//         'content'=>'Accurate payroll coordination with stronger controls, documentation, and timing discipline.'
+//     ]);
 
-    ItemTranslation::create([
-        'cms_item_id'=>$menaServicesSection2Item5->id,
-        'locale'=>'ar',
-        'title'=>'معالج الرواتب',
-        'sub_title'=>'',
-        'content'=>'التنسيق المحترف للرواتب مع تحكم أقوى، تقديم منظم، وتحكم في الوقت.'
-    ]);
+//     ItemTranslation::create([
+//         'cms_item_id'=>$menaServicesSection2Item5->id,
+//         'locale'=>'ar',
+//         'title'=>'معالج الرواتب',
+//         'sub_title'=>'',
+//         'content'=>'التنسيق المحترف للرواتب مع تحكم أقوى، تقديم منظم، وتحكم في الوقت.'
+//     ]);
 
     // item 6
-    $menaServicesSection2Item6 = Item::create([
-        'section_id' => $menaServicesSection2->id,
-        'type' => 'default',
-        'settings' => null,
-        'order' => 6,
-        'company_id' => 2,
-    ]);
+//     $menaServicesSection2Item6 = Item::create([
+//         'section_id' => $menaServicesSection2->id,
+//         'type' => 'default',
+//         'settings' => null,
+//         'order' => 6,
+//         'company_id' => 2,
+//     ]);
 
-    ItemTranslation::create([
-        'cms_item_id'=>$menaServicesSection2Item6->id,
-        'locale'=>'en',
-        'title'=>'Accounts Payable',
-        'sub_title'=>'',
-        'content'=>'Smoother vendor payment flows, approval logic, and reconciliation support across teams.'
-    ]);
+//     ItemTranslation::create([
+//         'cms_item_id'=>$menaServicesSection2Item6->id,
+//         'locale'=>'en',
+//         'title'=>'Accounts Payable',
+//         'sub_title'=>'',
+//         'content'=>'Smoother vendor payment flows, approval logic, and reconciliation support across teams.'
+//     ]);
 
-    ItemTranslation::create([
-        'cms_item_id'=>$menaServicesSection2Item6->id,
-        'locale'=>'ar',
-        'title'=>'حلول الموظفين',
-        'sub_title'=>'',
-        'content'=>'دعم الموظفين التشغيلي المبني على الامتثال، بنية الفريق، والتجربة المستدامة للموظفين.'
-    ]);
+//     ItemTranslation::create([
+//         'cms_item_id'=>$menaServicesSection2Item6->id,
+//         'locale'=>'ar',
+//         'title'=>'حلول الموظفين',
+//         'sub_title'=>'',
+//         'content'=>'دعم الموظفين التشغيلي المبني على الامتثال، بنية الفريق، والتجربة المستدامة للموظفين.'
+//     ]);
 
     // item 7
-    $menaServicesSection2Item7 = Item::create([
-        'section_id' => $menaServicesSection2->id,
-        'type' => 'default',
-        'settings' => null,
-        'order' => 7,
-        'company_id' => 2,
-    ]);
+//     $menaServicesSection2Item7 = Item::create([
+//         'section_id' => $menaServicesSection2->id,
+//         'type' => 'default',
+//         'settings' => null,
+//         'order' => 7,
+//         'company_id' => 2,
+//     ]);
 
-    ItemTranslation::create([
-        'cms_item_id'=>$menaServicesSection2Item7->id,
-        'locale'=>'en',
-        'title'=>'Risk Reporting',
-        'sub_title'=>'',
-        'content'=>'Visibility into cash, operational, and compliance risks before they affect decision quality.'
-    ]);
+//     ItemTranslation::create([
+//         'cms_item_id'=>$menaServicesSection2Item7->id,
+//         'locale'=>'en',
+//         'title'=>'Risk Reporting',
+//         'sub_title'=>'',
+//         'content'=>'Visibility into cash, operational, and compliance risks before they affect decision quality.'
+//     ]);
 
-    ItemTranslation::create([
-        'cms_item_id'=>$menaServicesSection2Item7->id,
-        'locale'=>'ar',
-        'title'=>'التقارير المخاطرة',
-        'sub_title'=>'',
-        'content'=>'الرؤية في النقد، العمليات، والامتثال قبل أن تؤثر على جودة القرار.'
-    ]);
+//     ItemTranslation::create([
+//         'cms_item_id'=>$menaServicesSection2Item7->id,
+//         'locale'=>'ar',
+//         'title'=>'التقارير المخاطرة',
+//         'sub_title'=>'',
+//         'content'=>'الرؤية في النقد، العمليات، والامتثال قبل أن تؤثر على جودة القرار.'
+//     ]);
 
 
     // item 8
-    $menaServicesSection2Item8 = Item::create([
-        'section_id' => $menaServicesSection2->id,
-        'type' => 'default',
-        'settings' => null,
-        'order' => 8,
-        'company_id' => 2,
-    ]);
+//     $menaServicesSection2Item8 = Item::create([
+//         'section_id' => $menaServicesSection2->id,
+//         'type' => 'default',
+//         'settings' => null,
+//         'order' => 8,
+//         'company_id' => 2,
+//     ]);
 
-    ItemTranslation::create([
-        'cms_item_id'=>$menaServicesSection2Item8->id,
-        'locale'=>'en',
-        'title'=>'Due Diligence',
-        'sub_title'=>'',
-        'content'=>'Sharper financial review support for partnerships, acquisitions, and growth-stage decisions.'
-    ]);
+//     ItemTranslation::create([
+//         'cms_item_id'=>$menaServicesSection2Item8->id,
+//         'locale'=>'en',
+//         'title'=>'Due Diligence',
+//         'sub_title'=>'',
+//         'content'=>'Sharper financial review support for partnerships, acquisitions, and growth-stage decisions.'
+//     ]);
 
-    ItemTranslation::create([
-        'cms_item_id'=>$menaServicesSection2Item8->id,
-        'locale'=>'ar',
-        'title'=>'التدقيق المالي',
-        'sub_title'=>'',
-        'content'=>'المراجعة المالية المبنية على الامتثال، بنية الفريق، والتجربة المستدامة للمرضى.'
-    ]);
+//     ItemTranslation::create([
+//         'cms_item_id'=>$menaServicesSection2Item8->id,
+//         'locale'=>'ar',
+//         'title'=>'التدقيق المالي',
+//         'sub_title'=>'',
+//         'content'=>'المراجعة المالية المبنية على الامتثال، بنية الفريق، والتجربة المستدامة للمرضى.'
+//     ]);
 
 
 
     // mena services page section 3
-    $menaServicesSection3 = Section::where('name', 'Mena Services Page Section 3')->first();
-    $menaServicesSection3Item1 = Item::create([
-        'section_id' => $menaServicesSection3->id,
-        'type' => 'default',
-        'settings' => null,
-        'order' => 1,
-        'company_id' => 2,
-    ]);
+//     $menaServicesSection3 = Section::where('name', 'Mena Services Page Section 3')->first();
+//     $menaServicesSection3Item1 = Item::create([
+//         'section_id' => $menaServicesSection3->id,
+//         'type' => 'default',
+//         'settings' => null,
+//         'order' => 1,
+//         'company_id' => 2,
+//     ]);
 
-    ItemTranslation::create([
-        'cms_item_id'=>$menaServicesSection3Item1->id,
-        'locale'=>'en',
-        'title'=>'HR Compliance',
-        'sub_title'=>'',
-        'content'=>'Policies, records, and documentation frameworks shaped around local regulatory expectations.'
-    ]);
+//     ItemTranslation::create([
+//         'cms_item_id'=>$menaServicesSection3Item1->id,
+//         'locale'=>'en',
+//         'title'=>'HR Compliance',
+//         'sub_title'=>'',
+//         'content'=>'Policies, records, and documentation frameworks shaped around local regulatory expectations.'
+//     ]);
 
-    ItemTranslation::create([
-        'cms_item_id'=>$menaServicesSection3Item1->id,
-        'locale'=>'ar',
-        'title'=>'الامتثال الموظفين',
-        'sub_title'=>'',
-        'content'=>'السياسات، السجلات، والمستندات المنظمة متكونة من التوقعات المحلية للإشراف.'
-    ]);
+//     ItemTranslation::create([
+//         'cms_item_id'=>$menaServicesSection3Item1->id,
+//         'locale'=>'ar',
+//         'title'=>'الامتثال الموظفين',
+//         'sub_title'=>'',
+//         'content'=>'السياسات، السجلات، والمستندات المنظمة متكونة من التوقعات المحلية للإشراف.'
+//     ]);
 
 
     // item 2
-    $menaServicesSection3Item2 = Item::create([
-        'section_id' => $menaServicesSection3->id,
-        'type' => 'default',
-        'settings' => null,
-        'order' => 2,
-        'company_id' => 2,
-    ]);
+//     $menaServicesSection3Item2 = Item::create([
+//         'section_id' => $menaServicesSection3->id,
+//         'type' => 'default',
+//         'settings' => null,
+//         'order' => 2,
+//         'company_id' => 2,
+//     ]);
 
 
-    ItemTranslation::create([
-        'cms_item_id'=>$menaServicesSection3Item2->id,
-        'locale'=>'en',
-        'title'=>'Talent Acquisition',
-        'sub_title'=>'',
-        'content'=>'Hiring systems and role definitions for clinical, administrative, and leadership functions.'
-    ]);
+//     ItemTranslation::create([
+//         'cms_item_id'=>$menaServicesSection3Item2->id,
+//         'locale'=>'en',
+//         'title'=>'Talent Acquisition',
+//         'sub_title'=>'',
+//         'content'=>'Hiring systems and role definitions for clinical, administrative, and leadership functions.'
+//     ]);
 
-    ItemTranslation::create([
-        'cms_item_id'=>$menaServicesSection3Item2->id,
-        'locale'=>'ar',
-        'title'=>'التوظيف الموظفين',
-        'sub_title'=>'',
-        'content'=>'نظم التوظيف وتعريفات الوظائف لوظائف الطبية العلاجية، الإدارية، والقيادية.'
-    ]);
+//     ItemTranslation::create([
+//         'cms_item_id'=>$menaServicesSection3Item2->id,
+//         'locale'=>'ar',
+//         'title'=>'التوظيف الموظفين',
+//         'sub_title'=>'',
+//         'content'=>'نظم التوظيف وتعريفات الوظائف لوظائف الطبية العلاجية، الإدارية، والقيادية.'
+//     ]);
 
 
     // item 3
-    $menaServicesSection3Item3 = Item::create([
-        'section_id' => $menaServicesSection3->id,
-        'type' => 'default',
-        'settings' => null,
-        'order' => 3,
-        'company_id' => 2,
-    ]);
-    ItemTranslation::create([
-        'cms_item_id'=>$menaServicesSection3Item3->id,
-        'locale'=>'en',
-        'title'=>'Employee Onboarding',
-        'sub_title'=>'',
-        'content'=>'Structured onboarding journeys that reduce ramp-up friction and improve early productivity.'
-    ]);
+//     $menaServicesSection3Item3 = Item::create([
+//         'section_id' => $menaServicesSection3->id,
+//         'type' => 'default',
+//         'settings' => null,
+//         'order' => 3,
+//         'company_id' => 2,
+//     ]);
+//     ItemTranslation::create([
+//         'cms_item_id'=>$menaServicesSection3Item3->id,
+//         'locale'=>'en',
+//         'title'=>'Employee Onboarding',
+//         'sub_title'=>'',
+//         'content'=>'Structured onboarding journeys that reduce ramp-up friction and improve early productivity.'
+//     ]);
 
-    ItemTranslation::create([
-        'cms_item_id'=>$menaServicesSection3Item3->id,
-        'locale'=>'ar',
-        'title'=>'التوظيف الموظفين',
-        'sub_title'=>'',
-        'content'=>'رحلات التوظيف المنظمة التي تقلل من الاحتكاك وتحسن الإنتاجية المبكرة.'
-    ]);
+//     ItemTranslation::create([
+//         'cms_item_id'=>$menaServicesSection3Item3->id,
+//         'locale'=>'ar',
+//         'title'=>'التوظيف الموظفين',
+//         'sub_title'=>'',
+//         'content'=>'رحلات التوظيف المنظمة التي تقلل من الاحتكاك وتحسن الإنتاجية المبكرة.'
+//     ]);
 
 
     // item 4
-    $menaServicesSection3Item4 = Item::create([
-        'section_id' => $menaServicesSection3->id,
-        'type' => 'default',
-        'settings' => null,
-        'order' => 4,
-        'company_id' => 2,
-    ]);
+//     $menaServicesSection3Item4 = Item::create([
+//         'section_id' => $menaServicesSection3->id,
+//         'type' => 'default',
+//         'settings' => null,
+//         'order' => 4,
+//         'company_id' => 2,
+//     ]);
 
-    ItemTranslation::create([
-        'cms_item_id'=>$menaServicesSection3Item4->id,
-        'locale'=>'en',
-        'title'=>'Performance Management',
-        'sub_title'=>'',
-        'content'=>'Goal setting, review cycles, and accountability systems that support healthy team execution.'
-    ]);
+//     ItemTranslation::create([
+//         'cms_item_id'=>$menaServicesSection3Item4->id,
+//         'locale'=>'en',
+//         'title'=>'Performance Management',
+//         'sub_title'=>'',
+//         'content'=>'Goal setting, review cycles, and accountability systems that support healthy team execution.'
+//     ]);
 
-    ItemTranslation::create([
-        'cms_item_id'=>$menaServicesSection3Item4->id,
-        'locale'=>'ar',
-        'title'=>'الأداء الموظفين',
-        'sub_title'=>'',
-        'content'=>'تعيين الأهداف، دورات المراجعة، ونظم المسؤولية التي تدعم تنفيذ الفريق الصحيح.'
-    ]);
+//     ItemTranslation::create([
+//         'cms_item_id'=>$menaServicesSection3Item4->id,
+//         'locale'=>'ar',
+//         'title'=>'الأداء الموظفين',
+//         'sub_title'=>'',
+//         'content'=>'تعيين الأهداف، دورات المراجعة، ونظم المسؤولية التي تدعم تنفيذ الفريق الصحيح.'
+//     ]);
 
 
     // item 5
-    $menaServicesSection3Item5 = Item::create([
-        'section_id' => $menaServicesSection3->id,
-        'type' => 'default',
-        'settings' => null,
-        'order' => 5,
-        'company_id' => 2,
-    ]);
-    ItemTranslation::create([
-        'cms_item_id'=>$menaServicesSection3Item5->id,
-        'locale'=>'en',
-        'title'=>'Compensation & Benefits',
-        'sub_title'=>'',
-        'content'=>'Balanced pay and benefits structures that improve retention while preserving financial control.'
-    ]);
+//     $menaServicesSection3Item5 = Item::create([
+//         'section_id' => $menaServicesSection3->id,
+//         'type' => 'default',
+//         'settings' => null,
+//         'order' => 5,
+//         'company_id' => 2,
+//     ]);
+//     ItemTranslation::create([
+//         'cms_item_id'=>$menaServicesSection3Item5->id,
+//         'locale'=>'en',
+//         'title'=>'Compensation & Benefits',
+//         'sub_title'=>'',
+//         'content'=>'Balanced pay and benefits structures that improve retention while preserving financial control.'
+//     ]);
 
-    ItemTranslation::create([
-        'cms_item_id'=>$menaServicesSection3Item5->id,
-        'locale'=>'ar',
-        'title'=>'المرتبات والفوائد',
-        'sub_title'=>'',
-        'content'=>'بنية المرتبات والفوائد المتوازنة التي تحسن الاحتفاظ بالموظفين دون فقدان التحكم المالي.'
-    ]);
+//     ItemTranslation::create([
+//         'cms_item_id'=>$menaServicesSection3Item5->id,
+//         'locale'=>'ar',
+//         'title'=>'المرتبات والفوائد',
+//         'sub_title'=>'',
+//         'content'=>'بنية المرتبات والفوائد المتوازنة التي تحسن الاحتفاظ بالموظفين دون فقدان التحكم المالي.'
+//     ]);
 
 
     // item 6
-    $menaServicesSection3Item6 = Item::create([
-        'section_id' => $menaServicesSection3->id,
-        'type' => 'default',
-        'settings' => null,
-        'order' => 6,
-        'company_id' => 2,
-    ]);
+//     $menaServicesSection3Item6 = Item::create([
+//         'section_id' => $menaServicesSection3->id,
+//         'type' => 'default',
+//         'settings' => null,
+//         'order' => 6,
+//         'company_id' => 2,
+//     ]);
 
-    ItemTranslation::create([
-        'cms_item_id'=>$menaServicesSection3Item6->id,
-        'locale'=>'en',
-        'title'=>'Employee Relations',
-        'sub_title'=>'',
-        'content'=>'Practical support for communication, case handling, and long-term workforce stability.'
-    ]);
+//     ItemTranslation::create([
+//         'cms_item_id'=>$menaServicesSection3Item6->id,
+//         'locale'=>'en',
+//         'title'=>'Employee Relations',
+//         'sub_title'=>'',
+//         'content'=>'Practical support for communication, case handling, and long-term workforce stability.'
+//     ]);
 
-    ItemTranslation::create([
-        'cms_item_id'=>$menaServicesSection3Item6->id,
-        'locale'=>'ar',
-        'title'=>'علاقات الموظفين',
-        'sub_title'=>'',
-        'content'=>'حل النزاعات، حل الشكاوى، والسلامة في العمل المبنية على الثقة والاحترام.'
-    ]);
+//     ItemTranslation::create([
+//         'cms_item_id'=>$menaServicesSection3Item6->id,
+//         'locale'=>'ar',
+//         'title'=>'علاقات الموظفين',
+//         'sub_title'=>'',
+//         'content'=>'حل النزاعات، حل الشكاوى، والسلامة في العمل المبنية على الثقة والاحترام.'
+//     ]);
 
 
     // mena services page section 4
@@ -2518,7 +2593,7 @@ class CmsItemSeeder extends Seeder
         'sub_title'=>'',
         'content'=>'Financial activity supported'
     ]);
-    
+
     ItemTranslation::create([
         'cms_item_id'=>$menaServicesSection4Item1->id,
         'locale'=>'ar',
@@ -2543,7 +2618,7 @@ class CmsItemSeeder extends Seeder
         'sub_title'=>'',
         'content'=>'Client retention on advisory programs'
     ]);
-    
+
     ItemTranslation::create([
         'cms_item_id'=>$menaServicesSection4Item2->id,
         'locale'=>'ar',
@@ -2568,7 +2643,7 @@ class CmsItemSeeder extends Seeder
         'sub_title'=>'',
         'content'=>'From planning and reporting to people operations, we deliver support that fits the pace and discipline healthcare providers need.'
     ]);
-    
+
     ItemTranslation::create([
         'cms_item_id'=>$menaServicesSection4Item3->id,
         'locale'=>'ar',
@@ -2597,7 +2672,7 @@ class CmsItemSeeder extends Seeder
         'sub_title'=>'150+',
         'content'=>''
     ]);
-    
+
     ItemTranslation::create([
         'cms_item_id'=>$menaCaseStudiesSection1Item1->id,
         'locale'=>'ar',
@@ -2607,7 +2682,7 @@ class CmsItemSeeder extends Seeder
     ]);
 
 
-    // 
+    //
     $menaCaseStudiesSection1Item2 = Item::create([
         'section_id' => $menaCaseStudiesSection1->id,
         'type' => 'default',
@@ -2622,7 +2697,7 @@ class CmsItemSeeder extends Seeder
         'sub_title'=>'SAR 2B+',
         'content'=>''
     ]);
-    
+
     ItemTranslation::create([
         'cms_item_id'=>$menaCaseStudiesSection1Item2->id,
         'locale'=>'ar',
@@ -2647,7 +2722,7 @@ class CmsItemSeeder extends Seeder
         'sub_title'=>'90%+',
         'content'=>''
     ]);
-    
+
     ItemTranslation::create([
         'cms_item_id'=>$menaCaseStudiesSection1Item3->id,
         'locale'=>'ar',
@@ -2662,7 +2737,7 @@ class CmsItemSeeder extends Seeder
 
 // ---------------------------- start of mena about us page items ----------------------------
 
-    $menaAboutUsSection2 = Section::where('name', 'Mena About Us Page Section 1')->first();
+    $menaAboutUsSection2 = Section::where('name', 'Mena About Us Page Section 2')->first();
     $menaAboutUsSection2Item1 = Item::create([
         'section_id' => $menaAboutUsSection2->id,
         'type' => 'default',
@@ -2677,7 +2752,7 @@ class CmsItemSeeder extends Seeder
         'sub_title'=>'',
         'content'=>'Deep audits resulting in strategic redesign of budget structures, cashflow modeling, and revenue mapping for sustainable margins.'
     ]);
-    
+
     ItemTranslation::create([
         'cms_item_id'=>$menaAboutUsSection2Item1->id,
         'locale'=>'ar',
@@ -2702,7 +2777,7 @@ class CmsItemSeeder extends Seeder
         'sub_title'=>'',
         'content'=>'Specialized recruitment frameworks to secure high-value specialists and reduce turnover disruptions.'
     ]);
-    
+
     ItemTranslation::create([
         'cms_item_id'=>$menaAboutUsSection2Item2->id,
         'locale'=>'ar',
@@ -2727,7 +2802,7 @@ class CmsItemSeeder extends Seeder
         'sub_title'=>'',
         'content'=>'Benchmarking KPIs and dashboards to uncover hidden inefficiencies and accelerate growth.'
     ]);
-    
+
     ItemTranslation::create([
         'cms_item_id'=>$menaAboutUsSection2Item3->id,
         'locale'=>'ar',
@@ -2754,7 +2829,7 @@ class CmsItemSeeder extends Seeder
         'sub_title'=>'',
         'content'=>'Long-term strategic planning to align with business objectives and ensure sustained operational excellence.KSA-focused governance support to align operations with evolving ZATCA and labor compliance standards.'
     ]);
-    
+
     ItemTranslation::create([
         'cms_item_id'=>$menaAboutUsSection2Item4->id,
         'locale'=>'ar',
@@ -2778,7 +2853,7 @@ class CmsItemSeeder extends Seeder
         'sub_title'=>'',
         'content'=>'Design and optimization of ERP-ready workflows connecting finance, payroll, and reporting teams.'
     ]);
-    
+
     ItemTranslation::create([
         'cms_item_id'=>$menaAboutUsSection2Item5->id,
         'locale'=>'ar',
@@ -2830,7 +2905,7 @@ class CmsItemSeeder extends Seeder
         'sub_title'=>'',
         'content'=>'Deep-dive audit of current financial health and HR infrastructure.'
     ]);
-    
+
     ItemTranslation::create([
         'cms_item_id'=>$menaAboutUsSection3Item2->id,
         'locale'=>'ar',
@@ -2880,7 +2955,7 @@ class CmsItemSeeder extends Seeder
         'sub_title'=>'',
         'content'=>'Deep-dive audit of current financial health and HR infrastructure.'
     ]);
-    
+
     ItemTranslation::create([
         'cms_item_id'=>$menaAboutUsSection3Item4->id,
         'locale'=>'ar',
@@ -2908,7 +2983,7 @@ class CmsItemSeeder extends Seeder
         'sub_title'=>'Chief Financial Strategist',
         'content'=>'Specialized in restructuring large-scale billing and reimbursement cycles.'
     ]);
-    
+
     ItemTranslation::create([
         'cms_item_id'=>$menaAboutUsSection4Item1->id,
         'locale'=>'ar',
@@ -2933,7 +3008,7 @@ class CmsItemSeeder extends Seeder
         'sub_title'=>'Chief Human Resources Strategist',
         'content'=>'Specialized in restructuring large-scale billing and reimbursement cycles.'
     ]);
-    
+
     ItemTranslation::create([
         'cms_item_id'=>$menaAboutUsSection4Item2->id,
         'locale'=>'ar',
@@ -2957,7 +3032,7 @@ class CmsItemSeeder extends Seeder
         'sub_title'=>'Chief Operational Strategist',
         'content'=>'Specialized in restructuring large-scale billing and reimbursement cycles.'
     ]);
-    
+
     ItemTranslation::create([
         'cms_item_id'=>$menaAboutUsSection4Item3->id,
         'locale'=>'ar',
@@ -2982,7 +3057,7 @@ class CmsItemSeeder extends Seeder
         'sub_title'=>'Chief Operational Strategist',
         'content'=>'Specialized in restructuring large-scale billing and reimbursement cycles.'
     ]);
-    
+
     ItemTranslation::create([
         'cms_item_id'=>$menaAboutUsSection4Item4->id,
         'locale'=>'ar',

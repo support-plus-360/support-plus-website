@@ -29,7 +29,7 @@
             }
             @media (min-width: 525px) {
                 .cms-section-builder-layout {
-                    grid-template-columns: minmax(0, 1fr) minmax(260px, 700px) !important;
+                    grid-template-columns: minmax(0, 1fr) minmax(260px, 600px) !important;
                     align-items: start;
                     gap: 1.5rem;
                 }
@@ -432,7 +432,7 @@
                                         <span class="cms-builder-details__chev" aria-hidden="true">▼</span>
                                     </summary>
                                     <div class="space-y-4 border-t border-gray-200 bg-white p-3 dark:border-gray-800 dark:bg-gray-900" data-cms-section-editor>
-                                <div class="grid gap-3 grid-cols-3 md:grid-cols-2 lg:grid-cols-3">
+                                <div class="grid gap-3 grid-cols-4 md:grid-cols-2 lg:grid-cols-3 flex items-center">
                                     <div>
                                         <label class="mb-1 block text-xs font-medium text-gray-600 dark:text-gray-300">@lang('cms::app.sections.form.name')</label>
                                         <input
@@ -443,7 +443,7 @@
                                             required
                                         />
                                     </div>
-				<div>
+				                        <div>
                                         <label class="mb-1 block text-xs font-medium text-gray-600 dark:text-gray-300">@lang('cms::app.pages.form.order')</label>
                                         <input
                                             type="number"
@@ -453,15 +453,11 @@
                                         />
                                     </div>
  	                   
-                                </div>
-
-                               
-
-			<div class="grid gap-3 grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
+                              
 				
 				<div>
 				<label class="mb-1 block text-xs font-medium text-gray-600 dark:text-gray-300">@lang('cms::app.pages.builder.layout-label')</label>
-				<p class="mb-2 text-xs text-gray-500 dark:text-gray-400">@lang('cms::app.pages.builder.layout-description')</p>
+				<!-- <p class="mb-2 text-xs text-gray-500 dark:text-gray-400">@lang('cms::app.pages.builder.layout-description')</p> -->
 				<select
 					name="sections[{{ $si }}][section_layout]"
 					class="cms-section-layout-select cms-section-preview-trigger w-full rounded border border-gray-200 px-2 py-1.5 text-sm dark:border-gray-700 dark:bg-gray-900"

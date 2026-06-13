@@ -595,6 +595,66 @@ Breadcrumbs::for('cms.contact-messages', function (BreadcrumbTrail $trail) {
     $trail->push(trans('cms::app.contact-messages.index.title'), route('admin.cms.contact-messages.index'));
 });
 
+Breadcrumbs::for('cms.case-study-categories', function (BreadcrumbTrail $trail) {
+    $trail->parent('cms');
+    $trail->push(trans('cms::app.case-study-categories.index.title'), route('admin.cms.case-study-categories.index'));
+});
+
+Breadcrumbs::for('cms.case-study-categories.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('cms.case-study-categories');
+    $trail->push(trans('cms::app.case-study-categories.create.title'), route('admin.cms.case-study-categories.create'));
+});
+
+Breadcrumbs::for('cms.case-study-categories.edit', function (BreadcrumbTrail $trail, $caseStudyCategory) {
+    $trail->parent('cms.case-study-categories');
+    $trail->push(trans('cms::app.case-study-categories.edit.title'), route('admin.cms.case-study-categories.edit', $caseStudyCategory->id));
+});
+
+Breadcrumbs::for('cms.case-studies', function (BreadcrumbTrail $trail) {
+    $trail->parent('cms');
+    $trail->push(trans('cms::app.case-studies.index.title'), route('admin.cms.case-studies.index'));
+});
+
+Breadcrumbs::for('cms.case-studies.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('cms.case-studies');
+    $trail->push(trans('cms::app.case-studies.create.title'), route('admin.cms.case-studies.create'));
+});
+
+Breadcrumbs::for('cms.case-studies.edit', function (BreadcrumbTrail $trail, $caseStudy) {
+    $trail->parent('cms.case-studies');
+    $trail->push(trans('cms::app.case-studies.edit.title'), route('admin.cms.case-studies.edit', $caseStudy->id));
+});
+
+Breadcrumbs::for('cms.service-types', function (BreadcrumbTrail $trail) {
+    $trail->parent('cms');
+    $trail->push(trans('cms::app.service-types.index.title'), route('admin.cms.service-types.index'));
+});
+
+Breadcrumbs::for('cms.service-types.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('cms.service-types');
+    $trail->push(trans('cms::app.service-types.create.title'), route('admin.cms.service-types.create'));
+});
+
+Breadcrumbs::for('cms.service-types.edit', function (BreadcrumbTrail $trail, $serviceType) {
+    $trail->parent('cms.service-types');
+    $trail->push(trans('cms::app.service-types.edit.title'), route('admin.cms.service-types.edit', $serviceType->id));
+});
+
+Breadcrumbs::for('cms.services', function (BreadcrumbTrail $trail) {
+    $trail->parent('cms');
+    $trail->push(trans('cms::app.services.index.title'), route('admin.cms.services.index'));
+});
+
+Breadcrumbs::for('cms.services.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('cms.services');
+    $trail->push(trans('cms::app.services.create.title'), route('admin.cms.services.create'));
+});
+
+Breadcrumbs::for('cms.services.edit', function (BreadcrumbTrail $trail, $service) {
+    $trail->parent('cms.services');
+    $trail->push(trans('cms::app.services.edit.title'), route('admin.cms.services.edit', $service->id));
+});
+
 // Dashboard > CMS > Navigation Menus
 Breadcrumbs::for('cms.nav-menus', function (BreadcrumbTrail $trail) {
     $trail->parent('cms');

@@ -13,6 +13,10 @@ use Webkul\Cms\Http\Controllers\Admin\BlogPostController;
 use Webkul\Cms\Http\Controllers\Admin\ContactMessageController;
 use Webkul\Cms\Http\Controllers\Admin\NavMenuController;
 use Webkul\Cms\Http\Controllers\Admin\NavItemController;
+use Webkul\Cms\Http\Controllers\Admin\CaseStudyCategoryController;
+use Webkul\Cms\Http\Controllers\Admin\CaseStudyController;
+use Webkul\Cms\Http\Controllers\Admin\ServiceTypeController;
+use Webkul\Cms\Http\Controllers\Admin\ServiceController;
 
 Route::middleware(['web', 'admin_locale', 'admin_no_cache', 'user'])
     ->prefix(config('app.admin_path'))
@@ -127,5 +131,49 @@ Route::middleware(['web', 'admin_locale', 'admin_no_cache', 'user'])
             Route::controller(ContactMessageController::class)->prefix('contact-messages')->group(function () {
                 Route::get('', 'index')->name('admin.cms.contact-messages.index');
                 Route::delete('{id}', 'destroy')->whereNumber('id')->name('admin.cms.contact-messages.delete');
+            });
+
+            Route::controller(CaseStudyCategoryController::class)->prefix('case-study-categories')->group(function () {
+                Route::get('', 'index')->name('admin.cms.case-study-categories.index');
+                Route::get('create', 'create')->name('admin.cms.case-study-categories.create');
+                Route::post('', 'store')->name('admin.cms.case-study-categories.store');
+                Route::get('{id}/edit', 'edit')->name('admin.cms.case-study-categories.edit');
+                Route::put('{id}', 'update')->name('admin.cms.case-study-categories.update');
+                Route::delete('{id}', 'destroy')->name('admin.cms.case-study-categories.delete');
+                Route::post('{id}/restore', 'restore')->name('admin.cms.case-study-categories.restore');
+                Route::delete('{id}/forceDelete', 'forceDelete')->name('admin.cms.case-study-categories.forceDelete');
+            });
+
+            Route::controller(CaseStudyController::class)->prefix('case-studies')->group(function () {
+                Route::get('', 'index')->name('admin.cms.case-studies.index');
+                Route::get('create', 'create')->name('admin.cms.case-studies.create');
+                Route::post('', 'store')->name('admin.cms.case-studies.store');
+                Route::get('{id}/edit', 'edit')->name('admin.cms.case-studies.edit');
+                Route::put('{id}', 'update')->name('admin.cms.case-studies.update');
+                Route::delete('{id}', 'destroy')->name('admin.cms.case-studies.delete');
+                Route::post('{id}/restore', 'restore')->name('admin.cms.case-studies.restore');
+                Route::delete('{id}/forceDelete', 'forceDelete')->name('admin.cms.case-studies.forceDelete');
+            });
+
+            Route::controller(ServiceTypeController::class)->prefix('service-types')->group(function () {
+                Route::get('', 'index')->name('admin.cms.service-types.index');
+                Route::get('create', 'create')->name('admin.cms.service-types.create');
+                Route::post('', 'store')->name('admin.cms.service-types.store');
+                Route::get('{id}/edit', 'edit')->name('admin.cms.service-types.edit');
+                Route::put('{id}', 'update')->name('admin.cms.service-types.update');
+                Route::delete('{id}', 'destroy')->name('admin.cms.service-types.delete');
+                Route::post('{id}/restore', 'restore')->name('admin.cms.service-types.restore');
+                Route::delete('{id}/forceDelete', 'forceDelete')->name('admin.cms.service-types.forceDelete');
+            });
+
+            Route::controller(ServiceController::class)->prefix('services')->group(function () {
+                Route::get('', 'index')->name('admin.cms.services.index');
+                Route::get('create', 'create')->name('admin.cms.services.create');
+                Route::post('', 'store')->name('admin.cms.services.store');
+                Route::get('{id}/edit', 'edit')->name('admin.cms.services.edit');
+                Route::put('{id}', 'update')->name('admin.cms.services.update');
+                Route::delete('{id}', 'destroy')->name('admin.cms.services.delete');
+                Route::post('{id}/restore', 'restore')->name('admin.cms.services.restore');
+                Route::delete('{id}/forceDelete', 'forceDelete')->name('admin.cms.services.forceDelete');
             });
     });

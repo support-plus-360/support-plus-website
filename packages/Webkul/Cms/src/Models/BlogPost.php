@@ -36,7 +36,7 @@ class BlogPost extends TranslatableModel implements HasMedia, BlogPostContract
         'slug',
         'status',
         'published_at',
-        'author_id',
+        'author_name',
         'is_featured',
         'reading_time_minutes',
         'allow_comments',
@@ -59,6 +59,38 @@ class BlogPost extends TranslatableModel implements HasMedia, BlogPostContract
         'order'                => 'integer',
     ];
 
+    /**
+     * @var array<int, string>
+     */
+    protected $appends = [
+        'image',
+    ];
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('main_media')->singleFile();
+        $this->addMediaCollection('gallery');
+    }
+
+    /**
+     * Main post image for API responses.
+     *
+     * @return array{url: string, alt: string|null}|null
+     */
+    public function getImageAttribute(): ?array
+    {
+        $media = $this->getFirstMedia('main_media');
+
+        if (! $media) {
+            return null;
+        }
+
+        return [
+            'url' => $media->getUrl(),
+            'alt' => $media->getCustomProperty('media_alt'),
+        ];
+    }
+
     public function blogCategories(): BelongsToMany
     {
         return $this->belongsToMany(
@@ -67,11 +99,6 @@ class BlogPost extends TranslatableModel implements HasMedia, BlogPostContract
             'cms_blog_post_id',
             'cms_blog_category_id'
         );
-    }
-
-    public function author(): BelongsTo
-    {
-        return $this->belongsTo(\App\Models\User::class, 'author_id');
     }
 
     public function company(): BelongsTo
