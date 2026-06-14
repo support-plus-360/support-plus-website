@@ -20,7 +20,7 @@ class CmsCaseStudySeeder extends Seeder
         $caseStudyCategory1 = CaseStudyCategory::create([
             'name' => 'Case Study Category 1',
             'is_active' => true,
-            'company_id' => 1,
+            'company_id' => 2,
         ]);
         // case study 1
         $caseStudy1 = CaseStudy::create([
@@ -42,7 +42,7 @@ class CmsCaseStudySeeder extends Seeder
                 ],
             ],
             'rate' => 100,
-            'company_id' => 2,	
+            'company_id' => 2,
             'is_active' => true,
             'is_featured' => false,
             'order' => 1,
@@ -163,7 +163,7 @@ class CmsCaseStudySeeder extends Seeder
 	]);
 	// case study translation 4
 	CaseStudyTranslation::create([
-		'cms_case_study_id' => $caseStudy4->id,	
+		'cms_case_study_id' => $caseStudy4->id,
 		'locale' => 'en',
 		'title' => 'Case Study 4',
 		'sub_title' => 'Sub Title 4',
