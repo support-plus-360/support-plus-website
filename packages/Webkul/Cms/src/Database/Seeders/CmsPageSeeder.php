@@ -23,6 +23,7 @@ class CmsPageSeeder extends Seeder
 		'is_active' => true,
 		'order' => 1,
 		'company_id' => 1,
+		'status' => 'published',
 	]);
 
 	// page translation
@@ -49,6 +50,7 @@ class CmsPageSeeder extends Seeder
 		'is_active' => true,
 		'order' => 2,
 		'company_id' => 1,
+		'status' => 'published',
 	]);
 
 	PageTranslation::create([
@@ -74,6 +76,7 @@ class CmsPageSeeder extends Seeder
 		'is_active' => true,
 		'order' => 3,
 		'company_id' => 1,
+		'status' => 'published',
 	]);
 
 	PageTranslation::create([
@@ -93,11 +96,12 @@ class CmsPageSeeder extends Seeder
 	]);
 
 	$softwareHousePage = Page::create([
-            'slug' => 'support-plus-software-house',
-            'name' => 'Support Plus Software House',
-            'is_active' => true,
-            'order' => 4,
-            'company_id' => 1,
+		'slug' => 'support-plus-software-house',
+		'name' => 'Support Plus Software House',
+		'is_active' => true,
+		'order' => 4,
+		'company_id' => 1,
+		'status' => 'published',
           ]);
 
 	PageTranslation::create([
@@ -124,6 +128,7 @@ class CmsPageSeeder extends Seeder
             'is_active' => true,
             'order' => 5,
             'company_id' => 1,
+			'status' => 'published',
           ]);
 
 	PageTranslation::create([
@@ -145,11 +150,12 @@ class CmsPageSeeder extends Seeder
 	// --------------------------
 
 	$servicesPage = Page::create([
-            'slug' => 'support-plus-services',
-            'name' => 'Support Plus Services',
-            'is_active' => true,
-            'order' => 6,
-            'company_id' => 1,
+		'slug' => 'support-plus-services',
+		'name' => 'Support Plus Services',
+		'is_active' => true,
+		'order' => 6,
+		'company_id' => 1,
+		'status' => 'published',
         ]);
 
 	PageTranslation::create([
@@ -171,53 +177,55 @@ class CmsPageSeeder extends Seeder
 	// --------------------------
 
 	$caseStudiesPage = Page::create([
-            'slug' => 'support-plus-case-studies',
-            'name' => 'Support Plus Case Studies',
-            'is_active' => true,
-            'order' => 7,
-            'company_id' => 1,
+		'slug' => 'support-plus-case-studies',
+		'name' => 'Support Plus Case Studies',
+		'is_active' => true,
+		'order' => 7,
+		'company_id' => 1,
+		'status' => 'published',
         ]);
 
 	PageTranslation::create([
-        'cms_page_id'=>$caseStudiesPage->id,
-        'locale'=>'en',
-        'title'=>'Support Plus Case Studies',
-        'meta_description'=>'',
-        'meta_keywords'=>'',
+		'cms_page_id'=>$caseStudiesPage->id,
+		'locale'=>'en',
+		'title'=>'Support Plus Case Studies',
+		'meta_description'=>'',
+		'meta_keywords'=>'',
 	]);
 
 	PageTranslation::create([
-        'cms_page_id'=>$caseStudiesPage->id,
-        'locale'=>'ar',
-        'title'=>'الدراسات الميدانية',
-        'meta_description'=>'',
-        'meta_keywords'=>'',
+		'cms_page_id'=>$caseStudiesPage->id,
+		'locale'=>'ar',
+		'title'=>'الدراسات الميدانية',
+		'meta_description'=>'',
+		'meta_keywords'=>'',
 	]);
 
 	// --------------------------
 
 	$contactPage = Page::create([
-            'slug' => 'support-plus-contact',
-            'name' => 'Support Plus Contact',
-            'is_active' => true,
-            'order' => 8,
-            'company_id' => 1,
+		'slug' => 'support-plus-contact',
+		'name' => 'Support Plus Contact',
+		'is_active' => true,
+		'order' => 8,
+		'company_id' => 1,
+		'status' => 'published',
         ]);
 
 	PageTranslation::create([
-        'cms_page_id'=>$contactPage->id,
-        'locale'=>'en',
-        'title'=>'Support Plus Contact',
-        'meta_description'=>'',
-        'meta_keywords'=>'',
+		'cms_page_id'=>$contactPage->id,
+		'locale'=>'en',
+		'title'=>'Support Plus Contact',
+		'meta_description'=>'',
+		'meta_keywords'=>'',
 	]);
 
 	PageTranslation::create([
-        'cms_page_id'=>$contactPage->id,
-        'locale'=>'ar',
-        'title'=>' اتصل بنا',
-        'meta_description'=>'',
-        'meta_keywords'=>'',
+		'cms_page_id'=>$contactPage->id,
+		'locale'=>'ar',
+		'title'=>' اتصل بنا',
+		'meta_description'=>'',
+		'meta_keywords'=>'',
 	]);
 
 
@@ -231,6 +239,7 @@ class CmsPageSeeder extends Seeder
 		'is_active' => true,
 		'order' => 1,
 		'company_id' => 2,
+		'status' => 'published',
 	]);
 
 	PageTranslation::create([
@@ -256,6 +265,7 @@ class CmsPageSeeder extends Seeder
 		'is_active' => true,
 		'order' => 2,
 		'company_id' => 2,
+		'status' => 'published',
 	]);
 
 	PageTranslation::create([
@@ -281,6 +291,7 @@ class CmsPageSeeder extends Seeder
 		'is_active' => true,
 		'order' => 3,
 		'company_id' => 2,
+		'status' => 'published',
 	]);
 
 	PageTranslation::create([
@@ -308,6 +319,7 @@ class CmsPageSeeder extends Seeder
 		'is_active' => true,
 		'order' => 4,
 		'company_id' => 2,
+		'status' => 'published',
 	]);
 
 	PageTranslation::create([
@@ -334,6 +346,7 @@ class CmsPageSeeder extends Seeder
 		'is_active' => true,
 		'order' => 5,
 		'company_id' => 2,
+		'status' => 'published',
 	]);
 
 	PageTranslation::create([

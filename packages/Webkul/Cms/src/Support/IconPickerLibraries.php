@@ -10,25 +10,25 @@ class IconPickerLibraries
     public static function all(): array
     {
         return [
-            'icomoon' => [
-                'label_key' => 'cms::app.icon-picker.tabs.icomoon',
-                'icons'     => [
-                    'icon-cms', 'icon-mail', 'icon-user', 'icon-profile', 'icon-contact', 'icon-leads',
-                    'icon-organization', 'icon-activity', 'icon-attribute', 'icon-bookmark', 'icon-bookmark-active',
-                    'icon-calendar', 'icon-call', 'icon-meeting', 'icon-message', 'icon-note', 'icon-video',
-                    'icon-attachment', 'icon-attached-file', 'icon-forward', 'icon-reply', 'icon-reply-all',
-                    'icon-sent', 'icon-notification', 'icon-configuration', 'icon-setting', 'icon-filter', 'icon-search',
-                    'icon-add', 'icon-add-2', 'icon-edit', 'icon-delete', 'icon-dashboard', 'icon-kanban', 'icon-list',
-                    'icon-enter', 'icon-move', 'icon-location', 'icon-pin', 'icon-print', 'icon-tag', 'icon-stats-down',
-                    'icon-stats-up', 'icon-file', 'icon-folder', 'icon-image', 'icon-product', 'icon-rotten',
-                    'icon-percentage', 'icon-dollar', 'icon-quote', 'icon-perosnal', 'icon-system-generate', 'icon-download',
-                    'icon-info', 'icon-error', 'icon-success', 'icon-warning', 'icon-eye', 'icon-eye-hide',
-                    'icon-left-arrow', 'icon-right-arrow', 'icon-up-arrow', 'icon-down-arrow', 'icon-menu', 'icon-more',
-                    'icon-tick', 'icon-cross-large', 'icon-restore', 'icon-forceDelete', 'icon-settings-mail',
-                    'icon-settings-group', 'icon-settings-webforms', 'icon-light', 'icon-dark', 'icon-checkbox-outline',
-                    'icon-checkbox-select', 'icon-radio-selected', 'icon-radio-normal',
-                ],
-            ],
+          //   'icomoon' => [
+          //       'label_key' => 'cms::app.icon-picker.tabs.icomoon',
+          //       'icons'     => [
+          //           'icon-cms', 'icon-mail', 'icon-user', 'icon-profile', 'icon-contact', 'icon-leads',
+          //           'icon-organization', 'icon-activity', 'icon-attribute', 'icon-bookmark', 'icon-bookmark-active',
+          //           'icon-calendar', 'icon-call', 'icon-meeting', 'icon-message', 'icon-note', 'icon-video',
+          //           'icon-attachment', 'icon-attached-file', 'icon-forward', 'icon-reply', 'icon-reply-all',
+          //           'icon-sent', 'icon-notification', 'icon-configuration', 'icon-setting', 'icon-filter', 'icon-search',
+          //           'icon-add', 'icon-add-2', 'icon-edit', 'icon-delete', 'icon-dashboard', 'icon-kanban', 'icon-list',
+          //           'icon-enter', 'icon-move', 'icon-location', 'icon-pin', 'icon-print', 'icon-tag', 'icon-stats-down',
+          //           'icon-stats-up', 'icon-file', 'icon-folder', 'icon-image', 'icon-product', 'icon-rotten',
+          //           'icon-percentage', 'icon-dollar', 'icon-quote', 'icon-perosnal', 'icon-system-generate', 'icon-download',
+          //           'icon-info', 'icon-error', 'icon-success', 'icon-warning', 'icon-eye', 'icon-eye-hide',
+          //           'icon-left-arrow', 'icon-right-arrow', 'icon-up-arrow', 'icon-down-arrow', 'icon-menu', 'icon-more',
+          //           'icon-tick', 'icon-cross-large', 'icon-restore', 'icon-forceDelete', 'icon-settings-mail',
+          //           'icon-settings-group', 'icon-settings-webforms', 'icon-light', 'icon-dark', 'icon-checkbox-outline',
+          //           'icon-checkbox-select', 'icon-radio-selected', 'icon-radio-normal',
+          //       ],
+          //   ],
             'fontawesome' => [
                 'label_key'   => 'cms::app.icon-picker.tabs.fontawesome',
                 'stylesheet'  => 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css',
