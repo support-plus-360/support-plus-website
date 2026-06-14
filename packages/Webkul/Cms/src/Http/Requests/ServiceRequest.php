@@ -18,6 +18,7 @@ class ServiceRequest extends FormRequest
             'cms_service_type_id' => ['nullable', 'integer', 'exists:cms_service_types,id'],
             'name' => ['required', 'string', 'max:255'],
             'slug' => ['nullable', 'string', 'max:255', 'unique:cms_services,slug,' . $this->route('id') . ',id,deleted_at,NULL'],
+            'icon' => ['nullable', 'string', 'max:255'],
             'is_active'           => ['nullable', 'boolean'],
             'order'               => ['nullable', 'integer', 'min:0'],
             'company_id'          => ['nullable', 'integer', 'exists:companies,id'],

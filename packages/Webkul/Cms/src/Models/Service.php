@@ -31,6 +31,9 @@ class Service extends TranslatableModel implements HasMedia, ServiceContract
 
     protected $fillable = [
         'cms_service_type_id',
+        'name',
+        'slug',
+        'icon',
         'is_active',
         'order',
         'company_id',

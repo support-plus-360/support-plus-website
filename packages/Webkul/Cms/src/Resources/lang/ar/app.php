@@ -30,6 +30,20 @@ return [
         'contact-messages' => 'رسائل التواصل',
     ],
 
+    'icon-picker' => [
+        'label'       => 'الأيقونة',
+        'choose'      => 'اختر الأيقونة',
+        'title'       => 'مكتبة الأيقونات',
+        'filter'      => 'تصفية بالاسم',
+        'custom_hint' => 'اختر من تبويب المكتبة أو اكتب فئة مخصصة (مثل fa-solid fa-headset، bi bi-headset، icon-mail).',
+        'clear'       => 'مسح',
+        'tabs'        => [
+            'icomoon'     => 'Icomoon (الإدارة)',
+            'fontawesome' => 'Font Awesome',
+            'bootstrap'   => 'Bootstrap Icons',
+        ],
+    ],
+
     'pages' => [
         'index' => [
             'title'      => 'الصفحات',
@@ -706,11 +720,15 @@ return [
             'key_benefits'  => 'الفوائد الرئيسية',
             'deliverables'  => 'المخرجات',
             'image'         => 'الصورة',
-            'icon'          => 'الأيقونة',
-            'icon-help'     => 'ارفع صورة أيقونة صغيرة (PNG، SVG، أو WebP).',
+            'icon'          => 'فئة الأيقونة',
+            'icon-help'     => 'اختر أيقونة من Icomoon أو Font Awesome أو Bootstrap Icons، أو ارفع صورة أيقونة مخصصة أدناه.',
+            'icon-image'    => 'صورة الأيقونة',
+            'icon-image-help' => 'صورة أيقونة مخصصة اختيارية (PNG، SVG، أو WebP).',
             'icon-alt'      => 'نص بديل للأيقونة',
             'order'         => 'الترتيب',
             'active'        => 'نشط',
+            'name'          => 'الاسم',
+            'slug'          => 'slug',
         ],
         'datagrid' => [
             'id'           => 'ID',

@@ -93,10 +93,22 @@
 				'mainOnly' => true,
 			])
 
-			@include('cms::components.icon-media-manager', [
-				'entity' => $service ?? null,
-				'uid' => 'service-icon-media-manager',
-			])
+			<div class="flex flex-col gap-4">
+				<div class="box-shadow rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-900">
+					@include('cms::components.icon-picker', [
+						'name' => 'icon',
+						'id' => 'service_icon',
+						'value' => $service?->icon ?? '',
+						'uid' => 'service-icon-picker',
+						'label' => trans('cms::app.services.form.icon'),
+					])
+				</div>
+
+				@include('cms::components.icon-media-manager', [
+					'entity' => $service ?? null,
+					'uid' => 'service-icon-media-manager',
+				])
+			</div>
 		</div>
 	</div>
 
@@ -217,13 +229,15 @@
 	};
 
 	document.addEventListener('click', (e) => {
-		const btn = e.target.closest('.cms-locale-tab');
-		if (btn) {
-			setActive(btn.getAttribute('data-tab-group'), btn.getAttribute('data-tab'));
+		const tabBtn = e.target.closest('.cms-locale-tab');
+
+		if (tabBtn) {
+			setActive(tabBtn.getAttribute('data-tab-group'), tabBtn.getAttribute('data-tab'));
 		}
 	});
 
 	const firstTab = document.querySelector('.cms-locale-tab');
+
 	if (firstTab) {
 		setActive(firstTab.getAttribute('data-tab-group'), firstTab.getAttribute('data-tab'));
 	}

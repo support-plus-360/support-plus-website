@@ -20,6 +20,9 @@ trait InteractsWithServicePayload
     {
         $data['is_active'] = (bool) ($data['is_active'] ?? false);
         $data['order'] = (int) ($data['order'] ?? 0);
+        $data['icon'] = isset($data['icon']) && $data['icon'] !== ''
+            ? $data['icon']
+            : null;
 
         $translations = [];
         $allowedLocales = array_keys($this->supportedLocales());

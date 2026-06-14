@@ -30,6 +30,20 @@ return [
         'contact-messages' => 'Contact messages',
     ],
 
+    'icon-picker' => [
+        'label'       => 'Icon',
+        'choose'      => 'Choose icon',
+        'title'       => 'Icon library',
+        'filter'      => 'Filter by name',
+        'custom_hint' => 'Pick from a library tab or type a custom class (e.g. fa-solid fa-headset, bi bi-headset, icon-mail).',
+        'clear'       => 'Clear',
+        'tabs'        => [
+            'icomoon'     => 'Icomoon (Admin)',
+            'fontawesome' => 'Font Awesome',
+            'bootstrap'   => 'Bootstrap Icons',
+        ],
+    ],
+
     'pages' => [
         'index' => [
             'title'      => 'Pages',
@@ -707,11 +721,15 @@ return [
             'key_benefits'  => 'Key benefits',
             'deliverables'  => 'Deliverables',
             'image'         => 'Image',
-            'icon'          => 'Icon',
-            'icon-help'     => 'Upload a small icon image (PNG, SVG, or WebP).',
+            'icon'          => 'Icon class',
+            'icon-help'     => 'Pick an icon from Icomoon, Font Awesome, or Bootstrap Icons, or upload a custom icon image below.',
+            'icon-image'    => 'Icon image',
+            'icon-image-help' => 'Optional custom icon image (PNG, SVG, or WebP).',
             'icon-alt'      => 'Icon alt text',
             'order'         => 'Order',
             'active'        => 'Active',
+            'name'          => 'Name',
+            'slug'          => 'Slug',
         ],
         'datagrid' => [
             'id'           => 'ID',

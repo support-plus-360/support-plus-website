@@ -89,6 +89,6 @@ return [
 		'name'       => 'cms::app.menu.services',
 		'route'      => 'admin.cms.services.index',
 		'sort'       => 12,
-		'icon-class' => 'icon-file',
+		'icon-class' => 'icon-product',
 	],
 ];

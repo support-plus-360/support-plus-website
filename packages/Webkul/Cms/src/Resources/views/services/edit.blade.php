@@ -25,4 +25,13 @@
 			])
 		</div>
 	</x-admin::form>
+
+	@push('styles')
+		@include('cms::components.icon-picker-styles')
+	@endpush
+
+	@push('scripts')
+		@include('cms::components.icon-picker-modal', ['uid' => 'service-icon-picker'])
+		@include('cms::components.icon-picker-scripts')
+	@endpush
 </x-admin::layouts>

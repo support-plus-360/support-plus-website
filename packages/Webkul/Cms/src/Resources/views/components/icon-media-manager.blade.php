@@ -9,10 +9,10 @@
 <div class="box-shadow rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-900">
     <div class="mb-4">
         <p class="text-base font-semibold text-gray-800 dark:text-white">
-            @lang('cms::app.services.form.icon')
+            @lang('cms::app.services.form.icon-image')
         </p>
         <p class="text-xs text-gray-500 dark:text-gray-400">
-            @lang('cms::app.services.form.icon-help')
+            @lang('cms::app.services.form.icon-image-help')
         </p>
     </div>
 
