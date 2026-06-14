@@ -1066,6 +1066,41 @@ return [
         ],
     ],
 
+    'mena_info_section_style_4' => [
+        'preview_caption' => 'Mena Info Section Style 4 — case studies hero with background image, headline, description, and 3 stats',
+        'preview_image'   => 'v1/mena_info_section_style_4.png',
+        'templates'     => [
+            'body' => <<<'HTML'
+            <section class="relative isolate overflow-hidden bg-[#081530] bg-[url('/home_bg.png')] bg-cover bg-center bg-no-repeat text-white">
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(92,162,255,0.22),transparent_34%),linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0))]" aria-hidden="true"></div>
+            <div class="absolute left-1/2 top-28 h-[620px] w-[620px] -translate-x-1/2 rounded-full border border-white/10 opacity-60" aria-hidden="true"></div>
+            <div class="absolute left-1/2 top-40 h-[460px] w-[460px] -translate-x-1/2 rounded-full border border-white/10 opacity-50" aria-hidden="true"></div>
+            <div class="absolute left-1/2 top-52 h-[300px] w-[300px] -translate-x-1/2 rounded-full border border-white/10 opacity-40" aria-hidden="true"></div>
+            <div class="relative mx-auto max-w-7xl px-6 pb-24 pt-6 lg:px-10 lg:pb-28">
+            <div class="mt-14 flex justify-center">
+            <div class="w-full max-w-4xl border border-white/15 bg-white/10 p-8 shadow-2xl shadow-slate-950/25 backdrop-blur md:p-12">
+            <div class="mx-auto max-w-3xl text-center">
+            {{SUBTITLE_SECTION}}
+            <h1 class="mt-6 text-balance text-[60px] font-[700] leading-tight">{{TITLE}}</h1>
+            {{DESCRIPTION_SECTION}}
+            {{LINKS_SECTION}}
+            </div>
+            </div>
+            </div>
+            </div>
+            </section>
+            HTML,
+            'subtitle_section_when' => '<span class="inline-flex rounded-full bg-[#37BBFE33] px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-sky-100">{{SUBTITLE}}</span>',
+            'description_section_when' => '<p class="mx-auto mt-6 max-w-2xl text-pretty text-[18px] font-[400] leading-[28px] text-[#EFF4FF]">{{DESCRIPTION}}</p>',
+            'links_wrapper_when' => '<div class="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">{{LINK_ROWS}}</div>',
+            'link_row' => '<a class="inline-flex min-w-52 items-center justify-center px-6 py-3 text-sm font-semibold transition first:bg-sky-400 first:text-slate-950 first:hover:bg-sky-300 not-first:border not-first:border-white not-first:bg-white/10 not-first:text-white not-first:hover:bg-white/20" href="{{LINK_URL}}">{{LINK_LABEL}}</a>',
+            'item_links_wrapper_when' => '',
+            'item_link_row' => '',
+            'item' => '',
+            'item_content_section_when' => '',
+        ],
+    ],
+
     'mena_info_section_style_3' => [
         'preview_caption' => 'Mena Info Section Style 2 — case studies hero with title, description, and 3 stat items',
         'preview_image'   => 'v1/mena_info_section_style_2.png',

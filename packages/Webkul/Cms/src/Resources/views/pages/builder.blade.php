@@ -365,14 +365,14 @@
                                 'showRemove' => true,
                             ])
                         @empty
-                            @include('cms::pages.partials.builder-link', [
+                            <!-- @include('cms::pages.partials.builder-link', [
                                 'namePrefix' => 'page_links[0]',
                                 'oldPrefix' => 'page_links.0',
                                 'link' => null,
                                 'tabGroupId' => 'cms-builder-page-link-0',
                                 'locales' => $locales,
                                 'showRemove' => true,
-                            ])
+                            ]) -->
                         @endforelse
                     </div>
                     <button type="button" class="secondary-button mt-2 w-fit text-xs" data-cms-add-page-link onclick="window.cmsBuilderAddPageLink && window.cmsBuilderAddPageLink(); return false;">
