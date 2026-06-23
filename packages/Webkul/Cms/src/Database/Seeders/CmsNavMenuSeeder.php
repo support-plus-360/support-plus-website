@@ -142,7 +142,7 @@ class CmsNavMenuSeeder extends Seeder
     {
         $order = 1;
 
-        foreach (['home', 'services', 'case-studies', 'about-us', 'blog'] as $key) {
+        foreach (['home', 'services', 'case-studies', 'about-us', 'free-assessment', 'blog'] as $key) {
             $this->createPageItem($menu, $this->pageByKey($pages, $key), order: $order++);
         }
     }
