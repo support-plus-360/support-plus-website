@@ -161,6 +161,7 @@ return [
             'description' => 'Mena 3 Items in Row Section Style 2 section',
         ],
 
+
     'mena_4_items_in_row_section_style_1' => [
             'label'       => 'Mena 4 Items in Row Section Style 1',
             'description' => 'Mena 4 Items in Row Section Style 1 section',
@@ -169,6 +170,11 @@ return [
     'mena_4_items_in_row_section_style_2' => [
             'label'       => 'Mena 4 Items in Row Section Style 2',
             'description' => 'Mena 4 Items in Row Section Style 2 section',
+        ],
+
+    'mena_4_items_in_row_section_style_3' => [
+            'label'       => 'Mena 4 Items in Row Section Style 3',
+            'description' => 'Mena 4 Items in Row Section Style 3 section',
         ],
 
     'mena_5_items_in_row_section_style_1' => [
@@ -180,11 +186,15 @@ return [
 		'label'       => 'Mena Testimonials Section Style 1',
 		'description' => 'Testimonials slider with featured center card, prev/next controls, and quote cards',
 	],
-    
+
     'mena_faqs_section_style_1' => [
 	'label'       => 'Mena FAQs Section Style 1',
 		'description' => 'FAQs with question and answer',
     ],
 
+    'mena_hero_section_style_1' => [
+            'label'       => 'Mena Hero Section Style 1',
+            'description' => 'Mena Hero Section Style 1 section',
+        ],
     ],
 ];

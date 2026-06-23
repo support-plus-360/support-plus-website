@@ -338,6 +338,31 @@ class CmsPageSeeder extends Seeder
 		'meta_keywords'=>'',
 	]);
 
+    // free assessment page
+    $freeAssessmentPage = Page::create([
+		'slug' => 'mena-support-free-assessment',
+		'name' => 'Mena Support Free Assessment',
+		'is_active' => true,
+		'order' => 5,
+		'company_id' => 2,
+		'status' => 'published',
+	]);
+
+	PageTranslation::create([
+		'cms_page_id'=>$freeAssessmentPage->id,
+		'locale'=>'en',
+		'title'=>'Free Assessment',
+		'meta_description'=>'',
+		'meta_keywords'=>'',
+	]);
+
+	PageTranslation::create([
+		'cms_page_id'=>$freeAssessmentPage->id,
+		'locale'=>'ar',
+		'title'=>'التقييم المجاني',
+		'meta_description'=>'',
+		'meta_keywords'=>'',
+	]);
 
     // blog page
     $blogPage = Page::create([

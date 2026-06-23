@@ -1223,7 +1223,7 @@ class CmsSectionSeeder extends Seeder
 			'title' => 'Proven Results in Healthcare',
 			'subtitle' => '',
 			'description' => 'Our teams work with healthcare leaders to turn finance and HR complexity into measurable operational progress.'
-		]);
+	]);
 
 	SectionTranslation::create([
 		'cms_section_id' => $menaServicesSection4->id,
@@ -1451,6 +1451,90 @@ class CmsSectionSeeder extends Seeder
 		'subtitle' => '',
 		'description' => 'مجموعة متعددة التخصصات من المحللين الماليين والخبراء البشريين الذين يعززون مراكز الطب السعودية.',
 	]);
+
+
+    $freeAssessmentPage = Page::where('slug', 'mena-support-free-assessment')->first();
+    // free assessment page section 1
+    $freeAssessmentSection1 = Section::create([
+		'name' => 'Free Assessment Page Section 1',
+		'section_layout' => 'mena_hero_section_style_1',
+		'settings' => [],
+		'order' => 1,
+		'company_id' => 2,
+		'page_id' => $freeAssessmentPage->id,
+	]);
+
+	SectionTranslation::create([
+		'cms_section_id' => $freeAssessmentSection1->id,
+		'locale' => 'en',
+		'title' => 'Get Your Free Financial Health Check Today',
+		'subtitle' => 'Confidential & Complimentary',
+		'description' => 'Unlock hidden revenue, streamline HR operations, and ensure strict compliance for your KSA medical center. Our trusted advisors will provide actionable insights tailored to your specific clinical environment.',
+	]);
+
+	SectionTranslation::create([
+		'cms_section_id' => $freeAssessmentSection1->id,
+		'locale' => 'ar',
+		'title' => 'احصل على تقييم مجاني لصحتك المالية اليوم',
+		'subtitle' => 'مخفي ومجاني',
+		'description' => 'اعثر على الإيرادات المخفية وتبسيط عمليات الموظفين والتأكد من الامتثال الصارم لمركز الطب السعودي. سيقدم لك مستشارونا الموثوق بهم إرشادات عملية مخصصة لبيئتك المختلفة المركزية.',
+	]);
+
+
+    // free assessment page section 2
+    $freeAssessmentSection2 = Section::create([
+        'name' => 'Free Assessment Page Section 2',
+        'section_layout' => 'mena_4_items_in_row_section_style_3',
+        'settings' => [],
+        'order' => 2,
+        'company_id' => 2,
+        'page_id' => $freeAssessmentPage->id,
+    ]);
+
+    SectionTranslation::create([
+        'cms_section_id' => $freeAssessmentSection2->id,
+        'locale' => 'en',
+        'title' => 'Trusted by leading healthcare providers across Saudi Arabia',
+        'subtitle' => '',
+        'description' => ''
+    ]);
+
+    SectionTranslation::create([
+        'cms_section_id' => $freeAssessmentSection2->id,
+        'locale' => 'ar',
+        'title' => 'تثق المرضى الطبيون بنا',
+        'subtitle' => '',
+        'description' => '',
+    ]);
+
+
+
+
+    // free assessment page section 3
+    $freeAssessmentSection3 = Section::create([
+        'name' => 'Free Assessment Page Section 3',
+        'section_layout' => 'mena_3_items_in_row_section_style_2',
+        'settings' => [],
+        'order' => 4,
+        'company_id' => 2,
+        'page_id' => $freeAssessmentPage->id,
+    ]);
+
+    SectionTranslation::create([
+        'cms_section_id' => $freeAssessmentSection3->id,
+        'locale' => 'en',
+        'title' => 'What Happens Next?',
+        'subtitle' => '',
+        'description' => "A transparent, structured approach to evaluating your center’s operational and financial health."
+    ]);
+
+    SectionTranslation::create([
+        'cms_section_id' => $freeAssessmentSection3->id,
+        'locale' => 'ar',
+        'title' => 'ما الذي يحدث بعد؟',
+        'subtitle' => '',
+        'description' => "نهج شفاف ومنظم لتقييم صحتك التشغيلية والمالية لمركزك.",
+    ]);
 
     }
 }

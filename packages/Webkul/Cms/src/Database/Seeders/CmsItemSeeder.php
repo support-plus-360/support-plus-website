@@ -3067,4 +3067,228 @@ class CmsItemSeeder extends Seeder
     ]);
 
 
+    // free assessment page section 1
+    $freeAssessmentSection1 = Section::where('name', 'Free Assessment Page Section 1')->first();
+    $freeAssessmentSection1Item1 = Item::create([
+        'section_id' => $freeAssessmentSection1->id,
+        'type' => 'default',
+        'settings' => null,
+        'order' => 1,
+        'company_id' => 2,
+    ]);
+
+    ItemTranslation::create([
+        'cms_item_id'=>$freeAssessmentSection1Item1->id,
+        'locale'=>'en',
+        'title'=>'Identify Revenue Leakage',
+        'sub_title'=>'',
+        'content'=>'Pinpoint precise areas where your billing cycle and operational inefficiencies are costing you capital.'
+    ]);
+    ItemTranslation::create([
+        'cms_item_id'=>$freeAssessmentSection1Item1->id,
+        'locale'=>'ar',
+        'title'=>'تحديد الفقدان المالي',
+        'sub_title'=>'',
+        'content'=>'تحديد المناطق الدقيقة حيث تكلف الدورة الفواتيرية وعمليات العمل الغير كفاءة التي تكلفك رأس المال.'
+    ]);
+
+    // item 2
+    $freeAssessmentSection1Item2 = Item::create([
+        'section_id' => $freeAssessmentSection1->id,
+        'type' => 'default',
+        'settings' => null,
+        'order' => 2,
+        'company_id' => 2,
+    ]);
+    ItemTranslation::create([
+        'cms_item_id'=>$freeAssessmentSection1Item2->id,
+        'locale'=>'en',
+        'title'=>'Optimize Clinical Staffing',
+        'sub_title'=>'',
+        'content'=>'Enhance your HR structures to ensure you have the right medical professionals operating at peak efficiency.'
+    ]);
+    ItemTranslation::create([
+        'cms_item_id'=>$freeAssessmentSection1Item2->id,
+        'locale'=>'ar',
+        'title'=>'تحسين مستويات التوظيف الطبية',
+        'sub_title'=>'',
+        'content'=>'تحسين بنية الموارد البشرية للتأكد من وجود الأطباء والممرضي والموظفين الطبية المناسبين للعمل في المركز الطبي السعودي.'
+    ]);
+
+
+    // free assessment page section 2
+    $freeAssessmentSection2 = Section::where('name', 'Free Assessment Page Section 2')->first();
+    $freeAssessmentSection2Item1 = Item::create([
+        'section_id' => $freeAssessmentSection2->id,
+        'type' => 'default',
+        'settings' => null,
+        'order' => 1,
+        'company_id' => 2,
+    ]);
+
+    ItemTranslation::create([
+        'cms_item_id'=>$freeAssessmentSection2Item1->id,
+        'locale'=>'en',
+        'title'=>'Riyadh Care',
+        'sub_title'=>'',
+        'content'=>''
+    ]);
+
+    ItemTranslation::create([
+        'cms_item_id'=>$freeAssessmentSection2Item1->id,
+        'locale'=>'ar',
+        'title'=>'مركز الرياض',
+        'sub_title'=>'',
+        'content'=>''
+    ]);
+
+    // item 2
+    $freeAssessmentSection2Item2 = Item::create([
+        'section_id' => $freeAssessmentSection2->id,
+        'type' => 'default',
+        'settings' => null,
+        'order' => 2,
+        'company_id' => 2,
+    ]);
+
+    ItemTranslation::create([
+        'cms_item_id'=>$freeAssessmentSection2Item2->id,
+        'locale'=>'en',
+        'title'=>'Jeddah Med',
+        'sub_title'=>'',
+        'content'=>''
+    ]);
+
+    ItemTranslation::create([
+        'cms_item_id'=>$freeAssessmentSection2Item2->id,
+        'locale'=>'ar',
+        'title'=>'مركز الجدة',
+        'sub_title'=>'',
+        'content'=>''
+    ]);
+
+
+    // item 3
+    $freeAssessmentSection2Item3 = Item::create([
+        'section_id' => $freeAssessmentSection2->id,
+        'type' => 'default',
+        'settings' => null,
+        'order' => 3,
+        'company_id' => 2,
+    ]);
+    ItemTranslation::create([
+        'cms_item_id'=>$freeAssessmentSection2Item3->id,
+        'locale'=>'en',
+        'title'=>'Dammam Health',
+        'sub_title'=>'',
+        'content'=>''
+    ]);
+    ItemTranslation::create([
+        'cms_item_id'=>$freeAssessmentSection2Item3->id,
+        'locale'=>'ar',
+        'title'=>'مركز الدمام',
+        'sub_title'=>'',
+        'content'=>''
+    ]);
+
+
+    // item 4
+    $freeAssessmentSection2Item4 = Item::create([
+        'section_id' => $freeAssessmentSection2->id,
+        'type' => 'default',
+        'settings' => null,
+        'order' => 4,
+        'company_id' => 2,
+    ]);
+    ItemTranslation::create([
+        'cms_item_id'=>$freeAssessmentSection2Item4->id,
+        'locale'=>'en',
+        'title'=>'Apex Clinics',
+        'sub_title'=>'',
+        'content'=>''
+    ]);
+    ItemTranslation::create([
+        'cms_item_id'=>$freeAssessmentSection2Item4->id,
+        'locale'=>'ar',
+        'title'=>'مركز أبيكس',
+        'sub_title'=>'',
+        'content'=>''
+    ]);
+
+
+    // free assessment page section 3
+    $freeAssessmentSection3 = Section::where('name', 'Free Assessment Page Section 3')->first();
+    $freeAssessmentSection3Item1 = Item::create([
+        'section_id' => $freeAssessmentSection3->id,
+        'type' => 'default',
+        'settings' => null,
+        'order' => 1,
+        'company_id' => 2,
+    ]);
+
+    ItemTranslation::create([
+        'cms_item_id'=>$freeAssessmentSection3Item1->id,
+        'locale'=>'en',
+        'title'=>'Data Review',
+        'sub_title'=>'',
+        'content'=>'Our analysts quietly review the initial details you provided regarding your specialty and core operational challenges.'
+    ]);
+
+    ItemTranslation::create([
+        'cms_item_id'=>$freeAssessmentSection3Item1->id,
+        'locale'=>'ar',
+        'title'=>'مراجعة البيانات',
+        'sub_title'=>'',
+        'content'=>'يقوم المحللون بمراجعة التفاصيل الأولية التي قدمتها من حيث التخصص والتحديات الأساسية للعمل.'
+    ]);
+
+    // item 2
+    $freeAssessmentSection3Item2 = Item::create([
+        'section_id' => $freeAssessmentSection3->id,
+        'type' => 'default',
+        'settings' => null,
+        'order' => 2,
+        'company_id' => 2,
+    ]);
+    ItemTranslation::create([
+        'cms_item_id'=>$freeAssessmentSection3Item2->id,
+        'locale'=>'en',
+        'title'=>'Expert Consultation',
+        'sub_title'=>'',
+        'content'=>'A senior healthcare consultant schedules a brief 15-minute call to delve deeper into your specific financial ecosystem.'
+    ]);
+    ItemTranslation::create([
+        'cms_item_id'=>$freeAssessmentSection3Item2->id,
+        'locale'=>'ar',
+        'title'=>'استشارة الخبراء',
+        'sub_title'=>'',
+        'content'=>'يقوم مستشار الطب الصحي المتخصص بجدولة مكالمة قصيرة 15 دقيقة للتعمق أكثر في النظام المالي المحدد لك.'
+    ]);
+
+    // item 3
+    $freeAssessmentSection3Item3 = Item::create([
+        'section_id' => $freeAssessmentSection3->id,
+        'type' => 'default',
+        'settings' => null,
+        'order' => 3,
+        'company_id' => 2,
+    ]);
+    ItemTranslation::create([
+        'cms_item_id'=>$freeAssessmentSection3Item3->id,
+        'locale'=>'en',
+        'title'=>'Actionable Roadmap',
+        'sub_title'=>'',
+        'content'=>'You receive a high-level summary report identifying immediate opportunities for revenue growth and HR optimization.'
+    ]);
+    ItemTranslation::create([
+        'cms_item_id'=>$freeAssessmentSection3Item3->id,
+        'locale'=>'ar',
+        'title'=>'خارطة العمل المعممة',
+        'sub_title'=>'',
+        'content'=>'تتلقى تقرير ملخص عالي المستوى يحدد الفرص الفورية لنمو الإيرادات وتحسين الموارد البشرية.'
+    ]);
+
+
+
+
     }}

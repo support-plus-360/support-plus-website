@@ -1199,6 +1199,38 @@ return [
         ],
     ],
 
+    'mena_3_items_in_row_section_style_2' => [
+        'preview_caption' => 'Mena 3 Items in Row Section Style 2 — stats cards with icon, value, label, and description',
+        'preview_image'   => 'v1/mena_3_items_in_row_section_style_2.png',
+        'templates'     => [
+            'body' => <<<'HTML'
+            <section id="results" class="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-24">
+            <div class="mx-auto max-w-3xl text-center">
+            <h2 class="text-balance text-3xl font-semibold text-slate-950 md:text-5xl">{{TITLE}}</h2>
+            {{SUBTITLE_SECTION}}
+            </div>
+            <div class="mt-12 grid gap-6 md:grid-cols-3">{{ITEMS}}</div>
+            </section>
+            HTML,
+            'subtitle_section_when' => '<p class="mt-4 text-pretty text-base leading-8 text-slate-600">{{SUBTITLE}}</p>',
+            'description_section_when' => '',
+            'links_wrapper_when' => '',
+            'link_row' => '',
+            'item_links_wrapper_when' => '',
+            'item_link_row' => '',
+            'item' => <<<'HTML'
+            <article class="relative rounded-[10px] border border-slate-200 bg-white p-7 shadow-[0_24px_60px_-36px_rgba(15,23,42,0.35)]">
+            <div class="absolute end-0 top-0 h-20 w-20 [&_img]:h-full [&_img]:w-full [&_img]:object-contain">{{ITEM_IMAGE_MARKUP}}</div>
+            {{ITEM_SUBTITLE_SECTION}}
+            <h3 class="mt-5 text-lg font-semibold text-[#000942]">{{ITEM_TITLE}}</h3>
+            {{ITEM_CONTENT_SECTION}}
+            </article>
+            HTML,
+            'item_subtitle_section_when' => '<p class="text-5xl font-semibold text-[#00658E]">{{ITEM_SUBTITLE}}</p>',
+            'item_content_section_when' => '<p class="mt-3 text-sm text-[#454650]">{{ITEM_CONTENT}}</p>',
+        ],
+    ],
+
     'mena_4_items_in_row_section_style_1' => [
         'preview_caption' => 'Mena 4 Items in Row Section Style 1 — stats cards with icon, value, label, and description',
         'preview_image'   => 'v1/mena_4_items_in_row_section_style_1.png',
@@ -1234,6 +1266,38 @@ return [
     'mena_4_items_in_row_section_style_2' => [
         'preview_caption' => 'Mena 4 Items in Row Section Style 2 — stats cards with icon, value, label, and description',
         'preview_image'   => 'v1/mena_4_items_in_row_section_style_2.png',
+        'templates'     => [
+            'body' => <<<'HTML'
+            <section id="results" class="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-24">
+            <div class="mx-auto max-w-3xl text-center">
+            <h2 class="text-balance text-3xl font-semibold text-slate-950 md:text-5xl">{{TITLE}}</h2>
+            {{SUBTITLE_SECTION}}
+            </div>
+            <div class="mt-12 grid gap-6 md:grid-cols-3">{{ITEMS}}</div>
+            </section>
+            HTML,
+            'subtitle_section_when' => '<p class="mt-4 text-pretty text-base leading-8 text-slate-600">{{SUBTITLE}}</p>',
+            'description_section_when' => '',
+            'links_wrapper_when' => '',
+            'link_row' => '',
+            'item_links_wrapper_when' => '',
+            'item_link_row' => '',
+            'item' => <<<'HTML'
+            <article class="relative rounded-[10px] border border-slate-200 bg-white p-7 shadow-[0_24px_60px_-36px_rgba(15,23,42,0.35)]">
+            <div class="absolute end-0 top-0 h-20 w-20 [&_img]:h-full [&_img]:w-full [&_img]:object-contain">{{ITEM_IMAGE_MARKUP}}</div>
+            {{ITEM_SUBTITLE_SECTION}}
+            <h3 class="mt-5 text-lg font-semibold text-[#000942]">{{ITEM_TITLE}}</h3>
+            {{ITEM_CONTENT_SECTION}}
+            </article>
+            HTML,
+            'item_subtitle_section_when' => '<p class="text-5xl font-semibold text-[#00658E]">{{ITEM_SUBTITLE}}</p>',
+            'item_content_section_when' => '<p class="mt-3 text-sm text-[#454650]">{{ITEM_CONTENT}}</p>',
+        ],
+    ],
+
+    'mena_4_items_in_row_section_style_3' => [
+        'preview_caption' => 'Mena 4 Items in Row Section Style 3 — stats cards with icon, value, label, and description',
+        'preview_image'   => 'v1/mena_4_items_in_row_section_style_3.png',
         'templates'     => [
             'body' => <<<'HTML'
             <section id="results" class="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-24">
@@ -1330,6 +1394,38 @@ return [
     'mena_faqs_section_style_1' => [
         'preview_caption' => 'Mena FAQs Section Style 1 — FAQs with question and answer',
         'preview_image'   => 'v1/mena_faqs_section_style_1.png',
+        'templates'     => [
+            'body' => <<<'HTML'
+            <section id="results" class="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-24">
+            <div class="mx-auto max-w-3xl text-center">
+            <h2 class="text-balance text-3xl font-semibold text-slate-950 md:text-5xl">{{TITLE}}</h2>
+            {{SUBTITLE_SECTION}}
+            </div>
+            <div class="mt-12 grid gap-6 md:grid-cols-3">{{ITEMS}}</div>
+            </section>
+            HTML,
+            'subtitle_section_when' => '<p class="mt-4 text-pretty text-base leading-8 text-slate-600">{{SUBTITLE}}</p>',
+            'description_section_when' => '',
+            'links_wrapper_when' => '',
+            'link_row' => '',
+            'item_links_wrapper_when' => '',
+            'item_link_row' => '',
+            'item' => <<<'HTML'
+            <article class="relative rounded-[10px] border border-slate-200 bg-white p-7 shadow-[0_24px_60px_-36px_rgba(15,23,42,0.35)]">
+            <div class="absolute end-0 top-0 h-20 w-20 [&_img]:h-full [&_img]:w-full [&_img]:object-contain">{{ITEM_IMAGE_MARKUP}}</div>
+            {{ITEM_SUBTITLE_SECTION}}
+            <h3 class="mt-5 text-lg font-semibold text-[#000942]">{{ITEM_TITLE}}</h3>
+            {{ITEM_CONTENT_SECTION}}
+            </article>
+            HTML,
+            'item_subtitle_section_when' => '<p class="text-5xl font-semibold text-[#00658E]">{{ITEM_SUBTITLE}}</p>',
+            'item_content_section_when' => '<p class="mt-3 text-sm text-[#454650]">{{ITEM_CONTENT}}</p>',
+        ],
+    ],
+
+    'mena_hero_section_style_1' => [
+        'preview_caption' => 'Mena Hero Section Style 1 — Hero section',
+        'preview_image'   => 'v1/mena_hero_section_style_1.png',
         'templates'     => [
             'body' => <<<'HTML'
             <section id="results" class="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-24">
