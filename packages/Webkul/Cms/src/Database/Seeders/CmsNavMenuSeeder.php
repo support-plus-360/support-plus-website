@@ -36,6 +36,7 @@ class CmsNavMenuSeeder extends Seeder
         'services'      => 'mena-support-services',
         'case-studies'  => 'mena-support-case-studies',
         'about-us'      => 'mena-support-about-us',
+        'free-assessment' => 'mena-support-free-assessment',
         'blog'          => 'mena-support-blog',
     ];
 
