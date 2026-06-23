@@ -64,6 +64,7 @@ class PageApiController extends Controller
 
         $query = $this->pageRepository->getModel()
             ->newQuery()
+            ->where('active', true)
             ->with($this->pageNestedRelations())
             ->orderBy('order', 'asc');
 
