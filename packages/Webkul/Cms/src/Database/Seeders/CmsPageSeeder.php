@@ -369,7 +369,7 @@ class CmsPageSeeder extends Seeder
 		'slug' => 'mena-support-blog',
 		'name' => 'Mena Support Blog',
 		'is_active' => true,
-		'order' => 5,
+		'order' => 6,
 		'company_id' => 2,
 		'status' => 'published',
 	]);

@@ -32,12 +32,12 @@ class CmsNavMenuSeeder extends Seeder
      * @var array<string, string>
      */
     protected array $menaSupportPageSlugs = [
-        'home'          => 'mena-support-home',
-        'services'      => 'mena-support-services',
-        'case-studies'  => 'mena-support-case-studies',
-        'about-us'      => 'mena-support-about-us',
+        'home'            => 'mena-support-home',
+        'services'        => 'mena-support-services',
+        'case-studies'    => 'mena-support-case-studies',
+        'about-us'        => 'mena-support-about-us',
         'free-assessment' => 'mena-support-free-assessment',
-        'blog'          => 'mena-support-blog',
+        'blog'            => 'mena-support-blog',
     ];
 
     /**
@@ -46,6 +46,8 @@ class CmsNavMenuSeeder extends Seeder
      * @var array<string, string>
      */
     protected array $pageSlugs = [];
+
+    protected ?int $companyId = null;
 
     public function run(): void
     {
@@ -56,23 +58,25 @@ class CmsNavMenuSeeder extends Seeder
     protected function seedCompanyNavMenus(int $companyId, array $pageSlugs): void
     {
         $this->pageSlugs = $pageSlugs;
+        $this->companyId = $companyId;
 
         $pages = Page::query()
             ->where('company_id', $companyId)
             ->get()
             ->keyBy('slug');
 
-        $headerMenu = NavMenu::create([
-            'company_id' => $companyId,
-            'key'        => 'header',
-            'name'       => 'Main header',
-        ]);
+        $headerMenu = NavMenu::firstOrCreate(
+            ['company_id' => $companyId, 'key' => 'header'],
+            ['name' => 'Main header']
+        );
 
-        $footerMenu = NavMenu::create([
-            'company_id' => $companyId,
-            'key'        => 'footer',
-            'name'       => 'Main footer',
-        ]);
+        $footerMenu = NavMenu::firstOrCreate(
+            ['company_id' => $companyId, 'key' => 'footer'],
+            ['name' => 'Main footer']
+        );
+
+        $this->resetMenuItems($headerMenu);
+        $this->resetMenuItems($footerMenu);
 
         if ($companyId === 1) {
             $this->seedSupportPlusHeaderMenu($headerMenu, $pages);
@@ -83,11 +87,39 @@ class CmsNavMenuSeeder extends Seeder
         }
     }
 
+    protected function resetMenuItems(NavMenu $menu): void
+    {
+        $itemIds = NavItem::withTrashed()
+            ->where('menu_id', $menu->id)
+            ->pluck('id');
+
+        if ($itemIds->isNotEmpty()) {
+            NavItemTranslation::whereIn('cms_nav_item_id', $itemIds)->delete();
+            NavItem::withTrashed()->where('menu_id', $menu->id)->forceDelete();
+        }
+    }
+
+    /**
+     * @param  \Illuminate\Support\Collection<string, Page>  $pages
+     */
     protected function pageByKey($pages, string $key): ?Page
     {
         $slug = $this->pageSlugs[$key] ?? null;
 
-        return $slug ? $pages->get($slug) : null;
+        if (! $slug) {
+            return null;
+        }
+
+        $page = $pages->get($slug);
+
+        if ($page) {
+            return $page;
+        }
+
+        return Page::query()
+            ->where('slug', $slug)
+            ->where('company_id', $this->companyId)
+            ->first();
     }
 
     /**
@@ -152,7 +184,14 @@ class CmsNavMenuSeeder extends Seeder
      */
     protected function seedMenaSupportFooterMenu(NavMenu $menu, $pages): void
     {
-        $this->seedFlatFooterMenu($menu, $pages, ['home', 'services', 'case-studies', 'about-us']);
+        $this->seedFlatFooterMenu($menu, $pages, [
+            'home',
+            'services',
+            'case-studies',
+            'about-us',
+            'free-assessment',
+            'blog',
+        ]);
     }
 
     /**
