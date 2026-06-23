@@ -1484,7 +1484,7 @@ class CmsSectionSeeder extends Seeder
     // free assessment page section 2
     $freeAssessmentSection2 = Section::create([
         'name' => 'Free Assessment Page Section 2',
-        'section_layout' => 'mena_4_items_in_row_section_style_2',
+        'section_layout' => 'mena_4_items_in_row_section_style_3',
         'settings' => [],
         'order' => 2,
         'company_id' => 2,
