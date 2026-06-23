@@ -52,6 +52,7 @@ class NavMenuTreeBuilder
             'parent_id'       => $item->parent_id,
             'cms_page_id'     => $item->cms_page_id,
             'slug'            => $page?->slug,
+            'is_active'       => $item->is_active,
             'url'             => $item->url,
             'href'            => $href,
             'label'           => $labels,
